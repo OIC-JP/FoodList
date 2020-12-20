@@ -1,2 +1,14 @@
-/**/
+.btn {
+  float: left;
+  text-align: center;
+  width: 50%;
+}
 
+.dialogbtn {
+  overflow: hidden;
+  width: 100%;
+}
+
+li {
+  list-style: none;
+}
