@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <script>
+  <script>　// js部＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
     ons.ready(function() {
       console.log("Onsen UI is ready!");
     });
@@ -49,25 +49,60 @@
   </script>
 </head>
 <body>
-  
-  <!--ホーム左画面選択メニュー -->
+
+  <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧・追加）  home.html＊＊＊-->
+  <ons-template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center"> <!-- タイトル -->
+         Food List
+        </div>
+      </ons-toolbar>
+      <p style="text-align: center; padding-top: 70px;">
+        <font size="50">
+          
+        </font>
+      </p>
+      <div style="text-align: center; padding-top: 50px;">
+        <img src="img/Foodimg.png">
+      </div>
+      <div style="text-align: center; padding-top: 90px">
+        <input type="button" style="width: 60%; padding: 10px; font-size:30px;" value="add" onclick="popup()">
+      </div>
+    </ons-page>
+  </ons-template>
+
+    <!--食材追加ダイアログ (addボタン)-->
+    <dialog id="dialog">
+      <form>
+        <p style="text-align: center;">食材の追加</p>
+        <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
+        <img src="img/noimage.jpg" onclick="">
+        <div class="dialogbtn">
+          <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
+          <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
+        </div>
+      </form>
+    </dialog>
+
+    <!--ホーム左　画面選択メニュー -->
   <ons-splitter>
     <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
       <ons-page>
         <ons-list>
-          <ons-list-item  onclick="fn.load('home.html')" tappable>
-            <div style="font-size: 20px">
-             追加
-            </div>
-          </ons-list-item>
           <ons-list-item onclick="fn.load('foodlist.html')" tappable>
             <div style="font-size: 20px">
-              食品一覧
+              追加・一覧　<!-- FoodList -->
             </div>
           </ons-list-item>
           <ons-list-item onclick="fn.load('accountbook.html')" tappable>
             <div style="font-size: 20px">
-             家計簿
+             家計簿　<!-- 手が空いたらやるよ～～ -->
             </div>
           </ons-list-item>
         </ons-list>
@@ -75,7 +110,7 @@
     </ons-splitter-side>
     <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
   
-    <!-- ホーム右並び替えメニュー    遠藤作業中ぽよ -->
+    <!-- ホーム右　並び替えメニュー    遠藤作業中ぽよ -->
     <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
         <ons-page>
           <ons-list>
@@ -95,50 +130,7 @@
     </ons-splitter>
 
 
-  <!--ホーム画面  home.html-->
-  <ons-template id="home.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center">
-          Home
-        </div>
-      </ons-toolbar>
-      <p style="text-align: center; padding-top: 70px;">
-        <font size="50">
-          Food List
-        </font>
-      </p>
-      <div style="text-align: center; padding-top: 50px;">
-        <img src="img/Foodimg.png">
-      </div>
-      <div style="text-align: center; padding-top: 90px">
-        <input type="button" style="width: 60%; padding: 10px; font-size:30px;" value="add" onclick="popup()">
-      </div>
-    </ons-page>
-  </ons-template>
-
-  <!--食品一覧画面  foodlist.html-->
-  <ons-template id="foodlist.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="left">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        食品一覧（Food List）
-      </div>
-    </ons-toolbar>
-  </ons-page>
-  </ons-template>
-
-  <!--家計簿画面  accountbook.html-->
+  <!--＊＊＊＊＊＊＊＊＊＊家計簿画面  accountbook.html＊＊＊＊＊＊-->
   <ons-template id="accountbook.html">
   <ons-page>
     <ons-toolbar>
@@ -148,24 +140,11 @@
         </ons-toolbar-button>
       </div>
       <div class="center">
-        家計簿（Account Book）
+        家計簿
       </div>
     </ons-toolbar>
   </ons-page>
   </ons-template>
-
-  <!--食品追加ダイアログ (addボタン)-->
-  <dialog id="dialog">
-    <form>
-      <p style="text-align: center;">食材の追加</p>
-      <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-      <img src="img/noimage.jpg" onclick="">
-      <div class="dialogbtn">
-        <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
-        <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
-      </div>
-    </form>
-  </dialog>
 
 </body>
 </html>
