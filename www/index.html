@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
+<<<<<<< HEAD
   <script>　//ニフクラとの連携エリア＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   // APIキーの設定とSDK初期化
   var ncmb = new NCMB("070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06","1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f");
@@ -30,6 +31,10 @@
   </script>
   <script>　// js部＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
+=======
+
+  <script> // js部＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+>>>>>>> b8adfa946692213c22526f8832f06c8245757106
     ons.ready(function() {
       console.log("Onsen UI is ready!");
     });
@@ -52,6 +57,15 @@
         var dialog = document.getElementById('dialog');
         dialog.showModal();
     }
+
+    //画像の読み込み
+    function previewFile(obj) {
+        var reader = new FileReader();
+        reader.onload = (function() {
+		      document.getElementById('preview').src = reader.result;
+	      });
+        reader.readAsDataURL(obj.files[0]);
+      }
 
     //cancelボタンをクリックした際の処理
     cancel = function(){
@@ -99,7 +113,8 @@
       <form>
         <p style="text-align: center;">食材の追加</p>
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <img src="img/noimage.jpg" onclick="">
+        <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
+        <img src="img/noimage.jpg" id="preview">
         <div class="dialogbtn">
           <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
           <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
