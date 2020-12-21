@@ -50,7 +50,7 @@
 </head>
 <body>
   
-  <!--ホームメニュー -->
+  <!--ホーム左画面選択メニュー -->
   <ons-splitter>
     <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
       <ons-page>
@@ -74,9 +74,28 @@
       </ons-page>
     </ons-splitter-side>
     <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-  </ons-splitter>
+  
+    <!-- ホーム右並び替えメニュー    遠藤作業中ぽよ -->
+    <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+            <ons-list-item   tappable>
+              <div style="font-size: 20px">
+                賞味期限順
+              </div>
+              </ons-list-item>
+              <ons-list-item  tappable>
+                <div style="font-size: 20px">
+                  購入日順
+                </div>
+              </ons-list-item>
+          </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+    </ons-splitter>
 
-  <!--ホーム画面 -->
+
+  <!--ホーム画面  home.html-->
   <ons-template id="home.html">
     <ons-page>
       <ons-toolbar>
@@ -103,7 +122,7 @@
     </ons-page>
   </ons-template>
 
-  <!--食品一覧画面 -->
+  <!--食品一覧画面  foodlist.html-->
   <ons-template id="foodlist.html">
   <ons-page>
     <ons-toolbar>
@@ -119,7 +138,7 @@
   </ons-page>
   </ons-template>
 
-  <!--家計簿画面 -->
+  <!--家計簿画面  accountbook.html-->
   <ons-template id="accountbook.html">
   <ons-page>
     <ons-toolbar>
@@ -135,7 +154,7 @@
   </ons-page>
   </ons-template>
 
-  <!--食品追加ダイアログ -->
+  <!--食品追加ダイアログ (addボタン)-->
   <dialog id="dialog">
     <form>
       <p style="text-align: center;">食材の追加</p>
