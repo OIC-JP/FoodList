@@ -14,86 +14,11 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <script>　//ニフクラとの連携エリア＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  // APIキーの設定とSDK初期化
-  var ncmb = new NCMB("070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06","1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f");
-  // 保存先クラスの作成
-  var TestClass = ncmb.DataStore("TestClass");
-  // 保存先クラスのインスタンスを生成
-  var testClass = new TestClass();
-  // 値を設定と保存
-  testClass.set("message", "Hello, NCMB!")
-         .save()
-         .then(function(object){
-             // 保存に成功した場合の処理
-         })
-         .catch(function(err){
-             // 保存に失敗した場合の処理
-         });
-  </script>
-  <script> // js部＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
->>>>>>> b8adfa946692213c22526f8832f06c8245757106
-    ons.ready(function() {
-      console.log("Onsen UI is ready!");
-    });
-
-    window.fn = {};
-    window.fn.open1 = function() {
-      var menu = document.getElementById('menu');
-      menu.open();
-    };
-    window.fn.open2 = function() {   //遠藤作業中ぽよ
-      var sort = document.getElementById('sort');
-      sort.open();
-    };
-
-    window.fn.load = function(page) {
-      var content = document.getElementById('content');
-      var menu = document.getElementById('menu');
-      content
-        .load(page)
-        .then(menu.close.bind(menu));
-    };
-
-    //addボタンをクリックした際の処理
-    popup = function(){
-        var dialog = document.getElementById('dialog');
-        dialog.showModal();
-    }
-
-    //画像の読み込み
-    function previewFile(obj) {
-        var reader = new FileReader();
-        reader.onload = (function() {
-		      document.getElementById('preview').src = reader.result;
-	      });
-        reader.readAsDataURL(obj.files[0]);
-      }
-
-    //cancelボタンをクリックした際の処理
-    cancel = function(){
-      var dialog = document.getElementById('dialog');
-      dialog.close();
-    }
-
-    if (ons.platform.isIPhoneX()) {
-      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
-    }
-
-    //詳細編集ボタンをクリックした際の処理  遠藤作業中ぽよ
-    hensyu_pop = function(){
-        var hensyu_dialog = document.getElementById('hensyu_dialog');
-        hensyu_dialog.showModal();
-    }
-
-
-  </script>
-
 </head>
 <body>
+  
   <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧・追加）  home.html＊＊＊-->
-  <ons-template id="home.html">
+  <ons-template page="accountbook.html" id="home.html">
     <ons-page>
       <ons-toolbar>
         <!-- 左上メニュー -->
@@ -216,7 +141,7 @@
 
 
   <!--＊＊＊＊＊＊＊＊＊＊家計簿画面  accountbook.html＊＊＊＊＊＊-->
-  <ons-template id="accountbook.html">
+  <ons-template page="accountbook.html" id="accountbook.html">
     <ons-page>
       <ons-toolbar>
         <div class="left">
