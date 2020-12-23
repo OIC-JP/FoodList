@@ -1,2 +1,19 @@
+<<<<<<< HEAD
 /**/
 
+=======
+.btn {
+  float: left;
+  text-align: center;
+  width: 50%;
+}
+
+.dialogbtn {
+  overflow: hidden;
+  width: 100%;
+}
+
+li {
+  list-style: none;
+}
+>>>>>>> 7e5d0c73cfdf8558edb8fce77c36f2690eaafb52
