@@ -33,19 +33,19 @@
         </div>
 
         <div onclick="fn.open2()" class="right">
-          ↑↓　
+          ↑↓ 
         </div>
       </ons-toolbar>
       <!-- メイン -->
       <div style="text-align: center; padding-top: 90px">
-        <input type="button" style="width: 60%; padding: 10px; font-size:30px;" value="add" onclick="popup()">
+        <input type="button" style="width: 60%; padding: 10px; font-size:30px;" value="add">
       </div>
     </ons-page>
   </ons-template>
 
 
     <!--食材追加ダイアログ (addボタン)-->
-    <dialog id="dialog">
+    <div id="modal-main">
       <form>
         <p style="text-align: center;">食材の追加</p>
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
@@ -56,7 +56,7 @@
           <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
         </div>
       </form>
-    </dialog>
+    </div>
 
     <!--ホーム左　画面選択メニュー詳細 -->
   <ons-splitter>
