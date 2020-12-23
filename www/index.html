@@ -6,6 +6,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
@@ -47,10 +49,12 @@
         .then(menu.close.bind(menu));
     };
 
-    //addボタンをクリックした際の処理
-    popup = function(){
-        var dialog = document.getElementById('dialog');
-        dialog.showModal();
+    function previewFile(obj) {
+        var reader = new FileReader();
+        reader.onload = (function() {
+		      document.getElementById('preview').src = reader.result;
+	      });
+        reader.readAsDataURL(obj.files[0]);
     }
 
     //cancelボタンをクリックした際の処理
@@ -99,7 +103,8 @@
       <form>
         <p style="text-align: center;">食材の追加</p>
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <img src="img/noimage.jpg" onclick="">
+        <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
+        <img src="img/noimage.jpg" id="preview">
         <div class="dialogbtn">
           <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
           <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
