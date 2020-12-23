@@ -32,6 +32,7 @@ window.fn.load = function(page) {
     .then(menu.close.bind(menu));
 };
 
+//画像表示
 function previewFile(obj) {
     var reader = new FileReader();
     reader.onload = (function() {
