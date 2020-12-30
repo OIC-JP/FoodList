@@ -2,7 +2,9 @@
 // APIキーの設定とSDK初期化
 var ncmb = new NCMB("070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06","1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f");
 
-//食材追加 クラスの作成
+//データをニフクラに保存する
+function saveData(){
+  //食材追加 クラスの作成
 var Food = ncmb.DataStore("Food");
 //クラスのインスタンスを生成
 var food = new Food();
@@ -12,10 +14,14 @@ food.set("syokuzai","ミカン");
     data.save()
         .then(function(object) {
               //成功する時の処理
+              $("#message").html("<p>データの保存に成功しました</p>");
           })
         .catch(function(error) {
               //エラーが発生する時の処理        
+              $("#message").html("error:"+error.message);
           });
+}
+
 
 
 
