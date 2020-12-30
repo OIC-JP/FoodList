@@ -125,14 +125,14 @@
         </div>
       </ons-toolbar>
       <!-- メイン -->
-      <form>
+      <form style="padding:20px">
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
-        <img src="img/noimage.jpg" id="preview">
-        <div class="modalbtn">
-          <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;"></div>
-          <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;"></div>
-        </div>
+        <label for="img" style="padding-top:10px">
+          <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
+          <img src="img/noimage.jpg" id="preview">
+        </label>
+        <div class="btn"><input type="button" value="clear" style="width: 100%; padding: 5px;"></div>
+        <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;"></div>
       </form>
     </ons-page>
   </ons-template>

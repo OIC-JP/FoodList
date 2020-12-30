@@ -1,15 +1,8 @@
-.btn {
-  float: left;
-  text-align: center;
-  width: 50%;
+#preview{
+  height: 200px;
+  width: auto;
 }
 
-.modalbtn {
-  overflow: hidden;
-  width: 100%;
+label input {
+  display: none;
 }
-
-li {
-  list-style: none;
-}
-
