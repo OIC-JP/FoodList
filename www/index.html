@@ -7,7 +7,7 @@
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
   <script src="js/index.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
@@ -31,40 +31,13 @@
         <div class="center"> 
          Food List
         </div>
-
         <div onclick="fn.open2()" class="right">
           ↑↓ 
         </div>
       </ons-toolbar>
       <!-- メイン -->
-      <div style="text-align: center; padding-top: 90px">
-        <input type="button" id="modal-open" style="width: 60%; padding: 10px; font-size:30px;" value="add">
-      </div>
     </ons-page>
   </ons-template>
-
-
-    <!--食材追加ダイアログ (addボタン)-->
-    <section id="modalArea" class="modalArea">
-      <div id="modalBg" class="modalBg"></div>
-      <div class="modalWrapper">
-        <div class="modalContents">
-          <form>
-            <p style="text-align: center;">食材の追加</p>
-            <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-            <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
-            <img src="img/noimage.jpg" id="preview">
-            <div class="modalbtn">
-              <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;"></div>
-              <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;"></div>
-            </div>
-          </form>
-        </div>
-        <div id="closeModal" class="closeModal">
-          ×
-        </div>
-      </div>
-    </section>
 
     <!-- 各メニュー内部詳細 -->
     <ons-splitter>    
@@ -74,18 +47,18 @@
           <ons-list>
             <ons-list-item onclick="fn.load('home.html')" tappable>
               <div style="font-size: 20px">
-                追加・一覧　<!-- home.html -->
+                一覧　<!-- home.html -->
               </div>
             </ons-list-item>
-          <ons-list-item onclick="fn.load('accountbook.html')" tappable>
-          <div style="font-size: 20px">
-            家計簿　<!-- accountbook.html 手が空いたらやるよ～～ -->
-          </div>
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
-  </ons-splitter-side>
-  <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+            <ons-list-item onclick="fn.load('accountbook.html')" tappable>
+              <div style="font-size: 20px">
+                食材の追加
+              </div>
+            </ons-list-item>
+          </ons-list>
+        </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
               
   <!-- ホーム右　並び替え・編集メニュー詳細  -->
   <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
@@ -123,42 +96,45 @@
         </ons-list-item>
       </ons-page>
     </ons-splitter-side>
-    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
   </ons-splitter>
 
-              <!--詳細編集ダイアログ 遠藤作業中ぽよ -->
-                  <dialog id="hensyu_dialog">
-                    <form>
-                      <p style="text-align: center;">食材の編集</p>
-                      <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名">
-                      <img src="img/noimage.jpg" onclick="">
-                      <div class="dialogbtn">
-                        <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
-                        <div class="btn"><input type="button" value="ok" style="width: 100%; padding: 5px;" onclick=""></div>
-                      </div>
-                    </form>
-                  </dialog>
-        </div>
-    </ons-page>
-  </ons-template>
-
-      
+  <!--詳細編集ダイアログ 遠藤作業中ぽよ -->
+  <dialog id="hensyu_dialog">
+    <form>
+      <p style="text-align: center;">食材の編集</p>
+      <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名">
+      <img src="img/noimage.jpg" onclick="">
+      <div class="dialogbtn">
+        <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
+        <div class="btn"><input type="button" value="ok" style="width: 100%; padding: 5px;" onclick=""></div>
+      </div>
+    </form>
+  </dialog>
 
   <!--＊＊＊＊＊＊＊＊＊＊家計簿画面  accountbook.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template page="accountbook.html" id="accountbook.html">
     <ons-page>
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
+          <ons-toolbar-button onclick="fn.open1()">
             <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
           </ons-toolbar-button>
         </div>
         <div class="center"> <!-- タイトル -->
-         家計簿
+         食材の追加
         </div>
       </ons-toolbar>
+      <!-- メイン -->
+      <form>
+        <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
+        <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
+        <img src="img/noimage.jpg" id="preview">
+        <div class="modalbtn">
+          <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;"></div>
+          <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;"></div>
+        </div>
+      </form>
     </ons-page>
   </ons-template>
-
 </body>
 </html>

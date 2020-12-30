@@ -14,9 +14,13 @@ ons.ready(function() {
 });
 
 window.fn = {};
-window.fn.open = function() {
+window.fn.open1 = function() {
   var menu = document.getElementById('menu');
   menu.open();
+};
+window.fn.open2 = function() {
+  var sort = document.getElementById('sort');
+  sort.open();
 };
 window.fn.load = function(page) {
   var content = document.getElementById('content');
@@ -34,8 +38,6 @@ function previewFile(obj) {
 	  });
     reader.readAsDataURL(obj.files[0]);
 }
-
-
 
 if (ons.platform.isIPhoneX()) {
   document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
