@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
   
@@ -142,11 +141,11 @@
           <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this)">
           <img src="img/noimage.jpg" id="preview" style="padding-top:10px;">
         </label>
-        <input type="button" value="clear" style="padding: 5px;width:100%;" onclick="clearimg()">
+        <ons-button style="padding: 5px;width:100%;text-align:center;" onclick="clearimg()">clear</ons-button>
         <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
         <input name="date" type="date" style="width:90%;padding:10px">
         <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
-        <input type="button" value="add" style="padding: 5px;width:100%;">
+        <ons-button style="padding: 5px;width:100%;text-align:center;" onclick="saveData()">add</ons-button>
       </form>
     </ons-page>
   </ons-template>
