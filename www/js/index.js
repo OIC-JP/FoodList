@@ -7,7 +7,18 @@ var Food = ncmb.DataStore("Food");
 //クラスのインスタンスを生成
 var food = new Food();
 //値を保存
-food.set("syokuzai","");
+food.set("syokuzai","ミカン");
+//設定したデータをmobile backendに保存
+    data.save()
+        .then(function(object) {
+              //成功する時の処理
+          })
+        .catch(function(error) {
+              //エラーが発生する時の処理        
+          });
+
+
+
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
