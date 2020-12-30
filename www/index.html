@@ -127,12 +127,23 @@
       <!-- メイン -->
       <form style="padding:20px">
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <label for="img" style="padding-top:10px">
+        <div style="padding-top:10px;">
+          <select name="category" style="width:97%;padding:10px;">
+            <option value="肉･魚">肉･魚</option>
+            <option value="野菜">野菜</option>
+            <option value="飲み物">飲み物</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        <label for="img">
           <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
-          <img src="img/noimage.jpg" id="preview">
+          <img src="img/noimage.jpg" id="preview" style="padding-top:10px;">
         </label>
-        <div class="btn"><input type="button" value="clear" style="width: 100%; padding: 5px;"></div>
-        <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;"></div>
+        <input type="button" value="clear" style="padding: 5px;width:100%;" onclick="">
+        <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
+        <input name="date" type="date" style="width:90%;padding:10px">
+        <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
+        <input type="button" value="add" style="padding: 5px;width:100%;">
       </form>
     </ons-page>
   </ons-template>
