@@ -45,7 +45,7 @@
     <!-- 各メニュー内部詳細 -->
     <ons-splitter>    
       <!--ホーム左　画面遷移メニュー詳細 -->
-      <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+      <ons-splitter-side id="menu" side="left" width="220px" collapse>
         <ons-page>
           <ons-list>
             <ons-list-item onclick="fn.load('home.html')" tappable>
@@ -64,10 +64,10 @@
     <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
               
   <!-- ホーム右　並び替え・編集メニュー詳細  -->
-  <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
+  <ons-splitter-side id="sort" side="right" width="220px" collapse>
     <ons-page>
       <ons-list>
-        <ons-list-item   tappable>
+        <ons-list-item>
           <div id="syoumi" style="font-size: 17px">
             並び替え
           </div>
@@ -82,7 +82,7 @@
             　　購入日順
           </div>
         </ons-list-item>
-        <ons-list-item   tappable>
+        <ons-list-item>
           <div id="hensyu" style="font-size: 17px">
             編集
           </div>
