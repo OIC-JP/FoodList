@@ -48,17 +48,7 @@ function previewFile(obj) {
     reader.readAsDataURL(obj.files[0]);
 }
 
-//addボタンをクリックした際の処理
-popup = function(){
-    var dialog = document.getElementById('dialog');
-    dialog.showModal();
-}
 
-//cancelボタンをクリックした際の処理
-cancel = function(){
-  var dialog = document.getElementById('dialog');
-  dialog.close();
-}
 
 if (ons.platform.isIPhoneX()) {
   document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
