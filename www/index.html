@@ -66,125 +66,65 @@
       </div>
     </section>
 
-    <!--ホーム左　画面選択メニュー詳細 -->
-  <ons-splitter>
-    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
-      <ons-page>
-        <ons-list>
-          <ons-list-item onclick="fn.load('home.html')" tappable>
-            <div style="font-size: 20px">
-              追加・一覧　<!-- FoodList -->
-            </div>
-          </ons-list-item>
+    <!-- 各メニュー内部詳細 -->
+    <ons-splitter>    
+      <!--ホーム左　画面遷移メニュー詳細 -->
+      <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+            <ons-list-item onclick="fn.load('home.html')" tappable>
+              <div style="font-size: 20px">
+                追加・一覧　<!-- home.html -->
+              </div>
+            </ons-list-item>
           <ons-list-item onclick="fn.load('accountbook.html')" tappable>
-            <div style="font-size: 20px">
-             家計簿　<!-- 手が空いたらやるよ～～ -->
-            </div>
-          </ons-list-item>
-        </ons-list>
+          <div style="font-size: 20px">
+            家計簿　<!-- accountbook.html 手が空いたらやるよ～～ -->
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </ons-splitter-side>
+  <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+              
+  <!-- ホーム右　並び替え・編集メニュー詳細  -->
+  <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
+    <ons-page>
+      <ons-list>
+        <ons-list-item   tappable>
+          <div id="syoumi" style="font-size: 17px">
+            並び替え
+          </div>
+        </ons-list-item>
+        <ons-list-item   tappable>
+          <div id="syoumi" style="font-size: 20px">
+            　　賞味期限順
+          </div>
+        </ons-list-item>
+        <ons-list-item  tappable>
+          <div id="kounyubi" style="font-size: 20px">
+            　　購入日順
+          </div>
+        </ons-list-item>
+        <ons-list-item   tappable>
+          <div id="hensyu" style="font-size: 17px">
+            編集
+          </div>
+        </ons-list-item>
+        <ons-list-item   tappable>
+          <div id="hensyu_sakujo" style="font-size: 20px">
+            　　食材削除
+          </div>
+        </ons-list-item>
+        <ons-list-item   tappable>
+          <div onclick="hensyu_pop()" id="hensyu_hensyu" style="font-size: 20px">
+            　　詳細編集
+          </div>
+        </ons-list-item>
       </ons-page>
     </ons-splitter-side>
     <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-  
-    <!-- ホーム右　並び替え・編集メニュー詳細    遠藤作業中ぽよ -->
-    <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
-        <ons-page>
-          <ons-list>
-            <ons-list-item   tappable>
-              <div id="syoumi" style="font-size: 17px">
-                並び替え
-              </div>
-            </ons-list-item>
-            <ons-list-item   tappable>
-              <div id="syoumi" style="font-size: 20px">
-                　　賞味期限順
-              </div>
-            </ons-list-item>
-             <ons-list-item  tappable>
-              <div id="kounyubi" style="font-size: 20px">
-                　　購入日順
-              </div>
-            </ons-list-item>
-            <ons-list-item   tappable>
-              <div id="hensyu" style="font-size: 17px">
-                編集
-      <!-- 画面上部メニューバー -->
-        <ons-toolbar>
-            <!-- 左上メニュー -->
-              <div class="left">
-                <ons-toolbar-button onclick="fn.open1()">
-                  <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
-                </ons-toolbar-button>
-              </div>
-            <!-- センタータイトル -->
-              <div class="center"> 
-              Food List
-              </div>
-            <!-- 右上メニュー -->
-              <div onclick="fn.open2()" class="right">
-                ↑↓　
-              </div>
-        </ons-toolbar>
-
-        <!-- 各メニュー内部詳細 -->
-          <ons-splitter>    
-             <!--ホーム左　画面遷移メニュー詳細 -->
-                <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
-                  <ons-page>
-                    <ons-list>
-                      <ons-list-item onclick="fn.load('home.html')" tappable>
-                        <div style="font-size: 20px">
-                          追加・一覧　<!-- home.html -->
-                        </div>
-                      </ons-list-item>
-                      <ons-list-item onclick="fn.load('accountbook.html')" tappable>
-                        <div style="font-size: 20px">
-                          家計簿　<!-- accountbook.html 手が空いたらやるよ～～ -->
-                        </div>
-                      </ons-list-item>
-                    </ons-list>
-                  </ons-page>
-                </ons-splitter-side>
-                <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-              
-              <!-- ホーム右　並び替え・編集メニュー詳細  -->
-                  <ons-splitter-side id="sort" side="right" width="220px" collapse swipeable>
-                      <ons-page>
-                        <ons-list>
-                          <ons-list-item   tappable>
-                            <div id="syoumi" style="font-size: 17px">
-                              並び替え
-                            </div>
-                          </ons-list-item>
-                          <ons-list-item   tappable>
-                            <div id="syoumi" style="font-size: 20px">
-                              　　賞味期限順
-                            </div>
-                          </ons-list-item>
-                          <ons-list-item  tappable>
-                            <div id="kounyubi" style="font-size: 20px">
-                              　　購入日順
-                            </div>
-                          </ons-list-item>
-                          <ons-list-item   tappable>
-                            <div id="hensyu" style="font-size: 17px">
-                              編集
-                            </div>
-                          </ons-list-item>
-                                      <ons-list-item   tappable>
-                            <div id="hensyu_sakujo" style="font-size: 20px">
-                              　　食材削除
-                            </div>
-                          </ons-list-item>
-                          <ons-list-item   tappable>
-                            <div onclick="hensyu_pop()" id="hensyu_hensyu" style="font-size: 20px">
-                              　　詳細編集
-                            </div>
-                          </ons-list-item>
-                        </ons-page>
-                      </ons-splitter-side>
-                      <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-                  </ons-splitter>
+  </ons-splitter>
 
               <!--詳細編集ダイアログ 遠藤作業中ぽよ -->
                   <dialog id="hensyu_dialog">
@@ -198,25 +138,6 @@
                       </div>
                     </form>
                   </dialog>
-
-
-      <!-- メイン -->
-        <div style="text-align: center; padding-top: 90px">
-          <input type="button" style="width: 60%; padding: 10px; font-size:30px;" value="add" onclick="popup()">
-            
-            <!--食材追加ダイアログ (addボタン)-->
-                <dialog id="dialog">
-                  <form>
-                    <p style="text-align: center;">食材の追加</p>
-                    <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-                    <input type="file" name="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
-                    <img src="img/noimage.jpg" id="preview">
-                    <div class="dialogbtn">
-                      <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
-                      <div class="btn"><input type="button" value="add" style="width: 100%; padding: 5px;" onclick=""></div>
-                    </div>
-                  </form>
-                </dialog>
         </div>
     </ons-page>
   </ons-template>
