@@ -22,10 +22,6 @@ food.set("syokuzai","ミカン");
           });
 }
 
-
-
-
-
 ons.ready(function() {
   console.log("Onsen UI is ready!");
 });
@@ -54,6 +50,11 @@ function previewFile(obj) {
 		  document.getElementById('preview').src = reader.result;
 	  });
     reader.readAsDataURL(obj.files[0]);
+}
+
+//clearボタンを押したときの処理
+function clearimg(){
+  document.getElementById("preview").src = "img/noimage.jpg";
 }
 
 if (ons.platform.isIPhoneX()) {

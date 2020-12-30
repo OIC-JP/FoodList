@@ -17,8 +17,8 @@
 </head>
 <body>
   
-  <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧・追加）  home.html＊＊＊＊＊＊＊-->
-  <ons-template page="home.html" id="home.html">
+  <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊-->
+  <ons-template id="home.html">
     <ons-page>
       <ons-toolbar>
         <!-- 左上メニュー -->
@@ -36,6 +36,9 @@
         </div>
       </ons-toolbar>
       <!-- メイン -->
+      <div style="text-align:center;padding-top:50%">
+        <img src="img/Foodimg.png">
+      </div>
     </ons-page>
   </ons-template>
 
@@ -50,7 +53,7 @@
                 一覧　<!-- home.html -->
               </div>
             </ons-list-item>
-            <ons-list-item onclick="fn.load('accountbook.html')" tappable>
+            <ons-list-item onclick="fn.load('foodadd.html')" tappable>
               <div style="font-size: 20px">
                 食材の追加
               </div>
@@ -111,8 +114,8 @@
     </form>
   </dialog>
 
-  <!--＊＊＊＊＊＊＊＊＊＊家計簿画面  accountbook.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
-  <ons-template page="accountbook.html" id="accountbook.html">
+  <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
+  <ons-template id="foodadd.html">
     <ons-page>
       <ons-toolbar>
         <div class="left">
@@ -136,10 +139,10 @@
           </select>
         </div>
         <label for="img">
-          <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this);">
+          <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this)">
           <img src="img/noimage.jpg" id="preview" style="padding-top:10px;">
         </label>
-        <input type="button" value="clear" style="padding: 5px;width:100%;" onclick="">
+        <input type="button" value="clear" style="padding: 5px;width:100%;" onclick="clearimg()">
         <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
         <input name="date" type="date" style="width:90%;padding:10px">
         <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
