@@ -1,8 +1,60 @@
 #preview{
   height: 200px;
-  width: auto;
+  width: 200px;
+  object-fit: cover;
 }
 
 label input {
   display: none;
+}
+
+#clearbtn {
+  display: inline-block;
+  text-decoration: none;
+  background: #87befd;
+  color: #FFF;
+  font-size: 25px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 30%;
+  text-align: center;
+  overflow: hidden;
+  transition: .4s;
+
+  position: absolute;
+  top: 3%;
+  left: -1%;
+}
+
+#clearbtn:hover {
+  background: #668ad8;
+}
+
+#photo {
+    position: relative;
+}
+
+#addbtn {
+  display: inline-block;
+  text-decoration: none;
+  color: #FFF;
+  font-size: 35px;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+  transition: .4s;
+
+  position: absolute;
+  top: 73%;
+  left: 62%;
+}
+
+#addbtn:hover {
+  -webkit-transform: rotate(10deg);
+  transform: rotate(10deg);
 }
