@@ -1,25 +1,25 @@
 //ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 // APIキーの設定とSDK初期化
-var ncmb = new NCMB("070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06","1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f");
+var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
+var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
+var ncmb = new NCMB(applicationKey, clientKey);
 
-//データをニフクラに保存する
-function saveData(){
-  //食材追加 クラスの作成
-var Food = ncmb.DataStore("Food");
-//クラスのインスタンスを生成
-var food = new Food();
-//値を保存
-food.set("syokuzai","ミカン");
-//設定したデータをmobile backendに保存
-    data.save()
-        .then(function(object) {
-              //成功する時の処理
-              $("#message").html("<p>データの保存に成功しました</p>");
-          })
-        .catch(function(error) {
-              //エラーが発生する時の処理        
-              $("#message").html("error:"+error.message);
-          });
+
+
+function addpush(){
+  // テキストエリアの値を取得する
+  var message = document.getElementById("message").value;
+  // アラートで表示する
+  alert(message);
+
+  //データをニフクラに保存する
+  //食材追加 保存先クラスの作成
+  var Food = ncmb.DataStore("Food");
+  //クラスのインスタンスを生成
+  var food = new Food();
+  //値を保存
+  food.set("syokuzai",message).save();
+
 }
 
 ons.ready(function() {
