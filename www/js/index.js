@@ -8,7 +8,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
 function addpush(){
   // テキストエリアの値を取得する
-  var message = document.getElementById("message").value;
+  var message = document.getElementById("money").value;
   // アラートで表示する
   alert(message);
 
@@ -18,7 +18,7 @@ function addpush(){
   //クラスのインスタンスを生成
   var food = new Food();
   //値を保存
-  food.set("syokuzai",message).save();
+  food.set("kingaku",message).save();
 
 }
 
