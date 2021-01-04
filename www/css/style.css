@@ -27,10 +27,6 @@ label input {
   left: -1%;
 }
 
-#clearbtn:hover {
-  background: #668ad8;
-}
-
 #photo {
     position: relative;
 }
