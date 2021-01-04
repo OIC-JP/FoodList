@@ -1,12 +1,5 @@
 
-/**/
-
-.btn {
-  float: left;
-  text-align: center;
-  width: 50%;
-
-#preview {
+#preview{
   height: 200px;
   width: 200px;
   object-fit: cover;
@@ -33,9 +26,6 @@ label input {
   position: absolute;
   top: 3%;
   left: -1%;
-}
-li {
-  list-style: none;
 }
 
 #photo {
