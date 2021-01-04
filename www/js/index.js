@@ -8,9 +8,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
 function addpush(){
   // テキストエリアの値を取得する
-  var message = document.getElementById("money").value;
+  // var name = document.getElementById("name").value;
+  var num = document.getElementById("num").value;
+  // var date = document.getElementById("date").value;
+  var money = document.getElementById("money").value;
   // アラートで表示する
-  alert(message);
+  alert(num,money);
 
   //データをニフクラに保存する
   //食材追加 保存先クラスの作成
@@ -18,8 +21,9 @@ function addpush(){
   //クラスのインスタンスを生成
   var food = new Food();
   //値を保存
-  food.set("kingaku",message).save();
-
+  food.set("num",num)
+  food.set("money",money)
+  .save();
 }
 
 ons.ready(function() {
