@@ -5,26 +5,69 @@ var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
+var addpush = function(){
+      var fileName = document.getElementById("name").value;
+      var fileData = document.getElementById("img").files[0];
 
-function addpush(){
-  // テキストエリアの値を取得する
-  // var name = document.getElementById("name").value;
-  var num = document.getElementById("num").value;
-  // var date = document.getElementById("date").value;
-  var money = document.getElementById("money").value;
-  // アラートで表示する
-  alert("個数"+num+"　金額"+money);
+      ncmb.File.upload(fileName, fileData)
+        .then(function(res){
+          // アップロード後処理
+          alert("アップロード成功");
+        })
+        .catch(function(err){
+          // エラー処理
+          alert("エラー");
+        });
+    }
 
-  //データをニフクラに保存する
-  //食材追加 保存先クラスの作成
-  var Food = ncmb.DataStore("Food");
-  //クラスのインスタンスを生成
-  var food = new Food();
-  //値を保存
-  food.set("num",num)
-  food.set("money",money)
-  .save();
-}
+
+
+     var reader = new FileReader();
+    reader.onload = function(e) {
+      var dataUrl = reader.result;
+      document.getElementById("image").src = dataUrl;
+    }
+
+//ここからおかしいです
+    function downloadImage(){
+          // ファイル名からファイルを取得
+          var fileName = "kaka.png";
+
+          // ダウンロード（データ形式をblobを指定）
+          ncmb.File.download(fileName, "blob")
+              .then(function(blob) {
+              // ファイルリーダーにデータを渡す
+              reader.readAsDataURL(blob);
+              })
+              .catch(function(err) {
+                  console.error(err);
+              })
+        }
+//ここまでが
+
+
+// function addpush(){
+//   // テキストエリアの値を取得する
+//   // var name = document.getElementById("name").value;
+//   var num = document.getElementById("num").value;
+//   // var date = document.getElementById("date").value;
+//   var money = document.getElementById("money").value;
+//   // アラートで表示する
+//   alert("個数"+num+"　金額"+money);
+
+//   //データをニフクラに保存する
+//   //食材追加 保存先クラスの作成
+//   var Food = ncmb.DataStore("Food");
+//   //クラスのインスタンスを生成
+//   var food = new Food();
+//   //値を保存
+//   food.set("num",num)
+//   food.set("money",money)
+//   .save();
+
+
+
+  
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
