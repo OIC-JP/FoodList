@@ -5,15 +5,17 @@ var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
-
+//addボタンを押した際の処理
 function addpush(){
   // テキストエリアの値を取得する
-  // var name = document.getElementById("name").value;
+  var img = document.getElementById("img").value;
   var num = document.getElementById("num").value;
-  // var date = document.getElementById("date").value;
   var money = document.getElementById("money").value;
   // アラートで表示する
-  alert(num,money);
+  alert("画像　"+img+"　個数　"+num+"　金額　"+money);
+
+
+
 
   //データをニフクラに保存する
   //食材追加 保存先クラスの作成
@@ -25,6 +27,8 @@ function addpush(){
   food.set("money",money)
   .save();
 }
+
+
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
