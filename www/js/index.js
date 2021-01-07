@@ -71,7 +71,7 @@ if (ons.platform.isIPhoneX()) {
 
 //並び替えメニューを選択した時
 
-//賞味期限
+//賞味期限順
 document.getElementById("syoumi").onclick=Sort1;
 function Sort1() {
     // (1) ノードリストを取得
@@ -94,7 +94,7 @@ function Sort1() {
     }
 }
 
-//購入日
+//購入日順
 document.getElementById("kounyubi").onclick=Sort2;
 function Sort2() {
     // (1) ノードリストを取得
@@ -117,7 +117,9 @@ function Sort2() {
     }
 }
 
+
 //日付の並び替え方法
+
 //配列準備
 const array = ['1940/10/9', '1967/2/20', '1943/2/25', '1942/6/18', '1969/1/14', '1940/7/7', '1965/5/16'];
 
