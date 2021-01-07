@@ -35,7 +35,7 @@
         </div>
       </ons-toolbar>
       <!-- メイン -->
-      <div style="text-align:center;padding-top:50%">
+      <div id="foodimg" style="text-align:center;padding-top:50%">
         <img src="img/Foodimg.png">
       </div>
     </ons-page>
@@ -143,7 +143,8 @@
           <ons-button id="clearbtn" onclick="clearimg()">×</ons-button>
         </div>
         <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
-        <input name="date" type="date" style="width:90%;padding:10px">
+        <input name="buy_date" type="date" style="width:90%;padding:10px">
+        <input name="expiration_date" type="date" style="width:90%;padding:10px">
         <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
         <ons-button id="addbtn" onclick="addpush()">add</ons-button>
       </form>
