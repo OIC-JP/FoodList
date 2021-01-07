@@ -52,3 +52,40 @@ label input {
   top: 78%;
   left: 64%;
 }
+
+nav{
+  display: block
+}
+
+.nav-horizontal{
+	width:100%;
+	overflow: hidden;
+}
+
+.mask{
+  width: 100%;
+  overflow-x: auto;
+}
+
+.menu-list{
+  display: inline-table;
+  max-width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list li{
+  display: table-cell;
+  white-space: nowrap;
+  font-size: 80%;
+  line-height: 1.4;
+}
+
+.menu-list li a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  padding: 2em;
+  display: block;
+}
+
