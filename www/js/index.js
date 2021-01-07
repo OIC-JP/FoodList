@@ -116,4 +116,15 @@ function Sort2() {
         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     }
 }
+
+//日付の並び替え方法
+//配列準備
+const array = ['1940/10/9', '1967/2/20', '1943/2/25', '1942/6/18', '1969/1/14', '1940/7/7', '1965/5/16'];
+
+//昇順
+const ascArray = [...array].sort((a, b) => new Date(a) - new Date(b));
+
+//降順
+const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
+
 */
