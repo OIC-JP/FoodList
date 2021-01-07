@@ -84,6 +84,9 @@ nav{
 
 .menu-list li a:hover{
   color: rgb(0, 148, 123);
+  border-bottom:solid;
+  border-color: rgb(0, 148, 123);
+  border-width: 4px;
 }
 
 .menu-list li a{
@@ -91,5 +94,8 @@ nav{
   color: rgb(0, 0, 0);
   padding: 2em;
   display: block;
+  border-bottom:solid;
+  border-color: rgb(0, 148, 123);
+  border-width: 1px;
 }
 
