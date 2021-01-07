@@ -82,6 +82,10 @@ nav{
   line-height: 1.4;
 }
 
+.menu-list li a:hover{
+  color: rgb(0, 148, 123);
+}
+
 .menu-list li a{
   text-decoration: none;
   color: rgb(0, 0, 0);

@@ -66,3 +66,55 @@ if (ons.platform.isIPhoneX()) {
   document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
   document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
 }
+
+
+/* 遠藤作業メモ領域＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+//並び替えメニューを選択した時
+
+//賞味期限
+document.getElementById("syoumi").onclick=mySort;
+function mySort() {
+    // (1) ノードリストを取得
+    var myUL = document.getElementById("syokuzai");
+    var myNodeList = myUL.getElementsByTagName("li");
+    // (2) 配列を得る
+    var myArray = Array.prototype.slice.call(myNodeList);
+    // (3) 配列をソート
+    function compareText (a,b) {
+        if (a.textContent > b.textContent)
+            return 1;
+        else if (a.textContent < b.textContent)
+            return -1;
+        return 0;
+        }
+    myArray.sort(compareText);
+    // (4) 新しい順番を DOM ツリーに反映
+    for (var i=0; i<myArray.length; i++) {
+        myUL.appendChild(myUL.removeChild(myArray[i]))
+    }
+}
+
+//購入日
+document.getElementById("kounyubi").onclick=mySort;
+function mySort() {
+    // (1) ノードリストを取得
+    var myUL = document.getElementById("syokuzai");
+    var myNodeList = myUL.getElementsByTagName("li");
+    // (2) 配列を得る
+    var myArray = Array.prototype.slice.call(myNodeList);
+    // (3) 配列をソート
+    function compareText (a,b) {
+        if (a.textContent > b.textContent)
+            return 1;
+        else if (a.textContent < b.textContent)
+            return -1;
+        return 0;
+        }
+    myArray.sort(compareText);
+    // (4) 新しい順番を DOM ツリーに反映
+    for (var i=0; i<myArray.length; i++) {
+        myUL.appendChild(myUL.removeChild(myArray[i]))
+    }
+}
+*/
