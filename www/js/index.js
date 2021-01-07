@@ -13,7 +13,7 @@ function addpush(){
   // var date = document.getElementById("date").value;
   var money = document.getElementById("money").value;
   // アラートで表示する
-  alert(num,money);
+  alert("個数"+num+"　金額"+money);
 
   //データをニフクラに保存する
   //食材追加 保存先クラスの作成
