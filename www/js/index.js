@@ -131,3 +131,174 @@ const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
 
 
 */
+
+
+// ＊＊＊＊＊＊＊＊＊＊＊＊サンプルコードのコピペ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+/* ＊＊＊[NCMB] ファイルストア（画像のアップロード/ダウンロード）＊＊＊＊＊＊ */
+// 「アップロード」ボタン押下時の処理
+function onUploadBtn() {
+    // 作品名を取得
+    var imgName = $("#imgName").val();
+    // 入力チェック
+    if (imgName == "") {
+        alert("作品名を入力してください");
+        return;
+    }
+    if (imgFlag == false) {
+        alert("投稿する写真を選択してください");
+        return;
+    }
+
+    var img = document.getElementById('photo_image');
+    var photoType = $("#photo")[0].files[0].type;
+    var base64 = ImageToBase64(img, photoType);
+    var photoData = toBlob(base64, photoType);
+
+    // loading の表示
+    $.mobile.loading('show', {
+        text: 'Sending...',
+        textVisible: true,
+        theme: 'a',
+        textonly: false,
+        html: ''
+    });
+
+    // uuidを生成
+    var uuid = makeUUID();
+    // 選択した画像のファイル名を取得
+    var fileName = $("#photo")[0].files[0].name;
+    var sp = fileName.split('.');
+    // 選択した画像の拡張子を取得
+    var fileName_type = sp[sp.length-1];
+    // 作品名をエンコード
+    imgName = encodeURIComponent(imgName);
+    // カレントユーザーのユーザー名を取得
+    var currentUserName = currentUser.get("userName");
+    // 作品の保存名を作成「作品名_作者名_uuid.拡張子」
+    var photoName = imgName + "_" + currentUserName + "_" + uuid + "." + fileName_type;
+
+    // 参照権限（ACL）を生成
+    var acl = new ncmb.Acl();
+    // 全員「読み込み可」、特定のユーザーのみの「書き込み可」で設定
+    acl.setPublicReadAccess(true)
+        .setUserReadAccess(currentUser, true)
+        .setUserWriteAccess(currentUser, true);
+
+    // 写真アップロード
+    ncmb.File
+            .upload(photoName, photoData, acl)
+            .then(function(result){
+                // アップロード成功時の処理
+                alert("アップロード成功");
+                console.log("アップロード成功");
+                // フィールドを空に
+                onDeleteHomeScreenPageField();
+                // loading の非表示
+                $.mobile.loading('hide');
+            })
+            .catch(function(error){
+                // アップロード失敗時の処理
+                alert("アップロード失敗：" + error);
+                console.log("アップロード失敗：" + error);
+                // loading の非表示
+                $.mobile.loading('hide');
+            });
+}
+
+
+// ファイルストアに格納されたファイルデータ（画像本体以外の情報）を取得＜全ての作品＞
+function getAllFileData(){
+    // フィールドを空に
+    onDeleteEveryonePageField();
+    // loading の表示
+    $.mobile.loading('show', {
+        text: 'Loading...',
+        textVisible: true,
+        theme: 'a',
+        textonly: false,
+        html: ''
+    });
+
+    ncmb.File
+            .order("createDate",true) // 作成日の降順を指定
+            .limit(10) // 取得件数を10件で指定
+            .fetchAll()
+            .then(function(results){
+                // ファイルデータ取得成功時の処理
+                console.log("ファイルデータ取得成功(allFile)");
+
+                var promises = [];
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
+                    promises.push(downloadFile(object, i)); 
+                }
+
+                /*** Promise ***/
+                Promise.all(promises)
+                            .then(function(results) {
+                                // 全てのPromise処理成功時の処理
+                                 console.log("全てのPromise処理に成功(allFile)：" + results + " OK");
+                                // loading の表示を終了
+                                $.mobile.loading('hide');
+                            })
+                            .catch(function(error){
+                                // 全てのPromise処理成功時の処理
+                                console.log("Promise処理に失敗(allFile)：" + error);
+                                alert("Promise処理に失敗(allFile)" );
+                                // loading の表示を終了
+                                $.mobile.loading('hide');
+                            });
+            })
+            .catch(function(error){
+                // ファイルデータ取得失敗時の処理
+                console.log("ファイルデータ取得失敗(allFile)：" + error);
+                alert("ファイルデータ取得失敗(allFile)" );
+                // loading の表示を終了
+                $.mobile.loading('hide');
+            });
+}
+
+
+// ファイルストアから画像を取得して「みんなの投稿」に表示
+function downloadFile(object, i) {
+    /*** Promise ***/
+    return new Promise(function(resolve, reject) {        
+        // 画像・作品名・作者名の表示先を指定
+        var imageId = "image_" + i;
+        var titleId = "title_" + i;
+        var posterId = "poster_" + i;
+
+        // ファイルデータからファイル名を取得
+        var fileName = object.fileName;
+        var fileName_encode = encodeURI(fileName);
+
+        // ファイルのダウンロード（データ形式をblobを指定）
+        ncmb.File.download(fileName_encode, "blob")
+                      .then(function(blob) {
+                          // ファイルダウンロード成功時の処理
+                          var reader = new FileReader();
+                          reader.onload = function(e) {
+                              // 画像URLを設定
+                              var dataUrl = reader.result;
+                              document.getElementById(imageId).src = dataUrl;
+                              //  ファイル名を分解
+                              var fileNameArray = fileName.split('_');
+                              // 作品名を表示
+                              var imageName = "作品名「" + fileNameArray[0] + "」";
+                              document.getElementById(titleId).innerHTML = imageName;
+                              // 作者名を表示
+                              var posterName = "作者：" + fileNameArray[1] + "さん";
+                              document.getElementById(posterId).innerHTML = posterName;
+                          }
+                          // ファイルリーダーにデータを渡す
+                          reader.readAsDataURL(blob);
+                          
+                          resolve("画像" +i); 
+                      })
+                      .catch(function(error) {
+                          // ファイルダウンロード失敗時の処理
+                          reject("画像" + i);
+                      });
+    });
+}
