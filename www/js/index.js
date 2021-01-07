@@ -72,13 +72,13 @@ if (ons.platform.isIPhoneX()) {
 //並び替えメニューを選択した時
 
 //賞味期限
-document.getElementById("syoumi").onclick=mySort;
-function mySort() {
+document.getElementById("syoumi").onclick=Sort1;
+function Sort1() {
     // (1) ノードリストを取得
-    var myUL = document.getElementById("syokuzai");
-    var myNodeList = myUL.getElementsByTagName("li");
+    var syokuzai = document.getElementById("syokuzai");
+    var node = syokuzai.getElementsByTagName("li");
     // (2) 配列を得る
-    var myArray = Array.prototype.slice.call(myNodeList);
+    var Array = Array.prototype.slice.call(node);
     // (3) 配列をソート
     function compareText (a,b) {
         if (a.textContent > b.textContent)
@@ -87,21 +87,21 @@ function mySort() {
             return -1;
         return 0;
         }
-    myArray.sort(compareText);
+    Array.sort1(compareText);
     // (4) 新しい順番を DOM ツリーに反映
-    for (var i=0; i<myArray.length; i++) {
-        myUL.appendChild(myUL.removeChild(myArray[i]))
+    for (var i=0; i<Array.length; i++) {
+        syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     }
 }
 
 //購入日
-document.getElementById("kounyubi").onclick=mySort;
-function mySort() {
+document.getElementById("kounyubi").onclick=Sort2;
+function Sort2() {
     // (1) ノードリストを取得
-    var myUL = document.getElementById("syokuzai");
-    var myNodeList = myUL.getElementsByTagName("li");
+    var syokuzai = document.getElementById("syokuzai");
+    var node = syokuzai.getElementsByTagName("li");
     // (2) 配列を得る
-    var myArray = Array.prototype.slice.call(myNodeList);
+    var Array = Array.prototype.slice.call(node);
     // (3) 配列をソート
     function compareText (a,b) {
         if (a.textContent > b.textContent)
@@ -110,10 +110,10 @@ function mySort() {
             return -1;
         return 0;
         }
-    myArray.sort(compareText);
+    Array.sort(compareText);
     // (4) 新しい順番を DOM ツリーに反映
-    for (var i=0; i<myArray.length; i++) {
-        myUL.appendChild(myUL.removeChild(myArray[i]))
+    for (var i=0; i<Array.length; i++) {
+        syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     }
 }
 */
