@@ -1,7 +1,7 @@
 //ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 // APIキーの設定とSDK初期化::::
-var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
-var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
+var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
+var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 //カテゴリー追加　小銭作成中
@@ -26,9 +26,21 @@ function category_item(){
 var addpush = function(){
       var fileName = document.getElementById("name").value;
       var fileData = document.getElementById("img").files[0];
-      var fileca = document.getElementById("category").value;
+      var ca = document.getElementById("category");
+      var n = document.getElementById("category").selectedIndex;
+      var fileca = ca.options[n].value;
+      var num = document.getElementById("num").value;
+      var money = document.getElementById("money").value;
 
-      ncmb.File.upload(fileName, fileData,fileca)
+      var Food = ncmb.DataStore("Food");
+      var food = new Food();
+      food.set("name",fileName)
+      food.set("category",fileca)
+      food.set("num",num)
+      food.set("money",money)
+      .save();
+
+      ncmb.File.upload(fileName, fileData)
         .then(function(res){
           // アップロード後処理
           alert("アップロード成功");
@@ -38,8 +50,6 @@ var addpush = function(){
           alert("エラー");
         });
 }
-
-
 
 //ここからおかしいです
 var reader = new FileReader();
@@ -61,27 +71,6 @@ function downloadImage(){
 }
 
 //ここまでが
-
-
-// function addpush(){
-//   // テキストエリアの値を取得する
-//   // var name = document.getElementById("name").value;
-//   var num = document.getElementById("num").value;
-//   // var date = document.getElementById("date").value;
-//   var money = document.getElementById("money").value;
-//   // アラートで表示する
-//   alert("個数"+num+"　金額"+money);
-
-//   //データをニフクラに保存する
-//   //食材追加 保存先クラスの作成
-//   var Food = ncmb.DataStore("Food");
-//   //クラスのインスタンスを生成
-//   var food = new Food();
-//   //値を保存
-//   food.set("num",num)
-//   food.set("money",money)
-//   .save();
-
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
