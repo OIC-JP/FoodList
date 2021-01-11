@@ -4,25 +4,6 @@ var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd6
 var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
-//カテゴリー追加　小銭作成中
-function category_item(){
-  var cg = ncmb.DataStore("Category");
-  var cg_item1 = "";
-  cg.order("createDate")
-    .limit(10)
-    .fetchAll()
-    .then(function(results){
-      for (var i = 0; i < results.length; i++) {
-        var object = results[i];
-        cg_item1 = cg_item1+"<option value="+object.category+">"+object.category+"</option>";
-      }
-      document.getElementById("category").innerHTML = cg_item1;
-    })
-    .catch(function(err){
-        console.log(err);
-    });
-}
-
 var addpush = function(){
       var name = document.getElementById("name").value;
       // 作品名をエンコード
@@ -102,6 +83,33 @@ window.fn.load = function(page) {
   content
     .load(page)
     .then(menu.close.bind(menu));
+  var cg = ncmb.DataStore("Category");
+  var cg_item1 = "";
+  cg.order("createDate")
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        cg_item1 += "<li class='menu-item'><a href='#'>"+object.category+"</a></li>";
+      }
+      document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+  var cg_item2 = "";
+  cg.order("createDate")
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        cg_item2 += "<option value="+object.category+">"+object.category+"</option>";
+      }
+      document.getElementById("category").insertAdjacentHTML("afterbegin",cg_item2);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 };
 
 //カテゴリー追加
