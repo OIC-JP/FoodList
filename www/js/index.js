@@ -1,8 +1,9 @@
 //ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-// APIキーの設定とSDK初期化::::
+// APIキーの設定とSDK初期化:
 var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
 var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
 var ncmb = new NCMB(applicationKey, clientKey);
+
 
 //カテゴリー追加　小銭作成中
 function category_item(){
@@ -80,8 +81,8 @@ function downloadImage(){
               console.error(err);
           })
 }
-
 //ここまでが
+
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
@@ -114,7 +115,7 @@ function categoryadd(){
   }
 }
 
-//画像表示
+//食材追加（画像表示）
 function previewFile(obj) {
     var reader = new FileReader();
     reader.onload = (function() {
@@ -123,7 +124,7 @@ function previewFile(obj) {
     reader.readAsDataURL(obj.files[0]);
 }
 
-//clearボタンを押したときの処理
+//食材追加（画像clearボタンを押したときの処理）
 function clearimg(){
   document.getElementById("preview").src = "img/noimage.jpg";
 }
@@ -136,9 +137,15 @@ if (ons.platform.isIPhoneX()) {
 
 /*＊＊＊＊＊＊遠藤作業中＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-//並び替えメニューを選択した時
+//食材一覧（食材の削除）
+<div id="syokuzai">
+  <button type="button" id="blue-button" onclick="remove()">削除</button>
+</div>
 
-//賞味期限順
+
+//食材一覧（並び替えメニューを選択した時）
+
+//食材一覧（並び替え　賞味期限順）
 document.getElementById("syoumi").onclick=Sort1;
 function Sort1() {
     // (1) ノードリストを取得
@@ -161,7 +168,7 @@ function Sort1() {
     }
 }
 
-//購入日順
+//食材一覧（並び替え　購入日順）
 document.getElementById("kounyubi").onclick=Sort2;
 function Sort2() {
     // (1) ノードリストを取得
@@ -184,7 +191,7 @@ function Sort2() {
     }
 }
 
-//日付の並び替え方法
+//日付の並び替え方法　メモ
 
 //配列準備
 const array = ['1940/10/9', '1967/2/20', '1943/2/25', '1942/6/18', '1969/1/14', '1940/7/7', '1965/5/16'];
