@@ -32,6 +32,8 @@ var addpush = function(){
       var n = document.getElementById("category").selectedIndex;
       var fileca = ca.options[n].value;
       var num = document.getElementById("num").value;
+      var buy_date = document.getElementById("buy_date").value;
+      var expiration_date = document.getElementById("expiration_date").value;
       var money = document.getElementById("money").value;
 
       var Food = ncmb.DataStore("Food");
@@ -39,6 +41,8 @@ var addpush = function(){
       food.set("name",name)
       food.set("category",fileca)
       food.set("num",num)
+      food.set("buy_date",buy_date)
+      food.set("expiration_date",expiration_date)
       food.set("money",money)
       .save();
 
