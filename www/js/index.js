@@ -4,25 +4,6 @@ var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed4
 var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
 var ncmb = new NCMB(applicationKey, clientKey);
 
-//カテゴリー追加　小銭作成中
-function category_item(){
-  var cg = ncmb.DataStore("Category");
-  var cg_item1 = "";
-  cg.order("createDate")
-    .limit(10)
-    .fetchAll()
-    .then(function(results){
-      for (var i = 0; i < results.length; i++) {
-        var object = results[i];
-        cg_item1 = cg_item1+"<option value="+object.category+">"+object.category+"</option>";
-      }
-      document.getElementById("category").innerHTML = cg_item1;
-    })
-    .catch(function(err){
-        console.log(err);
-    });
-}
-
 var addpush = function(){
       var name = document.getElementById("name").value;
       // 作品名をエンコード
@@ -61,7 +42,7 @@ var addpush = function(){
 var reader = new FileReader();
 reader.onload = function(e) {
   var dataUrl = reader.result;
-  document.getElementById("syokuzai_1").src = dataUrl;
+  document.getElementById("image").src = dataUrl;
 }
 function downloadImage(){
 
@@ -70,7 +51,8 @@ function downloadImage(){
   $("#foodmainimg").empty();
 
       // ファイル名からファイルを取得
-      var fileName = "sss";
+      var fileName = "aia";
+
       ncmb.File.download(fileName, "blob")
           .then(function(blob) {
           // ファイルリーダーにデータを渡す
@@ -102,6 +84,33 @@ window.fn.load = function(page) {
   content
     .load(page)
     .then(menu.close.bind(menu));
+  var cg = ncmb.DataStore("Category");
+  var cg_item1 = "";
+  cg.order("createDate")
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        cg_item1 += "<li class='menu-item'><a href='#'>"+object.category+"</a></li>";
+      }
+      document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+  var cg_item2 = "";
+  cg.order("createDate")
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        cg_item2 += "<option value="+object.category+">"+object.category+"</option>";
+      }
+      document.getElementById("category").insertAdjacentHTML("afterbegin",cg_item2);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 };
 
 //カテゴリー追加
@@ -134,7 +143,7 @@ if (ons.platform.isIPhoneX()) {
 }
 
 
-/* 遠藤作業メモ領域＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+/*＊＊＊＊＊＊遠藤作業中＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 //並び替えメニューを選択した時
 
@@ -184,7 +193,6 @@ function Sort2() {
     }
 }
 
-
 //日付の並び替え方法
 
 //配列準備
@@ -195,6 +203,5 @@ const ascArray = [...array].sort((a, b) => new Date(a) - new Date(b));
 
 //降順
 const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
-
 
 */

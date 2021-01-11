@@ -4,6 +4,22 @@
   object-fit: cover;
 }
 
+#tuul{
+  background-color: rgba(245, 210, 13, 0.897);
+}
+
+#center{
+  color: rgb(2, 102, 85);
+}
+
+#yaji{
+  color: rgb(13, 74, 241);
+}
+
+#narabi{
+  background-color: rgba(245, 209, 3, 0.363);
+}
+
 label input {
   display: none;
 }
@@ -96,16 +112,4 @@ nav{
   border-width: 1px;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-}
 
-#grid {
-	width: 450px;
-}
-.haiti {
-	margin: 5px;
-	float: left;
-	list-style: none;
-}
