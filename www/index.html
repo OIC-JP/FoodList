@@ -19,7 +19,7 @@
   <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊-->
   <ons-template id="home.html">
     <ons-page>
-      <ons-toolbar>
+      <ons-toolbar id="tuul">
         <!-- 左上メニュー -->
         <div class="left">
           <ons-toolbar-button onclick="fn.open1()">
@@ -27,10 +27,10 @@
           </ons-toolbar-button>
         </div>
         <!-- センタータイトル -->
-        <div class="center"> 
+        <div class="center" id="center"> 
          Food List
         </div>
-        <div onclick="fn.open2()" class="right">
+        <div onclick="fn.open2()" class="right" id="yaji">
           ↑↓　 <!--矢印の後に1文字の空白必須！！  -->
         </div>
       </ons-toolbar>
@@ -65,17 +65,17 @@
         <ons-page>
           <ons-list>
             <ons-list-item onclick="fn.load('home.html')" tappable>
-              <div style="font-size: 20px">
-                一覧　<!-- home.html -->
+              <div style="font-size: 17px">
+                食材の一覧　<!-- home.html -->
               </div>
             </ons-list-item>
             <ons-list-item onclick="fn.load('foodadd.html')" tappable>
-              <div style="font-size: 20px">
+              <div style="font-size: 17px">
                 食材の追加
               </div>
             </ons-list-item>
             <ons-list-item onclick="categoryadd()" tappable>
-              <div style="font-size: 20px">
+              <div style="font-size: 17px">
                 カテゴリーの追加
               </div>
             </ons-list-item>
@@ -87,38 +87,26 @@
   <!-- ホーム右　並び替え・編集メニュー詳細  -->
   <ons-splitter-side id="sort" side="right" width="220px" collapse>
     <ons-page>
-      <ons-list>
-        <ons-list-item>
+      <ons-list >
+        <ons-list-item id="narabi">
           <div  style="font-size: 17px">
             並び替え
           </div>
         </ons-list-item>
         <ons-list-item   tappable>
-          <div id="syoumi" style="font-size: 20px">
+          <div id="syoumi" style="font-size: 18px">
             　　賞味期限順
           </div>
         </ons-list-item>
         <ons-list-item  tappable>
-          <div id="kounyubi" style="font-size: 20px">
+          <div id="kounyubi" style="font-size: 18px">
             　　購入日順
           </div>
         </ons-list-item>
       </ons-page>
     </ons-splitter-side>
   </ons-splitter>
-
-  <!--詳細編集ダイアログ 遠藤作業中ぽよ -->
-  <dialog id="hensyu_dialog">
-    <form>
-      <p style="text-align: center;">食材の編集</p>
-      <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名">
-      <img src="img/noimage.jpg" onclick="">
-      <div class="dialogbtn">
-        <div class="btn"><input type="button" value="cancel" style="width: 100%; padding: 5px;" onclick="cancel()"></div>
-        <div class="btn"><input type="button" value="ok" style="width: 100%; padding: 5px;" onclick=""></div>
-      </div>
-    </form>
-  </dialog>
+  
 
   <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template id="foodadd.html" onload="category_item()">
