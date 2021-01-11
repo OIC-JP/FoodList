@@ -24,7 +24,9 @@ function category_item(){
 }
 
 var addpush = function(){
-      var fileName = document.getElementById("name").value;
+      var name = document.getElementById("name").value;
+      // 作品名をエンコード
+      var fileName = encodeURIComponent(name);
       var fileData = document.getElementById("img").files[0];
       var ca = document.getElementById("category");
       var n = document.getElementById("category").selectedIndex;
@@ -34,7 +36,7 @@ var addpush = function(){
 
       var Food = ncmb.DataStore("Food");
       var food = new Food();
-      food.set("name",fileName)
+      food.set("name",name)
       food.set("category",fileca)
       food.set("num",num)
       food.set("money",money)
