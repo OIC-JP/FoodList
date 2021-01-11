@@ -70,7 +70,7 @@ function downloadImage(){
   $("#foodmainimg").empty();
 
       // ファイル名からファイルを取得
-      var fileName = document.getElementById("syokuzai_1");
+      var fileName = "sss";
       ncmb.File.download(fileName, "blob")
           .then(function(blob) {
           // ファイルリーダーにデータを渡す
