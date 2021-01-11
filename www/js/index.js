@@ -26,8 +26,9 @@ function category_item(){
 var addpush = function(){
       var fileName = document.getElementById("name").value;
       var fileData = document.getElementById("img").files[0];
+      var fileca = document.getElementById("category").value;
 
-      ncmb.File.upload(fileName, fileData)
+      ncmb.File.upload(fileName, fileData,fileca)
         .then(function(res){
           // アップロード後処理
           alert("アップロード成功");
