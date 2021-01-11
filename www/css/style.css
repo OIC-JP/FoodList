@@ -17,8 +17,8 @@ label input {
   font-size: 25px;
   width: 30px;
   height: 30px;
-  line-height: 30px;
-  border-radius: 30%;
+  line-height: 25px;
+  border-radius: 33%;
   text-align: center;
   overflow: hidden;
   transition: .4s;
@@ -36,10 +36,10 @@ label input {
   display: inline-block;
   text-decoration: none;
   color: #FFF;
-  font-size: 35px;
-  width: 120px;
-  height: 120px;
-  line-height: 120px;
+  font-size: 27px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
   border-radius: 50%;
   text-align: center;
   overflow: hidden;
@@ -75,21 +75,21 @@ nav{
   padding: 0;
 }
 
-.menu-list li{
+#menu-list li{
   display: table-cell;
   white-space: nowrap;
   font-size: 80%;
   line-height: 1.4;
 }
 
-.menu-list li a:hover{
+#menu-list li a:hover{
   color: rgb(0, 148, 123);
   border-bottom:solid;
   border-color: rgb(0, 148, 123);
   border-width: 4px;
 }
 
-.menu-list li a{
+#menu-list li a{
   text-decoration: none;
   color: rgb(0, 0, 0);
   padding: 2em;
@@ -98,4 +98,3 @@ nav{
   border-color: rgb(0, 148, 123);
   border-width: 1px;
 }
-

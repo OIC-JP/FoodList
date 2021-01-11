@@ -1,31 +1,78 @@
 
 //ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-// APIキーの設定とSDK初期化
-var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
-var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
+
+// APIキーの設定とSDK初期化::::
+var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
+var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
-
-
-function addpush(){
-  // テキストエリアの値を取得する
-  // var name = document.getElementById("name").value;
-  var num = document.getElementById("num").value;
-  // var date = document.getElementById("date").value;
-  var money = document.getElementById("money").value;
-  // アラートで表示する
-  alert(num,money);
-
-  //データをニフクラに保存する
-  //食材追加 保存先クラスの作成
-  var Food = ncmb.DataStore("Food");
-  //クラスのインスタンスを生成
-  var food = new Food();
-  //値を保存
-  food.set("num",num)
-  food.set("money",money)
-  .save();
+//カテゴリー追加　小銭作成中
+function category_item(){
+  var cg = ncmb.DataStore("Category");
+  var cg_item1 = "";
+  cg.order("createDate")
+    .limit(10)
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        cg_item1 = cg_item1+"<option value="+object.category+">"+object.category+"</option>";
+      }
+      document.getElementById("category").innerHTML = cg_item1;
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 }
+
+var addpush = function(){
+      var fileName = document.getElementById("name").value;
+      var fileData = document.getElementById("img").files[0];
+      var ca = document.getElementById("category");
+      var n = document.getElementById("category").selectedIndex;
+      var fileca = ca.options[n].value;
+      var num = document.getElementById("num").value;
+      var money = document.getElementById("money").value;
+
+      var Food = ncmb.DataStore("Food");
+      var food = new Food();
+      food.set("name",fileName)
+      food.set("category",fileca)
+      food.set("num",num)
+      food.set("money",money)
+      .save();
+
+      ncmb.File.upload(fileName, fileData)
+        .then(function(res){
+          // アップロード後処理
+          alert("アップロード成功");
+        })
+        .catch(function(err){
+          // エラー処理
+          alert("エラー");
+        });
+}
+
+//ここからおかしいです
+var reader = new FileReader();
+reader.onload = function(e) {
+  var dataUrl = reader.result;
+  document.getElementById("image").src = dataUrl;
+}
+function downloadImage(){
+      // ファイル名からファイルを取得
+      var fileName = "aia";
+      ncmb.File.download(fileName, "blob")
+          .then(function(blob) {
+          // ファイルリーダーにデータを渡す
+          reader.readAsDataURL(blob);
+          })
+          .catch(function(err) {
+              console.error(err);
+          })
+}
+
+//ここまでが
 
 ons.ready(function() {
   console.log("Onsen UI is ready!");
@@ -47,6 +94,14 @@ window.fn.load = function(page) {
     .load(page)
     .then(menu.close.bind(menu));
 };
+
+//カテゴリー追加
+function categoryadd(){
+  var cate=prompt("追加するカテゴリーを入力してください");
+  var Category = ncmb.DataStore("Category");
+  var category = new Category();
+  category.set("category",cate).save();
+}
 
 //画像表示
 function previewFile(obj) {
@@ -72,14 +127,14 @@ if (ons.platform.isIPhoneX()) {
 
 //並び替えメニューを選択した時
 
-//賞味期限
-document.getElementById("syoumi").onclick=mySort;
-function mySort() {
+//賞味期限順
+document.getElementById("syoumi").onclick=Sort1;
+function Sort1() {
     // (1) ノードリストを取得
-    var myUL = document.getElementById("syokuzai");
-    var myNodeList = myUL.getElementsByTagName("li");
+    var syokuzai = document.getElementById("syokuzai");
+    var node = syokuzai.getElementsByTagName("li");
     // (2) 配列を得る
-    var myArray = Array.prototype.slice.call(myNodeList);
+    var Array = Array.prototype.slice.call(node);
     // (3) 配列をソート
     function compareText (a,b) {
         if (a.textContent > b.textContent)
@@ -88,21 +143,21 @@ function mySort() {
             return -1;
         return 0;
         }
-    myArray.sort(compareText);
+    Array.sort1(compareText);
     // (4) 新しい順番を DOM ツリーに反映
-    for (var i=0; i<myArray.length; i++) {
-        myUL.appendChild(myUL.removeChild(myArray[i]))
+    for (var i=0; i<Array.length; i++) {
+        syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     }
 }
 
-//購入日
-document.getElementById("kounyubi").onclick=mySort;
-function mySort() {
+//購入日順
+document.getElementById("kounyubi").onclick=Sort2;
+function Sort2() {
     // (1) ノードリストを取得
-    var myUL = document.getElementById("syokuzai");
-    var myNodeList = myUL.getElementsByTagName("li");
+    var syokuzai = document.getElementById("syokuzai");
+    var node = syokuzai.getElementsByTagName("li");
     // (2) 配列を得る
-    var myArray = Array.prototype.slice.call(myNodeList);
+    var Array = Array.prototype.slice.call(node);
     // (3) 配列をソート
     function compareText (a,b) {
         if (a.textContent > b.textContent)
@@ -111,10 +166,92 @@ function mySort() {
             return -1;
         return 0;
         }
-    myArray.sort(compareText);
+    Array.sort(compareText);
     // (4) 新しい順番を DOM ツリーに反映
-    for (var i=0; i<myArray.length; i++) {
-        myUL.appendChild(myUL.removeChild(myArray[i]))
+    for (var i=0; i<Array.length; i++) {
+        syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     }
 }
+
+
+//日付の並び替え方法
+
+//配列準備
+const array = ['1940/10/9', '1967/2/20', '1943/2/25', '1942/6/18', '1969/1/14', '1940/7/7', '1965/5/16'];
+
+//昇順
+const ascArray = [...array].sort((a, b) => new Date(a) - new Date(b));
+
+//降順
+const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
+
+
 */
+
+
+//藤原　編集中
+$('all').hover(
+  function (){
+    // 画像一覧のダウンロード
+    getMyFileData();
+  }
+);
+
+function getMyFileData(){
+    //読み込み時の表示
+    $.mobile.loading('show', {
+        text: 'Loading...',
+        textVisible: true,
+        theme: 'a',
+        textonly: false,
+        html: ''
+    });
+    
+    // フィールドを空に
+    onDeleteMyPageField();
+    ncmb.File
+            .itme(10)
+            .fetchAll()
+            .then(function(results){
+                // ファイルデータ取得成功時の処理
+                console.log("ファイルデータ取得成功(myFile)");
+
+                var promises = [];
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
+                    promises.push(downloadMyFile(object, i)); 
+                }
+
+                /*** Promise ***/
+                Promise.all(promises)
+                            .then(function(results) {
+                                // 全てのPromise処理成功時の処理
+                                 console.log("全てのPromise処理に成功(myFile)：" + results + " OK");
+                                // loading の表示を終了
+                                $.mobile.loading('hide');
+                            })
+                            .catch(function(error){
+                                // 全てのPromise処理成功時の処理
+                                console.log("Promise処理に失敗(myFile)：" + error);
+                                alert("Promise処理に失敗(myFile)" );
+                                // loading の表示を終了
+                                $.mobile.loading('hide');
+                            });
+            })
+            .catch(function(error){
+                // ファイルデータ取得失敗時の処理
+                console.log("ファイルデータ取得失敗(myFile)：" + error);
+                alert("Promise処理に失敗(myFile)" );
+                // loading の表示を終了
+                $.mobile.loading('hide');
+            });
+}
+
+function onDeleteMyPageField() {
+    // フィールドを空に
+    for (var i = 0; i < 10; i++) {
+      $("#myImage_" + i).attr("src", ""); 
+      $("#myTitle_" + i).html("");
+    }
+}
