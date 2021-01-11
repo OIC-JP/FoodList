@@ -42,7 +42,7 @@ var addpush = function(){
 var reader = new FileReader();
 reader.onload = function(e) {
   var dataUrl = reader.result;
-  document.getElementById("image").src = dataUrl;
+  document.getElementById("syokuzai_1").src = dataUrl;
 }
 function downloadImage(){
 
@@ -52,6 +52,7 @@ function downloadImage(){
 
       // ファイル名からファイルを取得
       var fileName = "aia";
+
       ncmb.File.download(fileName, "blob")
           .then(function(blob) {
           // ファイルリーダーにデータを渡す
