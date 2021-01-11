@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body onload="category_item()">
   
   <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊-->
   <ons-template id="home.html">
@@ -37,12 +37,12 @@
       <!-- メイン -->
       <nav class="nav-horizontal">
         <div class="mask">
-          <ul class="menu-list">
-            <li class="menu-item>"><a href="#">すべて</a></li>
-            <li class="menu-item>"><a href="#">肉・　魚</a></li>
-            <li class="menu-item>"><a href="#">野菜</a></li>
-            <li class="menu-item>"><a href="#">飲み物</a></li>
-            <li class="menu-item>"><a href="#">その他</a></li>
+          <ul id="menu-list">
+            <li class="menu-item"><a href="#">すべて</a></li>
+            <li class="menu-item"><a href="#">肉・魚</a></li>
+            <li class="menu-item"><a href="#">野菜</a></li>
+            <li class="menu-item"><a href="#">飲み物</a></li>
+            <li class="menu-item"><a href="#">その他</a></li>
           </ul>
         </div>
       </nav>
@@ -72,6 +72,11 @@
             <ons-list-item onclick="fn.load('foodadd.html')" tappable>
               <div style="font-size: 20px">
                 食材の追加
+              </div>
+            </ons-list-item>
+            <ons-list-item onclick="categoryadd()" tappable>
+              <div style="font-size: 20px">
+                カテゴリーの追加
               </div>
             </ons-list-item>
           </ons-list>
@@ -116,7 +121,7 @@
   </dialog>
 
   <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
-  <ons-template id="foodadd.html">
+  <ons-template id="foodadd.html" onload="category_item()">
     <ons-page>
       <ons-toolbar>
         <div class="left">
@@ -131,11 +136,8 @@
       <!-- メイン -->
       <form style="padding:20px;">
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <select name="category" style="width:97%;padding:10px;">
-          <option value="肉･魚">肉･魚</option>
-          <option value="野菜">野菜</option>
-          <option value="飲み物">飲み物</option>
-          <option value="その他">その他</option>
+        <select id="category" style="width:97%;padding:10px;">
+          
         </select>
         <div id="photo">
           <label for="img">
