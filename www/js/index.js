@@ -46,21 +46,26 @@ var addpush = function(){
       document.getElementById("image").src = dataUrl;
     }
 
-//ここからおかしいです
-    function downloadImage(){
-          // ファイル名からファイルを取得
-          var fileName = "king.jpeg";
 
-          // ダウンロード（データ形式をblobを指定）
-          ncmb.File.download(fileName, "blob")
-              .then(function(blob) {
-              // ファイルリーダーにデータを渡す
-              reader.readAsDataURL(blob);
-              })
-              .catch(function(err) {
-                  console.error(err);
-              })
-        }
+//ここからおかしいです
+var reader = new FileReader();
+reader.onload = function(e) {
+  var dataUrl = reader.result;
+  document.getElementById("image").src = dataUrl;
+}
+function downloadImage(){
+      // ファイル名からファイルを取得
+      var fileName = "aia";
+      ncmb.File.download(fileName, "blob")
+          .then(function(blob) {
+          // ファイルリーダーにデータを渡す
+          reader.readAsDataURL(blob);
+          })
+          .catch(function(err) {
+              console.error(err);
+          })
+}
+
 //ここまでが
 
 
