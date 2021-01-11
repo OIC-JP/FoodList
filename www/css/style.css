@@ -95,3 +95,17 @@ nav{
   border-color: rgb(0, 148, 123);
   border-width: 1px;
 }
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#grid {
+	width: 450px;
+}
+.haiti {
+	margin: 5px;
+	float: left;
+	list-style: none;
+}
