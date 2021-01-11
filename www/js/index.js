@@ -64,6 +64,11 @@ reader.onload = function(e) {
   document.getElementById("image").src = dataUrl;
 }
 function downloadImage(){
+
+  $("#foodmainimg").attr("src","");
+  $("#foodmainimg").val("");
+  $("#foodmainimg").empty();
+
       // ファイル名からファイルを取得
       var fileName = "aia";
       ncmb.File.download(fileName, "blob")
