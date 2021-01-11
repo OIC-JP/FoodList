@@ -2,8 +2,8 @@
 //ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化::::
-var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
-var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
+var applicationKey = "976f672f3823e13b4ad0ddef5d62fc9df2eaad6760999d46b610da0b6b7c509d";
+var clientKey = "16f4f6fb9a26fb7af3e85219d3fe31d3103d244cb91c2c3b709cba4f8abf916b";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 //カテゴリー追加　小銭作成中
@@ -26,19 +26,25 @@ function category_item(){
 }
 
 var addpush = function(){
-      var fileName = document.getElementById("name").value;
+      var name = document.getElementById("name").value;
+      // 作品名をエンコード
+      var fileName = encodeURIComponent(name);
       var fileData = document.getElementById("img").files[0];
       var ca = document.getElementById("category");
       var n = document.getElementById("category").selectedIndex;
       var fileca = ca.options[n].value;
       var num = document.getElementById("num").value;
+      var buy_date = document.getElementById("buy_date").value;
+      var expiration_date = document.getElementById("expiration_date").value;
       var money = document.getElementById("money").value;
 
       var Food = ncmb.DataStore("Food");
       var food = new Food();
-      food.set("name",fileName)
+      food.set("name",name)
       food.set("category",fileca)
       food.set("num",num)
+      food.set("buy_date",buy_date)
+      food.set("expiration_date",expiration_date)
       food.set("money",money)
       .save();
 
@@ -60,8 +66,20 @@ reader.onload = function(e) {
   document.getElementById("image").src = dataUrl;
 }
 function downloadImage(){
+
+  
+      $("#foodmainimg").attr("src", ""); 
+      $("#foodmainimg").val(""); 
+      $("#foodmainimg").empty();
+      
+
+
+
+
+
+
       // ファイル名からファイルを取得
-      var fileName = "aia";
+      var fileName = "ice";
       ncmb.File.download(fileName, "blob")
           .then(function(blob) {
           // ファイルリーダーにデータを渡す
@@ -98,9 +116,11 @@ window.fn.load = function(page) {
 //カテゴリー追加
 function categoryadd(){
   var cate=prompt("追加するカテゴリーを入力してください");
-  var Category = ncmb.DataStore("Category");
-  var category = new Category();
-  category.set("category",cate).save();
+  if(cate != null){
+    var Category = ncmb.DataStore("Category");
+    var category = new Category();
+    category.set("category",cate).save();
+  }
 }
 
 //画像表示
@@ -190,11 +210,19 @@ const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
 
 
 //藤原　編集中
-$('all').hover(
-  function (){
-    // 画像一覧のダウンロード
-    getMyFileData();
-  }
+$('#all').hover(
+function downloadImage(){
+      // ファイル名からファイルを取得
+      var fileName = "ice";
+      ncmb.File.download(fileName, "blob")
+          .then(function(blob) {
+          // ファイルリーダーにデータを渡す
+          reader.readAsDataURL(blob);
+          })
+          .catch(function(err) {
+              console.error(err);
+          })
+}
 );
 
 function getMyFileData(){

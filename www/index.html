@@ -39,7 +39,7 @@
       <nav class="nav-horizontal">
         <div class="mask">
           <ul id="menu-list">
-            <li class="menu-item" id="all"><a href="#">すべて</a></li>
+            <li class="menu-item" onclick="downloadImage()"><a href="#">すべて</a></li>
             <li class="menu-item"><a href="#">肉・魚</a></li>
             <li class="menu-item"><a href="#">野菜</a></li>
             <li class="menu-item"><a href="#">飲み物</a></li>
@@ -47,90 +47,13 @@
           </ul>
         </div>
       </nav>
-      <table border="1" width="98%">
-                        <tr height="200px">
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_0" width="75%"/><br>
-                                    <span id="myTitle_0"></span><br>
-                                </center>
-                            </td>
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_1" width="75%"/><br>
-                                    <span id="myTitle_1"></span><br>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr height="200px">
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_2" width="75%"/><br>
-                                    <span id="myTitle_2"></span><br>
-                                </center>
-                            </td>
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_3" width="75%"/><br>
-                                    <span id="myTitle_3"></span><br>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr height="200px">
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_4" width="75%"/><br>
-                                    <span id="myTitle_4"></span><br>
-                                </center>
-                            </td>
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_5" width="75%"/><br>
-                                    <span id="myTitle_5"></span><br>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr height="200px">
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_6" width="75%"/><br>
-                                    <span id="myTitle_6"></span><br>
-                                </center>
-                            </td>
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_7" width="75%"/><br>
-                                    <span id="myTitle_7"></span><br>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr height="200px">
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_8" width="75%"/><br>
-                                    <span id="myTitle_8"></span><br>
-                                </center>
-                            </td>
-                            <td width="49%">
-                                <center>
-                                    <img src="" id="myImage_9" width="75%"/><br>
-                                    <span id="myTitle_9"></span><br>
-                                </center>
-                            </td>
-                        </tr>
-                    </table>
       <div id="foodimg" style="text-align:center;padding-top:50%">
-        <img src="img/Foodimg.png">
+        <img src="img/Foodimg.png" id="foodmainimg">
 
         <!-- 編集中→　　このへんいじってます -->
         <img src="" id="image" width="200" height="200"/>
         <input type="submit" value="画像表示" id="view" onclick="downloadImage()" />
         <!-- ←編集中 -->
-        <center>
-          <img src="" id="image_0" width="75%"/><br>
-          <span id="title_0"></span><br>
-          <span id="poster_0"></span>
-        </center>
 
       </div>
     </ons-page>
@@ -214,7 +137,7 @@
       <!-- メイン -->
       <form style="padding:20px;">
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <select id="category" style="width:97%;padding:10px;">
+        <select id="category" style="width:97%;padding:10px;margin-top:7px">
           <option value="肉">肉</option>
         </select>
         <div id="photo">
@@ -224,10 +147,10 @@
           </label>
           <ons-button id="clearbtn" onclick="clearimg()">×</ons-button>
         </div>
-        <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
-        <input name="buy_date" type="date" style="width:90%;padding:10px">
-        <input name="expiration_date" type="date" style="width:90%;padding:10px">
-        <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
+        <input type="text" id="num" style="width:90%;padding:10px;margin-top:5px" placeholder="個数">
+        <input type="text" id="buy_date" style="width:90%;padding:10px;margin-top:7px" placeholder="購入日を入力(yyyy/mm/dd)">
+        <input type="text" id="expiration_date" style="width:90%;padding:10px;margin-top:7px" placeholder="消費期限を入力(yyyy/mm/dd)">
+        <input type="text" id="money" style="width:90%;padding:10px;margin-top:7px" placeholder="金額">
         <ons-button id="addbtn" onclick="addpush()">add</ons-button>
       </form>
     </ons-page>
