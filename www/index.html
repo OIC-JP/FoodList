@@ -19,7 +19,7 @@
   <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊＊＊-->
   <ons-template id="home.html">
     <ons-page>
-      <ons-toolbar id="tuul">
+      <ons-toolbar class="tuul">
         <!-- 左上メニュー -->
         <div class="left">
           <ons-toolbar-button onclick="fn.open1()">
@@ -27,7 +27,7 @@
           </ons-toolbar-button>
         </div>
         <!-- センタータイトル -->
-        <div class="center" id="center"> 
+        <div class="center"> 
          Food List
         </div>
         <div onclick="fn.open2()" class="right" id="yaji">
@@ -107,7 +107,7 @@
   <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template id="foodadd.html" onload="category_item()">
     <ons-page>
-      <ons-toolbar>
+      <ons-toolbar class="tuul">
         <div class="left">
           <ons-toolbar-button onclick="fn.open1()">
             <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>

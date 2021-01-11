@@ -4,11 +4,11 @@
   object-fit: cover;
 }
 
-#tuul{
+.tuul{
   background-color: rgba(245, 210, 13, 0.897);
 }
 
-#center{
+.center{
   color: rgb(2, 102, 85);
 }
 
