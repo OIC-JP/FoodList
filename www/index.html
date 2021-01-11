@@ -136,7 +136,7 @@
       <!-- メイン -->
       <form style="padding:20px;">
         <input type="text" id="name" style="width: 90%; padding: 10px;" placeholder="商品名を入力">
-        <select id="category" style="width:97%;padding:10px;">
+        <select id="category" style="width:97%;padding:10px;margin-top:7px">
           <option value="肉">肉</option>
         </select>
         <div id="photo">
@@ -146,10 +146,10 @@
           </label>
           <ons-button id="clearbtn" onclick="clearimg()">×</ons-button>
         </div>
-        <input type="text" id="num" style="width:90%;padding:10px;" placeholder="個数">
-        <input name="buy_date" type="date" style="width:90%;padding:10px">
-        <input name="expiration_date" type="date" style="width:90%;padding:10px">
-        <input type="text" id="money" style="width:90%;padding:10px;" placeholder="金額">
+        <input type="text" id="num" style="width:90%;padding:10px;margin-top:5px" placeholder="個数">
+        <input type="text" name="buy_date" style="width:90%;padding:10px;margin-top:7px" placeholder="購入日を入力(yyyy/mm/dd)">
+        <input type="text" name="expiration_date" style="width:90%;padding:10px;margin-top:7px" placeholder="消費期限を入力(yyyy/mm/dd)">
+        <input type="text" id="money" style="width:90%;padding:10px;margin-top:7px" placeholder="金額">
         <ons-button id="addbtn" onclick="addpush()">add</ons-button>
       </form>
     </ons-page>

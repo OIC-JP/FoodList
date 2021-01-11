@@ -98,9 +98,11 @@ window.fn.load = function(page) {
 //カテゴリー追加
 function categoryadd(){
   var cate=prompt("追加するカテゴリーを入力してください");
-  var Category = ncmb.DataStore("Category");
-  var category = new Category();
-  category.set("category",cate).save();
+  if(cate != null){
+    var Category = ncmb.DataStore("Category");
+    var category = new Category();
+    category.set("category",cate).save();
+  }
 }
 
 //画像表示
