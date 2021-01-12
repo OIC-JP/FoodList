@@ -193,22 +193,20 @@ var ncmb = new NCMB(applicationKey, clientKey);
     //***カテゴリーごとの食材表示*******************遠藤 HELP!!!!!!!!!!!!!!!
 
     $(function() {
-    var lists = $('.list li'); //?
-    $(document).on('click', '.menu-item a', function() { //あってると思うんだけど、、
-        // 絞り込みの対象を取得
-        var target = $(this).attr('href').replace('#', ''); //いらんよな？
-        lists.each(function(e) {                 //コールバック関数らしいけどよく分からん
-            // 絞り込み対象の場合は表示
-            if($(this).hasClass(target)) {      //targetじゃないのは分かるけど、、
-                $(this).show();                 //まずthisってどれのこと？
-            // 絞り込み対象でない場合は非表示
+        var lists = $('.list li'); 
+        var target = $('.menu-item a'); 
+        $(document).on('click', '.menu-item a', function() { //this        
+          // 絞り込み対象の場合は表示
+            if(lists == target) {
+              alert("aa");      //作動してない
+              $(this).show();      //?           
+          // 絞り込み対象でない場合は非表示
             } else {
-                $(this).hide();
+                alert("bb");  //ここは作動してる
+                $(this).hide();   //?
             }
         });
-        return false;
     });
-});
 
     /* (カテゴリーごとの食材表示)
      var menuList = '.menu-list';
