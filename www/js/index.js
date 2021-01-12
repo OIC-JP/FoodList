@@ -1,4 +1,4 @@
-//ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+//ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
 var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
@@ -128,7 +128,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
-  
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
@@ -193,6 +192,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
 
+
     $(document).on('click', '.menu-list a', function() {
         var lists = $('.food-list li');
         // 絞り込みの対象を取得
@@ -206,7 +206,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                 $(this).hide();
             }
         });
-        return false;
     });
 
     // //食材一覧（食材の削除） 遠藤作業中→
@@ -238,6 +237,37 @@ var ncmb = new NCMB(applicationKey, clientKey);
     //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
     //     }
     // }
+
+
+    //食材一覧（食材の削除） 遠藤作業中→
+    // <div id="syokuzai">
+    //   <button type="button" id="blue-button" onclick="remove()">削除</button>
+    // </div>
+
+
+    //***並び替えメニュー
+    //賞味期限順
+    document.getElementById("syoumi").onclick=Sort1;
+    function Sort1() {
+        // (1) ノードリストを取得
+        var syokuzai = document.getElementById("syokuzai");
+        var node = syokuzai.getElementsByTagName("li");
+        // (2) 配列を得る
+        var Array = Array.prototype.slice.call(node);
+        // (3) 配列をソート
+        function compareText (a,b) {
+            if (a.textContent > b.textContent)
+                return 1;
+            else if (a.textContent < b.textContent)
+                return -1;
+            return 0;
+            }
+        Array.sort1(compareText);
+        // (4) 新しい順番を DOM ツリーに反映
+        for (var i=0; i<Array.length; i++) {
+            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+        }
+    }
 
     //購入日順
     document.getElementById("kounyubi").onclick=Sort2;
@@ -312,7 +342,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
       }
     }
 
-    //カテゴリー追加　小銭作成中
+    //カテゴリー追加　小銭
     function category_item(){
       var cg = ncmb.DataStore("Category");
       var cg_item1 = "";
