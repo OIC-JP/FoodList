@@ -42,6 +42,9 @@ var ncmb = new NCMB(applicationKey, clientKey);
               // エラー処理
               alert("エラー");
             });
+
+          document.form.reset();
+          document.getElementById("preview").src = "img/noimage.jpg";
     }
 
    //***食材表示
@@ -126,7 +129,20 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
-      console.log("Onsen UI is ready!");
+      var cg = ncmb.DataStore("Category");
+      var cg_item1 = "";
+      cg.order("createDate")
+        .fetchAll()
+        .then(function(results){
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            cg_item1 += "<li class='menu-item'><a href='#'>"+object.category+"</a></li>";
+          }
+          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
     });
 
     window.fn = {};
