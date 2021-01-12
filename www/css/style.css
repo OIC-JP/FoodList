@@ -122,7 +122,12 @@ nav{
 	width: 375px;
 }
 .haiti {
-	margin: 5px;
+	margin: 7px;
 	float: left;
 	list-style: none;
 } 
+.food-item {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
