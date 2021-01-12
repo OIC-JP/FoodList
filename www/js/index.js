@@ -94,31 +94,31 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
             // ファイルのダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName_encode, "blob")
-                          .then(function(blob) {
-                              // ファイルダウンロード成功時の処理
-                              var reader = new FileReader();
-                              reader.onload = function(e) {
-                                  // 画像URLを設定
-                                  var dataUrl = reader.result;
-                                  var li = document.createElement("li");
-                                  li.setAttribute("class","haiti");
-                                  var img = document.createElement("img");
-                                  img.setAttribute("src",dataUrl);
-                                  img.setAttribute("width",80);
-                                  img.setAttribute("height",80);
-                                  img.setAttribute("id",id);
-                                  li.appendChild(img);
-                                  document.getElementById("food-list").appendChild(li);
-                              }
-                              // ファイルリーダーにデータを渡す
-                              reader.readAsDataURL(blob);
-                              
-                              resolve("画像" +i); 
-                          })
-                          .catch(function(error) {
-                              // ファイルダウンロード失敗時の処理
-                              reject("画像" + i);
-                          });
+                    .then(function(blob) {
+                        // ファイルダウンロード成功時の処理
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            // 画像URLを設定
+                            var dataUrl = reader.result;
+                            var li = document.createElement("li");
+                            li.setAttribute("class","haiti");
+                            var img = document.createElement("img");
+                            img.setAttribute("src",dataUrl);
+                            img.setAttribute("width",80);
+                            img.setAttribute("height",80);
+                            img.setAttribute("id",id);
+                            li.appendChild(img);
+                            document.getElementById("food-list").appendChild(li);
+                        }
+                        // ファイルリーダーにデータを渡す
+                        reader.readAsDataURL(blob);
+                        
+                        resolve("画像" +i); 
+                    })
+                    .catch(function(error) {
+                        // ファイルダウンロード失敗時の処理
+                        reject("画像" + i);
+                    });
         });
     }
     //ここまでが
