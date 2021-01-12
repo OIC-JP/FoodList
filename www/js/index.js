@@ -65,53 +65,81 @@ var addpush = function(){
 }
 
 //ここからおかしいです
-var reader = new FileReader();
-reader.onload = function(e) {
-  var dataUrl = reader.result;
-  document.getElementById("syokuzai_1").src = dataUrl;
-}
 function downloadImage(){
-  var food = "aaa";
   ncmb.File
-    .fetchAll()
-    .then(function(results){
-      for (var i = 0; i < results.length; i++) {
-        var object = results[i];
-        var name = object.fileName;
-        var name_encode = decodeURIComponent(name);
-        ncmb.File.download(name_encode, "blob")
-          .then(function(blob) {
-            var reader = new FileReader();
-            alert(food);
-              var dataUrl = reader.result;
-              var id = "syokuzai_"+i;
-              food += "<li class='haiti'><img src="+dataUrl+" width='80' height='80' id="+id+"/></li>";
-          })
-          .catch(function(err) {
-            console.error(err);
-          })
-      }
-      document.getElementById("food-list").insertAdjacentHTML("afterbegin",food);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+            .order("createDate",true) // 作成日の降順を指定
+            .fetchAll()
+            .then(function(results){
+                // ファイルデータ取得成功時の処理
+                console.log("ファイルデータ取得成功(allFile)");
 
-  //$("#foodmainimg").attr("src","");
-  //$("#foodmainimg").val("");
-  //$("#foodmainimg").empty();
+                var promises = [];
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
+                    promises.push(downloadFile(object, i)); 
+                }
 
-  //    // ファイル名からファイルを取得
-  //    var fileName = "aia";
+                /*** Promise ***/
+                Promise.all(promises)
+                            .then(function(results) {
+                                // 全てのPromise処理成功時の処理
+                                 console.log("全てのPromise処理に成功(allFile)：" + results + " OK");
+                                // loading の表示を終了
+                            })
+                            .catch(function(error){
+                                // 全てのPromise処理成功時の処理
+                                console.log("Promise処理に失敗(allFile)：" + error);
+                                alert("Promise処理に失敗(allFile)" );
+                                // loading の表示を終了
+                            });
+            })
+            .catch(function(error){
+                // ファイルデータ取得失敗時の処理
+                console.log("ファイルデータ取得失敗(allFile)：" + error);
+                alert("ファイルデータ取得失敗(allFile)" );
+                // loading の表示を終了
+            });
+}
 
-  //    ncmb.File.download(fileName, "blob")
-  //        .then(function(blob) {
-  //        // ファイルリーダーにデータを渡す
-  //        reader.readAsDataURL(blob);
-  //        })
-  //        .catch(function(err) {
-  //            console.error(err);
-  //        })
+function downloadFile(object, i) {
+    /*** Promise ***/
+    return new Promise(function(resolve, reject) {        
+        // 画像・作品名・作者名の表示先を指定
+        var id = "syokuzai_" + i;
+
+        // ファイルデータからファイル名を取得
+        var fileName = object.fileName;
+        var fileName_encode = encodeURI(fileName);
+
+        // ファイルのダウンロード（データ形式をblobを指定）
+        ncmb.File.download(fileName_encode, "blob")
+                      .then(function(blob) {
+                          // ファイルダウンロード成功時の処理
+                          var reader = new FileReader();
+                          reader.onload = function(e) {
+                              // 画像URLを設定
+                              var dataUrl = reader.result;
+                              var li = document.createElement("li");
+                              li.setAttribute("class","haiti");
+                              var img = document.createElement("img");
+                              img.setAttribute("src",dataUrl);
+                              img.setAttribute("width",80);
+                              img.setAttribute("height",80);
+                              img.setAttribute("id",id);
+                              li.appendChild(img);
+                              document.getElementById("food-list").appendChild(li);
+                          }
+                          // ファイルリーダーにデータを渡す
+                          reader.readAsDataURL(blob);
+                          
+                          resolve("画像" +i); 
+                      })
+                      .catch(function(error) {
+                          // ファイルダウンロード失敗時の処理
+                          reject("画像" + i);
+                      });
+    });
 }
 //ここまでが
 
