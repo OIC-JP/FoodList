@@ -20,8 +20,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
           var category = ca.options[n].value;
           var fileCategory = encodeURIComponent(category);
           var num = document.getElementById("num").value;
-          var buy_date = document.getElementById("buy_date").value;
-          var expiration_date = document.getElementById("expiration_date").value;
+          var buy_date = document.getElementById("buy_date").value; //購入日
+          var expiration_date = document.getElementById("expiration_date").value; //賞味期限
           var money = document.getElementById("money").value;
 
           var Food = ncmb.DataStore("Food");
@@ -111,6 +111,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var li = document.createElement("li");
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
+                            li.setAttribute("name",li);
                             var img = document.createElement("img");
                             img.setAttribute("src",dataUrl);
                             img.setAttribute("class","food-item");
@@ -192,7 +193,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
 
-
+    //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
         var lists = $('.food-list li');
         // 絞り込みの対象を取得
@@ -208,49 +209,14 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     });
 
-    // //食材一覧（食材の削除） 遠藤作業中→
-    // // <div id="syokuzai">
-    // //   <button type="button" id="blue-button" onclick="remove()">削除</button>
-    // // </div>
-
-
-    // //***並び替えメニュー
-    // //賞味期限順
-    // document.getElementById("syoumi").onclick=Sort1;
-    // function Sort1() {
-    //     // (1) ノードリストを取得
-    //     var syokuzai = document.getElementById("syokuzai");
-    //     var node = syokuzai.getElementsByTagName("li");
-    //     // (2) 配列を得る
-    //     var Array = Array.prototype.slice.call(node);
-    //     // (3) 配列をソート
-    //     function compareText (a,b) {
-    //         if (a.textContent > b.textContent)
-    //             return 1;
-    //         else if (a.textContent < b.textContent)
-    //             return -1;
-    //         return 0;
-    //         }
-    //     Array.sort1(compareText);
-    //     // (4) 新しい順番を DOM ツリーに反映
-    //     for (var i=0; i<Array.length; i++) {
-    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-    //     }
-    // }
-
-
-    //食材一覧（食材の削除） 遠藤作業中→
-    // <div id="syokuzai">
-    //   <button type="button" id="blue-button" onclick="remove()">削除</button>
-    // </div>
-
 
     //***並び替えメニュー
     //賞味期限順
-    document.getElementById("syoumi").onclick=Sort1;
+     $(document).on('click', '.syoumi', function() {
+    alert("a");
     function Sort1() {
         // (1) ノードリストを取得
-        var syokuzai = document.getElementById("syokuzai");
+        var syokuzai = document.getElementById("menu-list");
         var node = syokuzai.getElementsByTagName("li");
         // (2) 配列を得る
         var Array = Array.prototype.slice.call(node);
@@ -268,39 +234,30 @@ var ncmb = new NCMB(applicationKey, clientKey);
             syokuzai.appendChild(syokuzai.removeChild(Array[i]))
         }
     }
+     });
 
     //購入日順
-    document.getElementById("kounyubi").onclick=Sort2;
-    function Sort2() {
-        // (1) ノードリストを取得
-        var syokuzai = document.getElementById("syokuzai");
-        var node = syokuzai.getElementsByTagName("li");
-        // (2) 配列を得る
-        var Array = Array.prototype.slice.call(node);
-        // (3) 配列をソート
-        function compareText (a,b) {
-            if (a.textContent > b.textContent)
-                return 1;
-            else if (a.textContent < b.textContent)
-                return -1;
-            return 0;
-            }
-        Array.sort(compareText);
-        // (4) 新しい順番を DOM ツリーに反映
-        for (var i=0; i<Array.length; i++) {
-            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-        }
-    }
-
-    //日付の並び替え方法　メモ
-    //配列準備
-    const array = ['1940/10/9', '1967/2/20', '1943/2/25', '1942/6/18', '1969/1/14', '1940/7/7', '1965/5/16'];
-    //昇順
-    const ascArray = [...array].sort((a, b) => new Date(a) - new Date(b));
-    //降順
-    const descArray = [...array].sort((a, b) => new Date(b) - new Date(a));
-
-  //←
+    // document.getElementById("kounyubi").onclick=Sort2;
+    // function Sort2() {
+    //     // (1) ノードリストを取得
+    //     var syokuzai = document.getElementById("syokuzai");
+    //     var node = syokuzai.getElementsByTagName("li");
+    //     // (2) 配列を得る
+    //     var Array = Array.prototype.slice.call(node);
+    //     // (3) 配列をソート
+    //     function compareText (a,b) {
+    //         if (a.textContent > b.textContent)
+    //             return 1;
+    //         else if (a.textContent < b.textContent)
+    //             return -1;
+    //         return 0;
+    //         }
+    //     Array.sort(compareText);
+    //     // (4) 新しい順番を DOM ツリーに反映
+    //     for (var i=0; i<Array.length; i++) {
+    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+    //     }
+    // }
 
 
 
