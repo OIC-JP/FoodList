@@ -44,7 +44,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
             });
     }
 
-    //ここからおかしいです
+   //***食材表示
     function downloadImage(){
       document.getElementById("food-list").innerHTML = "";
       ncmb.File
@@ -63,17 +63,17 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
               /*** Promise ***/
               Promise.all(promises)
-                    .then(function(results) {
-                        // 全てのPromise処理成功時の処理
-                        console.log("全てのPromise処理に成功(allFile)：" + results + " OK");
-                        // loading の表示を終了
-                    })
-                    .catch(function(error){
-                        // 全てのPromise処理成功時の処理
-                        console.log("Promise処理に失敗(allFile)：" + error);
-                        alert("Promise処理に失敗(allFile)" );
-                        // loading の表示を終了
-                    });
+                  .then(function(results) {
+                      // 全てのPromise処理成功時の処理
+                      console.log("全てのPromise処理に成功(allFile)：" + results + " OK");
+                      // loading の表示を終了
+                  })
+                  .catch(function(error){
+                      // 全てのPromise処理成功時の処理
+                      console.log("Promise処理に失敗(allFile)：" + error);
+                      alert("Promise処理に失敗(allFile)" );
+                      // loading の表示を終了
+                  });
           })
           .catch(function(error){
               // ファイルデータ取得失敗時の処理
@@ -83,6 +83,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
           });
     }
 
+    //食材表示関数
     function downloadFile(object, i) {
         /*** Promise ***/
         return new Promise(function(resolve, reject) {        
@@ -103,6 +104,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var dataUrl = reader.result;
                             var li = document.createElement("li");
                             li.setAttribute("class","haiti");
+                            li.setAttribute("data-group",i);
                             var img = document.createElement("img");
                             img.setAttribute("src",dataUrl);
                             img.setAttribute("class","food-item");
@@ -111,8 +113,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             document.getElementById("food-list").appendChild(li);
                         }
                         // ファイルリーダーにデータを渡す
-                        reader.readAsDataURL(blob);
-                        
+                        reader.readAsDataURL(blob);                       
                         resolve("画像" +i); 
                     })
                     .catch(function(error) {
@@ -121,7 +122,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
-    //ここまでが
+  
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
@@ -173,35 +174,92 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
 
-    //食材一覧（食材の削除） 遠藤作業中→
-    // <div id="syokuzai">
-    //   <button type="button" id="blue-button" onclick="remove()">削除</button>
-    // </div>
 
+    //***カテゴリーごとの食材表示
+    //  var menuList = '.menu-list';
+    //  var menuItem = '.menu-item';   // カテゴリー
+    //  var categoryItem = 'fileca';   // 食材のカテゴリー（日本語）
+    //  var hideClass = 'is-hide';     // 絞り込み対象外の場合に付与されるclass名
+    //  var activeClass = 'is-active';     // 選択中のグループに付与されるclass名
 
-    //並び替えメニュー
-    //賞味期限順
-    document.getElementById("syoumi").onclick=Sort1;
-    function Sort1() {
-        // (1) ノードリストを取得
-        var syokuzai = document.getElementById("syokuzai");
-        var node = syokuzai.getElementsByTagName("li");
-        // (2) 配列を得る
-        var Array = Array.prototype.slice.call(node);
-        // (3) 配列をソート
-        function compareText (a,b) {
-            if (a.textContent > b.textContent)
-                return 1;
-            else if (a.textContent < b.textContent)
-                return -1;
-            return 0;
+    $(function() {
+    var lists = $('fileca');
+    $(document).on('click', '.menu-item a', function() {
+        // 絞り込みの対象を取得
+        var target = $(this).attr('href').replace('#', '');
+        lists.each(function(e) {
+            // 絞り込み対象の場合は表示
+            if($(this).hasClass(target)) {
+                $(this).show();
+            // 絞り込み対象でない場合は非表示
+            } else {
+                $(this).hide();
             }
-        Array.sort1(compareText);
-        // (4) 新しい順番を DOM ツリーに反映
-        for (var i=0; i<Array.length; i++) {
-            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-        }
-    }
+        });
+        return false;
+    });
+});
+
+
+    // // 絞り込みを変更した時
+    // $(function() {
+    //   $(menuList).on('click', function() {
+    //     alert(menuItem);
+    //     if(menuItem.value == categoryItem.value){
+    //       alert(menuItem);
+    //       $(menuItem).removeClass(activeClass);
+    //     }
+    //   });
+    // });
+    
+    // function search_filter(group) {
+    //   // 非表示状態を解除
+    //   $(categoryItem).removeClass(hideClass);
+    //   // 値が空の場合はすべて表示(すべて 選択時)
+    //   if(group === '') {
+    //     return;
+    //   }
+    //   // リスト内の各アイテムをチェック
+    //   for (var i = 0; i < $(categoryItem).length; i++) {
+    //     // アイテムに設定している項目を取得
+    //     var itemData = $(categoryItem).eq(i).data('group');
+    //     // 絞り込み対象かどうかを調べる
+    //     if(itemData !== group) {
+    //       $(categoryItem).eq(i).addClass(hideClass);
+    //     }
+    //   }
+    // }
+
+
+    // //食材一覧（食材の削除） 遠藤作業中→
+    // // <div id="syokuzai">
+    // //   <button type="button" id="blue-button" onclick="remove()">削除</button>
+    // // </div>
+
+
+    // //***並び替えメニュー
+    // //賞味期限順
+    // document.getElementById("syoumi").onclick=Sort1;
+    // function Sort1() {
+    //     // (1) ノードリストを取得
+    //     var syokuzai = document.getElementById("syokuzai");
+    //     var node = syokuzai.getElementsByTagName("li");
+    //     // (2) 配列を得る
+    //     var Array = Array.prototype.slice.call(node);
+    //     // (3) 配列をソート
+    //     function compareText (a,b) {
+    //         if (a.textContent > b.textContent)
+    //             return 1;
+    //         else if (a.textContent < b.textContent)
+    //             return -1;
+    //         return 0;
+    //         }
+    //     Array.sort1(compareText);
+    //     // (4) 新しい順番を DOM ツリーに反映
+    //     for (var i=0; i<Array.length; i++) {
+    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+    //     }
+    // }
 
     //購入日順
     document.getElementById("kounyubi").onclick=Sort2;
@@ -294,9 +352,3 @@ var ncmb = new NCMB(applicationKey, clientKey);
             console.log(err);
         });
     }
-
-
-
-
-
-
