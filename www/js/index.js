@@ -57,9 +57,10 @@ function downloadImage(){
           .then(function(blob) {
             var reader = new FileReader();
             alert(food);
-              var dataUrl = reader.result;
-              var id = "syokuzai_"+i;
-              food += "<li class='haiti'><img src="+dataUrl+" width='80' height='80' id="+id+"/></li>";
+            var dataUrl = reader.result;
+            alert(dataUrl);
+            var id = "syokuzai_"+i;
+            food += "<li class='haiti'><img src="+dataUrl+" width='80' height='80' id="+id+"/></li>";
           })
           .catch(function(err) {
             console.error(err);
