@@ -338,5 +338,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
         var Category = ncmb.DataStore("Category");
         var category = new Category();
         category.set("category",cate).save();
+        setTimeout("location.reload()",700);
       }
     }
