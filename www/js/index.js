@@ -42,6 +42,9 @@ var ncmb = new NCMB(applicationKey, clientKey);
               // エラー処理
               alert("エラー");
             });
+
+          document.form.reset();
+          document.getElementById("preview").src = "img/noimage.jpg";
     }
 
     //ここからおかしいです
