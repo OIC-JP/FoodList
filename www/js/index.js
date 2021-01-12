@@ -1,4 +1,4 @@
-//ニフクラとの連携エリア＊＊＊データベース＊＊永野がやった＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+//ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
 var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
@@ -125,7 +125,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
-  
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
@@ -191,22 +190,17 @@ var ncmb = new NCMB(applicationKey, clientKey);
     //←
 
 
-    //***カテゴリーごとの食材表示
-    //  var menuList = '.menu-list';
-    //  var menuItem = '.menu-item';   // カテゴリー
-    //  var categoryItem = 'fileca';   // 食材のカテゴリー（日本語）
-    //  var hideClass = 'is-hide';     // 絞り込み対象外の場合に付与されるclass名
-    //  var activeClass = 'is-active';     // 選択中のグループに付与されるclass名
+    //***カテゴリーごとの食材表示*******************遠藤 HELP!!!!!!!!!!!!!!!
 
     $(function() {
-    var lists = $('fileca');
-    $(document).on('click', '.menu-item a', function() {
+    var lists = $('.list li'); //?
+    $(document).on('click', '.menu-item a', function() { //あってると思うんだけど、、
         // 絞り込みの対象を取得
-        var target = $(this).attr('href').replace('#', '');
-        lists.each(function(e) {
+        var target = $(this).attr('href').replace('#', ''); //いらんよな？
+        lists.each(function(e) {                 //コールバック関数らしいけどよく分からん
             // 絞り込み対象の場合は表示
-            if($(this).hasClass(target)) {
-                $(this).show();
+            if($(this).hasClass(target)) {      //targetじゃないのは分かるけど、、
+                $(this).show();                 //まずthisってどれのこと？
             // 絞り込み対象でない場合は非表示
             } else {
                 $(this).hide();
@@ -216,66 +210,72 @@ var ncmb = new NCMB(applicationKey, clientKey);
     });
 });
 
+    /* (カテゴリーごとの食材表示)
+     var menuList = '.menu-list';
+     var menuItem = '.menu-item';   
+     var categoryItem = 'fileca';   
+     var hideClass = 'is-hide';     // 絞り込み対象外の場合に付与されるclass名
+     var activeClass = 'is-active';     // 選択中のグループに付与されるclass名
 
-    // // 絞り込みを変更した時
-    // $(function() {
-    //   $(menuList).on('click', function() {
-    //     alert(menuItem);
-    //     if(menuItem.value == categoryItem.value){
-    //       alert(menuItem);
-    //       $(menuItem).removeClass(activeClass);
-    //     }
-    //   });
-    // });
+    // 絞り込みを変更した時
+    $(function() {
+      $(menuList).on('click', function() {
+        alert(menuItem);
+        if(menuItem.value == categoryItem.value){
+          alert(menuItem);
+          $(menuItem).removeClass(activeClass);
+        }
+      });
+    });
     
-    // function search_filter(group) {
-    //   // 非表示状態を解除
-    //   $(categoryItem).removeClass(hideClass);
-    //   // 値が空の場合はすべて表示(すべて 選択時)
-    //   if(group === '') {
-    //     return;
-    //   }
-    //   // リスト内の各アイテムをチェック
-    //   for (var i = 0; i < $(categoryItem).length; i++) {
-    //     // アイテムに設定している項目を取得
-    //     var itemData = $(categoryItem).eq(i).data('group');
-    //     // 絞り込み対象かどうかを調べる
-    //     if(itemData !== group) {
-    //       $(categoryItem).eq(i).addClass(hideClass);
-    //     }
-    //   }
-    // }
+    function search_filter(group) {
+      // 非表示状態を解除
+      $(categoryItem).removeClass(hideClass);
+      // 値が空の場合はすべて表示(すべて 選択時)
+      if(group === '') {
+        return;
+      }
+      // リスト内の各アイテムをチェック
+      for (var i = 0; i < $(categoryItem).length; i++) {
+        // アイテムに設定している項目を取得
+        var itemData = $(categoryItem).eq(i).data('group');
+        // 絞り込み対象かどうかを調べる
+        if(itemData !== group) {
+          $(categoryItem).eq(i).addClass(hideClass);
+        }
+      }
+    }
+    */
+
+    //食材一覧（食材の削除） 遠藤作業中→
+    // <div id="syokuzai">
+    //   <button type="button" id="blue-button" onclick="remove()">削除</button>
+    // </div>
 
 
-    // //食材一覧（食材の削除） 遠藤作業中→
-    // // <div id="syokuzai">
-    // //   <button type="button" id="blue-button" onclick="remove()">削除</button>
-    // // </div>
-
-
-    // //***並び替えメニュー
-    // //賞味期限順
-    // document.getElementById("syoumi").onclick=Sort1;
-    // function Sort1() {
-    //     // (1) ノードリストを取得
-    //     var syokuzai = document.getElementById("syokuzai");
-    //     var node = syokuzai.getElementsByTagName("li");
-    //     // (2) 配列を得る
-    //     var Array = Array.prototype.slice.call(node);
-    //     // (3) 配列をソート
-    //     function compareText (a,b) {
-    //         if (a.textContent > b.textContent)
-    //             return 1;
-    //         else if (a.textContent < b.textContent)
-    //             return -1;
-    //         return 0;
-    //         }
-    //     Array.sort1(compareText);
-    //     // (4) 新しい順番を DOM ツリーに反映
-    //     for (var i=0; i<Array.length; i++) {
-    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-    //     }
-    // }
+    //***並び替えメニュー
+    //賞味期限順
+    document.getElementById("syoumi").onclick=Sort1;
+    function Sort1() {
+        // (1) ノードリストを取得
+        var syokuzai = document.getElementById("syokuzai");
+        var node = syokuzai.getElementsByTagName("li");
+        // (2) 配列を得る
+        var Array = Array.prototype.slice.call(node);
+        // (3) 配列をソート
+        function compareText (a,b) {
+            if (a.textContent > b.textContent)
+                return 1;
+            else if (a.textContent < b.textContent)
+                return -1;
+            return 0;
+            }
+        Array.sort1(compareText);
+        // (4) 新しい順番を DOM ツリーに反映
+        for (var i=0; i<Array.length; i++) {
+            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+        }
+    }
 
     //購入日順
     document.getElementById("kounyubi").onclick=Sort2;
@@ -350,7 +350,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
       }
     }
 
-    //カテゴリー追加　小銭作成中
+    //カテゴリー追加　小銭
     function category_item(){
       var cg = ncmb.DataStore("Category");
       var cg_item1 = "";
