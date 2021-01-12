@@ -71,22 +71,47 @@ reader.onload = function(e) {
   document.getElementById("syokuzai_1").src = dataUrl;
 }
 function downloadImage(){
-
-  $("#foodmainimg").attr("src","");
-  $("#foodmainimg").val("");
-  $("#foodmainimg").empty();
-
-      // ファイル名からファイルを取得
-      var fileName = "aia";
-
-      ncmb.File.download(fileName, "blob")
+  var food = "aaa";
+  ncmb.File
+    .fetchAll()
+    .then(function(results){
+      for (var i = 0; i < results.length; i++) {
+        var object = results[i];
+        var name = object.fileName;
+        var name_encode = decodeURIComponent(name);
+        ncmb.File.download(name_encode, "blob")
           .then(function(blob) {
-          // ファイルリーダーにデータを渡す
-          reader.readAsDataURL(blob);
+            var reader = new FileReader();
+            alert(food);
+              var dataUrl = reader.result;
+              var id = "syokuzai_"+i;
+              food += "<li class='haiti'><img src="+dataUrl+" width='80' height='80' id="+id+"/></li>";
           })
           .catch(function(err) {
-              console.error(err);
+            console.error(err);
           })
+      }
+      document.getElementById("food-list").insertAdjacentHTML("afterbegin",food);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+
+  //$("#foodmainimg").attr("src","");
+  //$("#foodmainimg").val("");
+  //$("#foodmainimg").empty();
+
+  //    // ファイル名からファイルを取得
+  //    var fileName = "aia";
+
+  //    ncmb.File.download(fileName, "blob")
+  //        .then(function(blob) {
+  //        // ファイルリーダーにデータを渡す
+  //        reader.readAsDataURL(blob);
+  //        })
+  //        .catch(function(err) {
+  //            console.error(err);
+  //        })
 }
 //ここまでが
 
