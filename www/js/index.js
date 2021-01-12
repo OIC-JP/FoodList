@@ -331,7 +331,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
 //＊＊＊カテゴリーの追加＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-
     //カテゴリー追加
     function categoryadd(){
       var cate=prompt("追加するカテゴリーを入力してください");
@@ -340,23 +339,4 @@ var ncmb = new NCMB(applicationKey, clientKey);
         var category = new Category();
         category.set("category",cate).save();
       }
-    }
-
-    //カテゴリー追加　小銭
-    function category_item(){
-      var cg = ncmb.DataStore("Category");
-      var cg_item1 = "";
-      cg.order("createDate")
-        .limit(10)
-        .fetchAll()
-        .then(function(results){
-          for (var i = 0; i < results.length; i++) {
-            var object = results[i];
-            cg_item1 = cg_item1+"<option value="+object.category+">"+object.category+"</option>";
-          }
-          document.getElementById("category").innerHTML = cg_item1;
-        })
-        .catch(function(err){
-            console.log(err);
-        });
     }
