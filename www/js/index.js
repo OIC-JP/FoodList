@@ -17,7 +17,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
           var fileData = document.getElementById("img").files[0];
           var ca = document.getElementById("category");
           var n = document.getElementById("category").selectedIndex;
-          var fileca = ca.options[n].value;
+          var category = ca.options[n].value;
+          var fileCategory = encodeURIComponent(category);
           var num = document.getElementById("num").value;
           var buy_date = document.getElementById("buy_date").value;
           var expiration_date = document.getElementById("expiration_date").value;
@@ -26,13 +27,14 @@ var ncmb = new NCMB(applicationKey, clientKey);
           var Food = ncmb.DataStore("Food");
           var food = new Food();
           food.set("name",name)
-          food.set("category",fileca)
+          food.set("category",category)
           food.set("num",num)
           food.set("buy_date",buy_date)
           food.set("expiration_date",expiration_date)
           food.set("money",money)
           .save();
 
+          fileName = fileName+"_"+fileCategory;
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
@@ -105,9 +107,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
                         reader.onload = function(e) {
                             // 画像URLを設定
                             var dataUrl = reader.result;
+                            var fileNameArray = fileName.split('_');
                             var li = document.createElement("li");
-                            li.setAttribute("class","haiti");
-                            li.setAttribute("data-group",i);
+                            var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
+                            li.setAttribute("class",c);
                             var img = document.createElement("img");
                             img.setAttribute("src",dataUrl);
                             img.setAttribute("class","food-item");
@@ -136,7 +139,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            cg_item1 += "<li class='menu-item'><a href='#'>"+object.category+"</a></li>";
+            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
           }
           document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
         })
@@ -167,7 +170,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            cg_item1 += "<li class='menu-item'><a href='#'>"+object.category+"</a></li>";
+            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
           }
           document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
         })
@@ -190,17 +193,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
 
-
-    //***カテゴリーごとの食材表示
-    //  var menuList = '.menu-list';
-    //  var menuItem = '.menu-item';   // カテゴリー
-    //  var categoryItem = 'fileca';   // 食材のカテゴリー（日本語）
-    //  var hideClass = 'is-hide';     // 絞り込み対象外の場合に付与されるclass名
-    //  var activeClass = 'is-active';     // 選択中のグループに付与されるclass名
-
-    $(function() {
-    var lists = $('fileca');
-    $(document).on('click', '.menu-item a', function() {
+    $(document).on('click', '.menu-list a', function() {
+        var lists = $('.food-list li');
         // 絞り込みの対象を取得
         var target = $(this).attr('href').replace('#', '');
         lists.each(function(e) {
@@ -214,38 +208,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
         return false;
     });
-});
-
-
-    // // 絞り込みを変更した時
-    // $(function() {
-    //   $(menuList).on('click', function() {
-    //     alert(menuItem);
-    //     if(menuItem.value == categoryItem.value){
-    //       alert(menuItem);
-    //       $(menuItem).removeClass(activeClass);
-    //     }
-    //   });
-    // });
-    
-    // function search_filter(group) {
-    //   // 非表示状態を解除
-    //   $(categoryItem).removeClass(hideClass);
-    //   // 値が空の場合はすべて表示(すべて 選択時)
-    //   if(group === '') {
-    //     return;
-    //   }
-    //   // リスト内の各アイテムをチェック
-    //   for (var i = 0; i < $(categoryItem).length; i++) {
-    //     // アイテムに設定している項目を取得
-    //     var itemData = $(categoryItem).eq(i).data('group');
-    //     // 絞り込み対象かどうかを調べる
-    //     if(itemData !== group) {
-    //       $(categoryItem).eq(i).addClass(hideClass);
-    //     }
-    //   }
-    // }
-
 
     // //食材一覧（食材の削除） 遠藤作業中→
     // // <div id="syokuzai">
