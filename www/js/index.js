@@ -12,29 +12,25 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     var addpush = function(){
           var name = document.getElementById("name").value;
-          // 作品名をエンコード
-          var fileName = encodeURIComponent(name);
+          var Name = encodeURIComponent(name);
           var fileData = document.getElementById("img").files[0];
           var ca = document.getElementById("category");
           var n = document.getElementById("category").selectedIndex;
           var category = ca.options[n].value;
-          var fileCategory = encodeURIComponent(category);
+          var Category = encodeURIComponent(category);
           var num = document.getElementById("num").value;
           var buy_date = document.getElementById("buy_date").value; //購入日
+          var Buy_date = buy_date.split('/');
           var expiration_date = document.getElementById("expiration_date").value; //賞味期限
+          var Expiration_date = expiration_date.split('/');
           var money = document.getElementById("money").value;
+          Buy_date[1] = Buy_date[1].padStart(2, '0');
+          Buy_date[2] = Buy_date[2].padStart(2, '0');
+          Expiration_date[1] = Expiration_date[1].padStart(2, '0');
+          Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
-          var Food = ncmb.DataStore("Food");
-          var food = new Food();
-          food.set("name",name)
-          food.set("category",category)
-          food.set("num",num)
-          food.set("buy_date",buy_date)
-          food.set("expiration_date",expiration_date)
-          food.set("money",money)
-          .save();
-
-          fileName = fileName+"_"+fileCategory;
+          fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
+                    +Expiration_date[0]+Expiration_date[1]+Expiration_date[2]+"_"+money;
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
