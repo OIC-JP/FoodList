@@ -1,10 +1,9 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "976f672f3823e13b4ad0ddef5d62fc9df2eaad6760999d46b610da0b6b7c509d";
-var clientKey = "16f4f6fb9a26fb7af3e85219d3fe31d3103d244cb91c2c3b709cba4f8abf916b";
+var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
+var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
-
 
 
 
@@ -35,6 +34,11 @@ var ncmb = new NCMB(applicationKey, clientKey);
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
+              var Food = ncmb.DataStore("Food");        //ここ！！
+              var food = new Food();
+              food.set("buy_date",buy_date)
+              food.set("money",money)
+              .save();
               alert("アップロード成功");
             })
             .catch(function(err){
@@ -113,7 +117,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var p = document.createElement("p");
                             var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2);
                             var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2);
-                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick='cancelimg()'>"+"削除"+"</ons-button>";
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"削除"+"</ons-button>";
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
                             var img = document.createElement("img");
@@ -199,17 +203,15 @@ var ncmb = new NCMB(applicationKey, clientKey);
     //←
     
     //食材の削除　ひなこ作業中
-    function cancelimg(){
-      var Food = ncmb.DataStore("Food");
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
+    function cancelimg(filename){
+      var fn = encodeURI(filename);
+      ncmb.File.delete(fn)
+      .then(function(){
+        alert("削除しました");
+        setTimeout("location.reload()",700);
       })
       .catch(function(err){
-      //エラー処理
-      alert("エラー");
+        alert("エラー");
       });
     }
 
