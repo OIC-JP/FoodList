@@ -157,10 +157,10 @@
   <!--＊＊＊＊＊＊＊＊＊＊カテゴリー削除ダイアログ＊＊＊＊＊＊＊＊＊＊＊＊-->
   <template id="dialog.html">
       <ons-dialog id="dialog">
-        <ons-list id="dialog-item">
+        <form id="dialog-item">
 
-        </ons-list>
-        <ons-button class="dialog-btn" onclick="">OK</ons-button>
+        </form>
+        <ons-button class="dialog-btn" onclick="deleteDialog()">OK</ons-button>
         <ons-button class="dialog-btn" onclick="hideDialog()">Cancel</ons-button>
       </ons-dialog>
   </template>

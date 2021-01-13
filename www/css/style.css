@@ -147,10 +147,6 @@ nav{
   line-height: 15px;
 }
 
-.dialog-btn {
-  width: 49%;
-}   
-
 /* 会計簿のテーブル ↓ */ 
 table{
   width: 100%;
@@ -200,3 +196,11 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
   border-radius: 0 0 5px 0;
 }
+
+.dialog-btn {
+  margin: 10px;
+  width: 41%;
+  height: 30px;
+  line-height: 20px;
+}   
+
