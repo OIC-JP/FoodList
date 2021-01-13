@@ -65,12 +65,14 @@ var ncmb = new NCMB(applicationKey, clientKey);
           .then(function(results){
               // ファイルデータ取得成功時の処理
               console.log("ファイルデータ取得成功(allFile)");
+
               var promises = [];
               for (var i = 0; i < results.length; i++) {
                   var object = results[i];
                   // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
                   promises.push(downloadFile(object, i)); 
               }
+
               /*** Promise ***/
               Promise.all(promises)
                   .then(function(results) {
@@ -138,6 +140,21 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
+
+    //食材の削除　ひなこ作業中
+    function cancelimg(){
+      var Food = ncmb.DataStore("Food");
+      alert("asxdnm,;.");
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
+    }
    
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
@@ -202,7 +219,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
     
-    //食材の削除　ひなこ作業中
+    //食材の削除
     function cancelimg(filename){
       var fn = encodeURI(filename);
       ncmb.File.delete(fn)
