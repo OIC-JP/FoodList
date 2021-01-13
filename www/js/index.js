@@ -141,18 +141,16 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     }
 
-    //食材の削除　ひなこ作業中
-    function cancelimg(){
-      var Food = ncmb.DataStore("Food");
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
+    //食材の削除
+    function cancelimg(filename){
+      var fn = encodeURI(filename);
+      ncmb.File.delete(fn)
+      .then(function(){
+        alert("削除しました");
+        setTimeout("location.reload()",700);
       })
       .catch(function(err){
-      //エラー処理
-      alert("エラー");
+        alert("エラー");
       });
     }
    
@@ -218,19 +216,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     };
     //←
-    
-    //食材の削除
-    function cancelimg(filename){
-      var fn = encodeURI(filename);
-      ncmb.File.delete(fn)
-      .then(function(){
-        alert("削除しました");
-        setTimeout("location.reload()",700);
-      })
-      .catch(function(err){
-        alert("エラー");
-      });
-    }
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
