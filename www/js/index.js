@@ -1,10 +1,9 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "976f672f3823e13b4ad0ddef5d62fc9df2eaad6760999d46b610da0b6b7c509d";
-var clientKey = "16f4f6fb9a26fb7af3e85219d3fe31d3103d244cb91c2c3b709cba4f8abf916b";
+var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
+var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
-
 
 
 
@@ -35,6 +34,11 @@ var ncmb = new NCMB(applicationKey, clientKey);
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
+              var Food = ncmb.DataStore("Food");        //ここ！！
+              var food = new Food();
+              food.set("buy_date",buy_date)
+              food.set("money",money)
+              .save();
               alert("アップロード成功");
             })
             .catch(function(err){
@@ -107,57 +111,55 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
             // ファイルのダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName_encode, "blob")
-              .then(function(blob) {
-                  // ファイルダウンロード成功時の処理
-                  var reader = new FileReader();
-                  reader.onload = function(e) {
-                      // 画像URLを設定
-                      var dataUrl = reader.result;
-                      var fileNameArray = fileName.split('_');
-                      var li = document.createElement("li");
-                      var p = document.createElement("p");
-                      var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
-                      var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
-                      p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick='cancelimg()'>"+"削除"+"</ons-button>";
-                      var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
-                      li.setAttribute("class",c);
-                      var img = document.createElement("img");
-                      img.setAttribute("src",dataUrl);
-                      img.setAttribute("class","food-item");
-                      img.setAttribute("id",id);
-                      li.appendChild(img);
-                      li.appendChild(p);
-                      document.getElementById("food-list").appendChild(li);
+                    .then(function(blob) {
+                        // ファイルダウンロード成功時の処理
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            // 画像URLを設定
+                            var dataUrl = reader.result;
+                            var fileNameArray = fileName.split('_');
+                            var li = document.createElement("li");
+                            var p = document.createElement("p");
+                            var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
+                            var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"削除"+"</ons-button>";
+                            var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
+                            li.setAttribute("class",c);
+                            var img = document.createElement("img");
+                            img.setAttribute("src",dataUrl);
+                            img.setAttribute("class","food-item");
+                            img.setAttribute("id",id);
+                            li.appendChild(img);
+                            li.appendChild(p);
+                            document.getElementById("food-list").appendChild(li);
 
-                      //賞味期限と購入日を配列に格納
-                      syoumi_arr[cnt] += fileNameArray[4];
-                      kounyu_arr[cnt] += fileNameArray[3];                   
-                      cnt++;
-                      
-                  }
-                  // ファイルリーダーにデータを渡す
-                  reader.readAsDataURL(blob);                       
-                  resolve("画像" +i); 
-              })
-              .catch(function(error) {
-                  // ファイルダウンロード失敗時の処理
-                  reject("画像" + i);
-              });
+                            //賞味期限と購入日を配列に格納
+                            syoumi_arr[cnt] += fileNameArray[4];
+                            kounyu_arr[cnt] += fileNameArray[3];                   
+                            cnt++;
+                        }
+                        // ファイルリーダーにデータを渡す
+                        reader.readAsDataURL(blob);                       
+                        resolve("画像" +i); 
+                    })
+                    .catch(function(error) {
+                        // ファイルダウンロード失敗時の処理
+                        reject("画像" + i);
+                    });
+
         });
     }
 
-    //食材の削除　ひなこ作業中
-    function cancelimg(){
-      var Food = ncmb.DataStore("Food");
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
+    //食材の削除
+    function cancelimg(filename){
+      var fn = encodeURI(filename);
+      ncmb.File.delete(fn)
+      .then(function(){
+        alert("削除しました");
+        setTimeout("location.reload()",700);
       })
       .catch(function(err){
-      //エラー処理
-      alert("エラー");
+        alert("エラー");
       });
     }
    
@@ -223,7 +225,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     };
     //←
-    
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -244,32 +245,24 @@ var ncmb = new NCMB(applicationKey, clientKey);
     //***並び替えメニュー  遠藤作業中
     //賞味期限順
     function syoumiFunk(){
-
-      function Sort1() {
+      
           // (1) ノードリストを取得
-          var syokuzai = document.getElementById("menu-list");
-          var node = syokuzai.getElementsByTagName("li");
-          // (2) 配列を得る
-          var Array = Array.prototype.slice.call(node);
-          // (3) 配列をソート
-          function compareText (a,b) {
-              if (a.textContent > b.textContent)
-                  return 1;
-              else if (a.textContent < b.textContent)
-                  return -1;
-              return 0;
-              }
-          Array.sort1(compareText);
+          var syokuzai = document.getElementById("food-list");
+          
+          syoumi_arr.sort();
+          alert(syoumi_arr);
           // (4) 新しい順番を DOM ツリーに反映
-          for (var i=0; i<Array.length; i++) {
-              syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+          for (var i=0; i<syoumi_arr.length; i++) {
+            alert(syoumi_arr[i]);
+              //syokuzai.appendChild(syokuzai.removeChild(syoumi_arr[i]))
+              this.show();
           }
       }
-    }
+    
 
     //購入日順
     function kounyuFunk(){
-      syoumi_arr.sort();
+      kounyu_arr.sort();
       alert(syoumi_arr);
     }
     
