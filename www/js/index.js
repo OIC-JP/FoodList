@@ -29,15 +29,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
           Expiration_date[1] = Expiration_date[1].padStart(2, '0');
           Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
-
-          var Food = ncmb.DataStore("Food");    //ここ！！！！！
-          var food = new Food();
-          food.set("buy_date",buy_date)
-          food.set("money",money)
-          .save();
-
-          // fileName = fileName+"_"+fileCategory;
-
           fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
                     +Expiration_date[0]+Expiration_date[1]+Expiration_date[2];
 
@@ -51,7 +42,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
               alert("エラー");
             });
           
-          var Food = ncmb.DataStore("Food");
+          var Food = ncmb.DataStore("Food");        //ここ！！
           var food = new Food();
           food.set("buy_date",buy_date)
           food.set("money",money)
