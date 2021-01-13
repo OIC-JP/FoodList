@@ -1,147 +1,150 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-  <script src="components/loader.js"></script>
-  <script src="lib/onsenui/js/onsenui.min.js"></script>
-  <script src="js/index.js"></script>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="lib/onsenui/js/onsenui.min.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="components/loader.css">
-  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  
-  <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊＊＊-->
-  <ons-template id="home.html">
-    <ons-page>
-      <ons-toolbar class="tuul">
-        <!-- 左上メニュー -->
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open1()">
-            <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <!-- センタータイトル -->
-        <div class="center"> 
-         Food List
-        </div>
-        <div onclick="fn.open2()" class="right" id="yaji">
-          ↑↓　 <!--矢印の後に1文字の空白必須！！  -->
-        </div>
-      </ons-toolbar>
-      <!-- メイン -->
-      <nav class="nav-horizontal">
-        <div class="mask">
-          <ul id="menu-list" class="menu-list">
-            <li class="すべて"><a href="#すべて" onclick="downloadImage()">すべて</a></li>
-          </ul>
-        </div>
-      </nav>
-      <div id="foodimg" style="text-align:center;">
-        <!-- <img src="img/Foodimg.png" id="foodmainimg"> -->
-
-        <!-- 編集中→　　画像表示＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ -->
-        <!-- <img src="" id="image" width="200" height="200"/> -->
-        <div id="grid">
-          <ul id="food-list" class="food-list">
-            <img src="img/Foodimg.png" id="image" style="margin-top:40%">
-          </ul>
-          <ons-button id="cancelbtn" onclick="cancelimg()">×</ons-button>
-        </div>
-        <!-- ←編集中 -->
-
-      </div>
-    </ons-page>
-  </ons-template>
-
-    <!-- 各メニュー内部詳細 -->
-    <ons-splitter>
-      <!--ホーム左　画面遷移メニュー詳細 -->
-      <ons-splitter-side id="menu" side="left" width="220px" collapse>
-        <ons-page>
-          <ons-list>
-            <ons-list-item onclick="fn.load('home.html')" tappable>
-              <div style="font-size: 17px">
-                食材の一覧　<!-- home.html -->
-              </div>
-            </ons-list-item>
-            <ons-list-item onclick="fn.load('foodadd.html')" tappable>
-              <div style="font-size: 17px">
-                食材の追加
-              </div>
-            </ons-list-item>
-            <ons-list-item onclick="categoryadd()" tappable>
-              <div style="font-size: 17px">
-                カテゴリーの追加
-              </div>
-            </ons-list-item>
-          </ons-list>
-        </ons-page>
-    </ons-splitter-side>
-    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-
-  <!-- ホーム右　並び替え・編集メニュー詳細  -->
-  <ons-splitter-side id="sort" side="right" width="220px" collapse>
-    <ons-page>
-      <ons-list >
-        <ons-list-item id="narabi">
-          <div  style="font-size: 17px">
-            並び替え
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    
+    <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊＊＊-->
+    <ons-template id="home.html">
+      <ons-page>
+        <ons-toolbar class="tuul">
+          <!-- 左上メニュー -->
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open1()">
+              <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
           </div>
-        </ons-list-item>
-        <ons-list-item   tappable>
-          <div id="syoumi" style="font-size: 18px">
-            　　賞味期限順
+
+          <!-- センタータイトル -->
+          <div class="center"> 
+          Food List
           </div>
-        </ons-list-item>
-        <ons-list-item  tappable>
-          <div id="kounyubi" style="font-size: 18px">
-            　　購入日順
+          <div onclick="fn.open2()" class="right" id="yaji">
+            ↑↓　 <!--矢印の後に1文字の空白必須！！  -->
           </div>
-        </ons-list-item>
+        </ons-toolbar>
+
+        <!-- メイン -->
+            <!-- カテゴリー -->
+            <nav class="nav-horizontal">
+              <div class="mask">
+                <ul id="menu-list" class="menu-list">
+                  <li class="すべて"><a href="#すべて" data-group="" onclick="downloadImage()">すべて</a></li>
+                </ul>
+              </div>
+            </nav>
+
+            <!-- 食材表示   -->
+            <div id="foodimg" style="text-align:center;">
+              <!-- <img src="img/Foodimg.png" id="foodmainimg"> -->
+
+          <!-- 編集中→　　画像表示＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ -->
+              <!-- <img src="" id="image" width="200" height="200"/> -->
+              <div id="grid">
+                <ul id="food-list" class="food-list">
+                  <img src="img/Foodimg.png" id="image" style="margin-top:40%">
+                </ul>
+              </div>
+            </div>
+          <!-- ←編集中 -->
       </ons-page>
-    </ons-splitter-side>
-  </ons-splitter>
-  
+    </ons-template>
 
-  <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
-  <ons-template id="foodadd.html" onload="category_item()">
-    <ons-page>
-      <ons-toolbar class="tuul">
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open1()">
-            <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center"> <!-- タイトル -->
-         食材の追加
-        </div>
-      </ons-toolbar>
-      <!-- メイン -->
-      <form style="padding:20px;" name="form">
-        <input type="text" id="name" style="width: 90%; padding: 10px; ime-mode:auto;" placeholder="商品名を入力">
-        <select id="category" style="width:97%;padding:10px;margin-top:7px">
+      <!-- 各メニュー内部詳細 -->
+      <ons-splitter>
+        <!--ホーム左　画面遷移メニュー詳細 -->
+        <ons-splitter-side id="menu" side="left" width="220px" collapse>
+          <ons-page>
+            <ons-list>
+              <ons-list-item onclick="fn.load('home.html')" tappable>
+                <div style="font-size: 17px">
+                  食材の一覧　<!-- home.html -->
+                </div>
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('foodadd.html')" tappable>
+                <div style="font-size: 17px">
+                  食材の追加
+                </div>
+              </ons-list-item>
+              <ons-list-item onclick="categoryadd()" tappable>
+                <div style="font-size: 17px">
+                  カテゴリーの追加
+                </div>
+              </ons-list-item>
+            </ons-list>
+          </ons-page>
+      </ons-splitter-side>
+      <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
 
-        </select>
-        <div id="photo">
-          <label for="img">
-            <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this)">
-            <img src="img/noimage.jpg" id="preview" style="padding-top:10px;">
-          </label>
-          <ons-button id="clearbtn" onclick="clearimg()">×</ons-button>
-        </div>
-        <input type="text" id="num" style="width:90%;padding:10px;margin-top:5px" placeholder="個数">
-        <input type="text" id="buy_date" style="width:90%;padding:10px;margin-top:7px" placeholder="購入日を入力(yyyy/mm/dd)">
-        <input type="text" id="expiration_date" style="width:90%;padding:10px;margin-top:7px" placeholder="消費期限を入力(yyyy/mm/dd)">
-        <input type="text" id="money" style="width:90%;padding:10px;margin-top:7px" placeholder="金額">
-        <ons-button id="addbtn" onclick="addpush()">add</ons-button>
-      </form>
-    </ons-page>
-  </ons-template>
-</body>
+    <!-- ホーム右　並び替え・編集メニュー詳細  -->
+    <ons-splitter-side id="sort" side="right" width="220px" collapse>
+      <ons-page>
+        <ons-list >
+          <ons-list-item id="narabi">
+            <div  style="font-size: 17px">
+              並び替え
+            </div>
+          </ons-list-item>
+          <ons-list-item onclick="syoumiFunk()" tappable>
+            <div id="syoumi" style="font-size: 18px">
+              　　賞味期限順
+            </div>
+          </ons-list-item>
+          <ons-list-item onclick="kounyuFunk()" tappable>
+            <div id="kounyubi" style="font-size: 18px">
+              　　購入日順
+            </div>
+          </ons-list-item>
+        </ons-page>
+      </ons-splitter-side>
+    </ons-splitter>
+    
+
+    <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
+    <ons-template id="foodadd.html" onload="category_item()">
+      <ons-page>
+        <ons-toolbar class="tuul">
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open1()">
+              <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center"> <!-- タイトル -->
+          食材の追加
+          </div>
+        </ons-toolbar>
+        <!-- メイン -->
+        <form style="padding:20px;" name="form">
+          <input type="text" id="name" style="width: 90%; padding: 10px; ime-mode:auto;" placeholder="商品名を入力">
+          <select id="category" style="width:97%;padding:10px;margin-top:7px">
+
+          </select>
+          <div id="photo">
+            <label for="img">
+              <input type="file" id="img" accept=".jpeg,.jpg,.png,.gif,.heif" onchange="previewFile(this)">
+              <img src="img/noimage.jpg" id="preview" style="padding-top:10px;">
+            </label>
+            <ons-button id="clearbtn" onclick="clearimg()">×</ons-button>
+          </div>
+          <input type="text" id="num" style="width:90%;padding:10px;margin-top:5px" placeholder="個数">
+          <input type="text" id="buy_date" style="width:90%;padding:10px;margin-top:7px" placeholder="購入日を入力(yyyy/mm/dd)">
+          <input type="text" id="expiration_date" style="width:90%;padding:10px;margin-top:7px" placeholder="消費期限を入力(yyyy/mm/dd)">
+          <input type="text" id="money" style="width:90%;padding:10px;margin-top:7px" placeholder="金額">
+          <ons-button id="addbtn" onclick="addpush()">add</ons-button>
+        </form>
+      </ons-page>
+    </ons-template>
+  </body>
 </html>

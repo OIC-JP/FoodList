@@ -1,4 +1,4 @@
-#preview {
+   #preview {
   height: 200px;
   width: 200px;
   object-fit: cover;
@@ -131,8 +131,4 @@ nav{
   height: 110px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.is-hide {
-  display: none;
-}
+}    
