@@ -1,8 +1,8 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
-var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
+var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
+var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
@@ -12,19 +12,25 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     var addpush = function(){
           var name = document.getElementById("name").value;
-          // 作品名をエンコード
-          var fileName = encodeURIComponent(name);
+          var Name = encodeURIComponent(name);
           var fileData = document.getElementById("img").files[0];
           var ca = document.getElementById("category");
           var n = document.getElementById("category").selectedIndex;
           var category = ca.options[n].value;
-          var fileCategory = encodeURIComponent(category);
+          var Category = encodeURIComponent(category);
           var num = document.getElementById("num").value;
           var buy_date = document.getElementById("buy_date").value; //購入日
+          var Buy_date = buy_date.split('/');
           var expiration_date = document.getElementById("expiration_date").value; //賞味期限
+          var Expiration_date = expiration_date.split('/');
           var money = document.getElementById("money").value;
+          Buy_date[1] = Buy_date[1].padStart(2, '0');
+          Buy_date[2] = Buy_date[2].padStart(2, '0');
+          Expiration_date[1] = Expiration_date[1].padStart(2, '0');
+          Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
-          var Food = ncmb.DataStore("Food");
+
+          var Food = ncmb.DataStore("Food");    //ここ！！！！！
           var food = new Food();
           food.set("name",name)
           food.set("category",category)
@@ -34,7 +40,11 @@ var ncmb = new NCMB(applicationKey, clientKey);
           food.set("money",money)
           .save();
 
-          fileName = fileName+"_"+fileCategory;
+          // fileName = fileName+"_"+fileCategory;
+
+          fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
+                    +Expiration_date[0]+Expiration_date[1]+Expiration_date[2];
+
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
@@ -44,6 +54,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
               // エラー処理
               alert("エラー");
             });
+          
+          var Food = ncmb.DataStore("Food");
+          var food = new Food();
+          food.set("buy_date",buy_date)
+          food.set("money",money)
+          .save();
 
           document.form.reset();
           document.getElementById("preview").src = "img/noimage.jpg";
@@ -109,14 +125,16 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var dataUrl = reader.result;
                             var fileNameArray = fileName.split('_');
                             var li = document.createElement("li");
+                            var p = document.createElement("p");
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2];
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
-                            li.setAttribute("name",li);
                             var img = document.createElement("img");
                             img.setAttribute("src",dataUrl);
                             img.setAttribute("class","food-item");
                             img.setAttribute("id",id);
                             li.appendChild(img);
+                            li.appendChild(p);
                             document.getElementById("food-list").appendChild(li);
                         }
                         // ファイルリーダーにデータを渡す
@@ -129,6 +147,20 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
+
+    function cancelimg(){
+      alert(aa);
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
+    }
+   
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
