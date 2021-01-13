@@ -95,6 +95,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
     var syoumi_arr = new Array();
     var kounyu_arr = new Array();
     var cnt=0;
+    var day1;
+    var day2;
     function downloadFile(object, i) {
         /*** Promise ***/
         return new Promise(function(resolve, reject) {        
@@ -117,8 +119,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var li = document.createElement("li");
                             var p = document.createElement("p");
                             p.setAttribute("class","food-font");
-                            var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
-                            var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
+                            day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
+                            day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
                             p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
@@ -127,11 +129,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             img.setAttribute("class","food-item");
                             img.setAttribute("id",id);
                             li.appendChild(img);
-                            li.appendChild(p);
+                            li.appendChild(p); 
                             document.getElementById("food-list").appendChild(li);
+                          
 
                             //賞味期限と購入日を配列に格納
-                            syoumi_arr[cnt] += fileNameArray[4];
+                            syoumi_arr[cnt] += day1;
                             kounyu_arr[cnt] += fileNameArray[3];                   
                             cnt++;
                         }
@@ -239,28 +242,30 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     });
 
-    //***並び替えメニュー  遠藤作業中
+    //***並び替えメニュー  遠藤作業中　ＨＥＬＰ！！！！！！！
     //賞味期限順
     function syoumiFunk(){
       
-          // (1) ノードリストを取得
+          //ノードリストを取得
           var syokuzai = document.getElementById("food-list");
-          
-          syoumi_arr.sort();
-          alert(syoumi_arr);
-          // (4) 新しい順番を DOM ツリーに反映
-          for (var i=0; i<syoumi_arr.length; i++) {
+         
+          //並び替え
+          syoumi_arr.sort();//配列内の要素は並び替えできる
+  
+          for (var i=0;i<syoumi_arr.length;i++) {
             alert(syoumi_arr[i]);
-              //syokuzai.appendChild(syokuzai.removeChild(syoumi_arr[i]))
-              this.show();
+             //syokuzai.appendChild(syokuzai.removeChild(syoumi_arr[i])); ?
+             //document.getElementById("food-list").appendChild(li); ?
           }
+          //配列を並び替えたはいいけど、その後食材の再表示するのが分からん、、
+          //setTimeout("location.reload()",700);
       }
     
 
     //購入日順
     function kounyuFunk(){
       kounyu_arr.sort();
-      alert(syoumi_arr);
+      alert(kounyu_arr);
     }
     
     
