@@ -148,5 +148,8 @@ nav{
 }
 
 .dialog-btn {
-  width: 49%;
-}    
+  margin: 10px;
+  width: 41%;
+  height: 30px;
+  line-height: 20px;
+}   

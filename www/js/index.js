@@ -119,7 +119,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             p.setAttribute("class","food-font");
                             var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
                             var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
-                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
+                            p.innerHTML = "食材名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
                             var img = document.createElement("img");
@@ -151,7 +151,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     function cancelimg(filename){
       var fa = filename.split('_');
       var fn = encodeURI(filename);
-      var res = confirm(fa[0]+"を消しますか？");
+      var res = confirm("｢"+fa[0]+"｣"+"を消しますか？");
       if(res == true){
         ncmb.File.delete(fn)
         .then(function(){
@@ -321,6 +321,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
       }
     }
 
+    //チェックボックスの作成
     function createcheckbox(){
       document.getElementById("dialog-item").innerHTML = "";
       var cg = ncmb.DataStore("Category");
@@ -330,7 +331,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            checkbox += "<ons-list-item tappable>"+"<label class='left'>"+"<ons-checkbox input-id='"+object.category+"'></ons-checkbox>"+"</label>"+"<label for='"+object.category+"' class='center'>"+object.category+"</label>"+"</ons-list-item>";
+            checkbox += "<input type='checkbox' name='check' value='"+object.category+"'>"+object.category;
           }
           document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
         })
@@ -341,7 +342,29 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     //カテゴリー削除処理
     function deleteDialog(){
-
+      var cg = ncmb.DataStore("Category");
+      var deleteArray = [];
+      var check = document.getElementsByName("check");
+      for (let i = 0; i < check.length; i++){
+		    if(check[i].checked){
+			    deleteArray.push(check[i].value);
+		    }
+	    }
+      var res = confirm("選択したカテゴリーを消しますか？");
+      if(res == true){
+        for(let i = 0; i < deleteArray.length; i++){
+          cg.equalTo("category", deleteArray[i])
+            .fetch()
+            .then(function(result){
+              result.delete();
+            })
+            .catch(function(err){
+              alert("エラー");
+            });
+        }
+        hideDialog();
+        setTimeout("location.reload()",700);
+      }
     }
 
     //カテゴリー削除ダイアログの非表示
