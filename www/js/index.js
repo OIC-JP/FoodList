@@ -148,6 +148,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     }
 
+    //***食材の削除　ひなこ
     function cancelimg(){
       alert(aa);
       Food.delete()
