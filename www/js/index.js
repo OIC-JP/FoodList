@@ -353,3 +353,26 @@ var ncmb = new NCMB(applicationKey, clientKey);
     function hideDialog() {
       document.getElementById("dialog").hide();
     };
+
+
+
+//＊＊＊カテゴリー＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+ //金額取得
+ var mn = ncmb.DataStore("Food");
+      var mn_item1 = "";
+      mn.order("createDate")
+        .fetchAll()
+        .then(function(results){
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
+          }
+          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
+
+
