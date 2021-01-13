@@ -113,7 +113,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var li = document.createElement("li");
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
-                            li.setAttribute("name",li);
                             var img = document.createElement("img");
                             img.setAttribute("src",dataUrl);
                             img.setAttribute("class","food-item");
