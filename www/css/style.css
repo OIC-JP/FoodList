@@ -119,10 +119,12 @@ nav{
 }
 
 #grid {
-	width: 375px;
+	width: 355px;
 }
 .haiti {
-	margin: 7px;
+	margin-top: 5px;
+  width: 50%;
+  height: 50%;
 	float: left;
 	list-style: none;
 } 
@@ -131,4 +133,16 @@ nav{
   height: 110px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.food-font {
+  font-size: 14px;
+  text-align: left;
+}
+
+#cancelbtn {
+  font-size: 20px;
+  width: 25px;
+  height: 25px;
+  line-height: 15px;
 }    

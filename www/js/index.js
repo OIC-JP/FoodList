@@ -40,17 +40,13 @@ var ncmb = new NCMB(applicationKey, clientKey);
               food.set("money",money)
               .save();
               alert("アップロード成功");
+              document.form.reset();
+              document.getElementById("preview").src = "img/noimage.jpg";
             })
             .catch(function(err){
               // エラー処理
               alert("エラー");
             });
-          
-          var Food = ncmb.DataStore("Food");        //ここ！！
-          var food = new Food();
-          food.set("buy_date",buy_date)
-          food.set("money",money)
-          .save();
 
           document.form.reset();
           document.getElementById("preview").src = "img/noimage.jpg";
@@ -117,9 +113,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var fileNameArray = fileName.split('_');
                             var li = document.createElement("li");
                             var p = document.createElement("p");
+                            p.setAttribute("class","food-font");
                             var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2);
                             var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2);
-                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"削除"+"</ons-button>";
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
                             var img = document.createElement("img");
