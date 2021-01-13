@@ -1,8 +1,8 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "976f672f3823e13b4ad0ddef5d62fc9df2eaad6760999d46b610da0b6b7c509d";
-var clientKey = "16f4f6fb9a26fb7af3e85219d3fe31d3103d244cb91c2c3b709cba4f8abf916b";
+var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
+var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
@@ -129,6 +129,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             alert(showDay);
                             day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
                             if(showDay <= 3){
+                              p.setAttribute("style","color:red");
                               p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             }else{
                               p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
