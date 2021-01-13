@@ -32,11 +32,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
           var Food = ncmb.DataStore("Food");    //ここ！！！！！
           var food = new Food();
-          food.set("name",name)
-          food.set("category",category)
-          food.set("num",num)
           food.set("buy_date",buy_date)
-          food.set("expiration_date",expiration_date)
           food.set("money",money)
           .save();
 
@@ -150,6 +146,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     }
 
     function cancelimg(){
+      var Food = ncmb.DataStore("Food");
       alert("asxdnm,;.");
       Food.delete()
       .then(function(result){
