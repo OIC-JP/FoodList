@@ -157,10 +157,10 @@
   <!--＊＊＊＊＊＊＊＊＊＊カテゴリー削除ダイアログ＊＊＊＊＊＊＊＊＊＊＊＊-->
   <template id="dialog.html">
       <ons-dialog id="dialog">
-        <ons-list id="dialog-item">
+        <form id="dialog-item">
 
-        </ons-list>
-        <ons-button class="dialog-btn" onclick="">OK</ons-button>
+        </form>
+        <ons-button class="dialog-btn" onclick="deleteDialog()">OK</ons-button>
         <ons-button class="dialog-btn" onclick="hideDialog()">Cancel</ons-button>
       </ons-dialog>
   </template>
@@ -179,8 +179,28 @@
         </div>
       </ons-toolbar>
       <!-- メイン -->
-      
+
+      <br><br><br><br><br>
+      <table>
+        <tr>
+          <th>月</th>
+          <th>総計</th>
+          <th>先月との差額</th>
+        </tr>
+        <tr>
+          <td>先月</td>
+          <td>円</td>
+          <td>円</td>
+        </tr>
+        <tr>
+          <td>今月</td>
+        <td>円</td>
+          <td>円</td>
+        </tr>
+      </table>
     </ons-page>
   </ons-template>
+
+
 </body>
 </html>

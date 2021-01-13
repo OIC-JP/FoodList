@@ -161,7 +161,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     function cancelimg(filename){
       var fa = filename.split('_');
       var fn = encodeURI(filename);
-      var res = confirm(fa[0]+"を消しますか？");
+      var res = confirm("｢"+fa[0]+"｣"+"を消しますか？");
       if(res == true){
         ncmb.File.delete(fn)
         .then(function(){
@@ -333,6 +333,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
       }
     }
 
+    //チェックボックスの作成
     function createcheckbox(){
       document.getElementById("dialog-item").innerHTML = "";
       var cg = ncmb.DataStore("Category");
@@ -342,7 +343,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            checkbox += "<ons-list-item tappable>"+"<label class='left'>"+"<ons-checkbox input-id='"+object.category+"'></ons-checkbox>"+"</label>"+"<label for='"+object.category+"' class='center'>"+object.category+"</label>"+"</ons-list-item>";
+            checkbox += "<input type='checkbox' name='check' value='"+object.category+"'>"+object.category;
           }
           document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
         })
@@ -353,7 +354,29 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     //カテゴリー削除処理
     function deleteDialog(){
-
+      var cg = ncmb.DataStore("Category");
+      var deleteArray = [];
+      var check = document.getElementsByName("check");
+      for (let i = 0; i < check.length; i++){
+		    if(check[i].checked){
+			    deleteArray.push(check[i].value);
+		    }
+	    }
+      var res = confirm("選択したカテゴリーを消しますか？");
+      if(res == true){
+        for(let i = 0; i < deleteArray.length; i++){
+          cg.equalTo("category", deleteArray[i])
+            .fetch()
+            .then(function(result){
+              result.delete();
+            })
+            .catch(function(err){
+              alert("エラー");
+            });
+        }
+        hideDialog();
+        setTimeout("location.reload()",700);
+      }
     }
 
     //カテゴリー削除ダイアログの非表示
@@ -361,6 +384,25 @@ var ncmb = new NCMB(applicationKey, clientKey);
       document.getElementById("dialog").hide();
     };
 
-    //現在日付を数値に変換
+//現在日付を数値に変換
 var end = new Date();
 var endNow = end.getTime();
+
+//＊＊＊カテゴリー＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+ //金額取得
+ var mn = ncmb.DataStore("Food");
+      var mn_item1 = "";
+      mn.order("createDate")
+        .fetchAll()
+        .then(function(results){
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
+          }
+          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
