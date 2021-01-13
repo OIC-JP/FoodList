@@ -122,9 +122,9 @@ nav{
 	width: 355px;
 }
 .haiti {
-	margin-top: 5px;
-  width: 50%;
-  height: 50%;
+	margin: 20px 10px 10px 20px;
+  width: 41%;
+  height: 240px;
 	float: left;
 	list-style: none;
 } 
