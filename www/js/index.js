@@ -211,30 +211,31 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
 
     //***並び替えメニュー
+
+     //カテゴリー追加
     //賞味期限順
-     $(document).on('click', '.syoumi', function() {
-    alert("a");
-    function Sort1() {
-        // (1) ノードリストを取得
-        var syokuzai = document.getElementById("menu-list");
-        var node = syokuzai.getElementsByTagName("li");
-        // (2) 配列を得る
-        var Array = Array.prototype.slice.call(node);
-        // (3) 配列をソート
-        function compareText (a,b) {
-            if (a.textContent > b.textContent)
-                return 1;
-            else if (a.textContent < b.textContent)
-                return -1;
-            return 0;
-            }
-        Array.sort1(compareText);
-        // (4) 新しい順番を DOM ツリーに反映
-        for (var i=0; i<Array.length; i++) {
-            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-        }
+    function syoumiFunk(){
+      alert("a");
+          // (1) ノードリストを取得
+          var syokuzai = document.getElementById("food-item");
+          var node = syokuzai.getElementById("c");
+          // (2) 配列を得る
+          var Array = Array.prototype.slice.call(node);
+          // (3) 配列をソート
+          function compareText (a,b) {
+              if (a.textContent > b.textContent)
+                  return 1;
+              else if (a.textContent < b.textContent)
+                  return -1;
+              return 0;
+              }
+          Array.sort1(compareText);
+          // (4) 新しい順番を DOM ツリーに反映
+          for (var i=0; i<Array.length; i++) {
+              syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+          }
     }
-     });
+    
 
     //購入日順
     // document.getElementById("kounyubi").onclick=Sort2;
