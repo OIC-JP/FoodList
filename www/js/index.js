@@ -30,7 +30,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
           Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
           fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
-                    +Expiration_date[0]+Expiration_date[1]+Expiration_date[2]+"_"+money;
+                    +Expiration_date[0]+Expiration_date[1]+Expiration_date[2];
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
@@ -40,6 +40,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
               // エラー処理
               alert("エラー");
             });
+          
+          var Food = ncmb.DataStore("Food");
+          var food = new Food();
+          food.set("buy_date",buy_date)
+          food.set("money",money)
+          .save();
 
           document.form.reset();
           document.getElementById("preview").src = "img/noimage.jpg";
