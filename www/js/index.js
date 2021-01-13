@@ -29,19 +29,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
           Expiration_date[1] = Expiration_date[1].padStart(2, '0');
           Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
-
-          var Food = ncmb.DataStore("Food");    //ここ！！！！！
-          var food = new Food();
-          food.set("name",name)
-          food.set("category",category)
-          food.set("num",num)
-          food.set("buy_date",buy_date)
-          food.set("expiration_date",expiration_date)
-          food.set("money",money)
-          .save();
-
-          // fileName = fileName+"_"+fileCategory;
-
           fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
                     +Expiration_date[0]+Expiration_date[1]+Expiration_date[2];
 
@@ -55,7 +42,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
               alert("エラー");
             });
           
-          var Food = ncmb.DataStore("Food");
+          var Food = ncmb.DataStore("Food");        //ここ！！
           var food = new Food();
           food.set("buy_date",buy_date)
           food.set("money",money)
@@ -115,7 +102,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
             // ファイルのダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName_encode, "blob")
-                .then(function(blob) {
+                    .then(function(blob) {
                     // ファイルダウンロード成功時の処理
                     var reader = new FileReader();
                     reader.onload = function(e) {
@@ -144,20 +131,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     reject("画像" + i);
                 });
         });
-    }
-
-    //***食材の削除　ひなこ作業中
-    function cancelimg(){
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
-      })
-      .catch(function(err){
-      //エラー処理
-      alert("エラー");
-      });
     }
    
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
@@ -222,6 +195,21 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     };
     //←
+    
+    //食材の削除　ひなこ作業中
+    function cancelimg(){
+      var Food = ncmb.DataStore("Food");
+      alert("asxdnm,;.");
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
+    }
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -238,7 +226,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
             }
         });
     });
-
 
     //***並び替えメニュー  遠藤作業中
     //賞味期限順
@@ -270,7 +257,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
     function kounyuFunk(){
       alert("b");
     }
-
+    
     
 
 
