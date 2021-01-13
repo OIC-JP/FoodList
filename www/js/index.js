@@ -111,6 +111,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var dataUrl = reader.result;
                             var fileNameArray = fileName.split('_');
                             var li = document.createElement("li");
+                            var p = document.createElement("p");
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2];
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
                             var img = document.createElement("img");
@@ -118,6 +120,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             img.setAttribute("class","food-item");
                             img.setAttribute("id",id);
                             li.appendChild(img);
+                            li.appendChild(p);
                             document.getElementById("food-list").appendChild(li);
                         }
                         // ファイルリーダーにデータを渡す
