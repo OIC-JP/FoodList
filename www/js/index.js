@@ -1,8 +1,8 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
-var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
+var applicationKey = "070898126fc8a57f789c8f7fa6dff549bba9773483c0a88ef8a506eed42a9c06";
+var clientKey = "1f85ccf2e665bec807e342ff0f261dff3899338bf3b10b57875ae4906291224f";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
@@ -29,8 +29,22 @@ var ncmb = new NCMB(applicationKey, clientKey);
           Expiration_date[1] = Expiration_date[1].padStart(2, '0');
           Expiration_date[2] = Expiration_date[2].padStart(2, '0');
 
+
+          var Food = ncmb.DataStore("Food");    //ここ！！！！！
+          var food = new Food();
+          food.set("name",name)
+          food.set("category",category)
+          food.set("num",num)
+          food.set("buy_date",buy_date)
+          food.set("expiration_date",expiration_date)
+          food.set("money",money)
+          .save();
+
+          // fileName = fileName+"_"+fileCategory;
+
           fileName = Name+"_"+Category+"_"+num+"_"+Buy_date[0]+Buy_date[1]+Buy_date[2]+"_"
                     +Expiration_date[0]+Expiration_date[1]+Expiration_date[2];
+
           ncmb.File.upload(fileName, fileData)
             .then(function(res){
               // アップロード後処理
@@ -133,6 +147,20 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
+
+    function cancelimg(){
+      alert(aa);
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
+    }
+   
 
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
