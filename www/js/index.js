@@ -1,8 +1,8 @@
 //ニフクラとの連携エリア＊＊＊データベース永野＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // APIキーの設定とSDK初期化:
-var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd61916a5";
-var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
+var applicationKey = "976f672f3823e13b4ad0ddef5d62fc9df2eaad6760999d46b610da0b6b7c509d";
+var clientKey = "16f4f6fb9a26fb7af3e85219d3fe31d3103d244cb91c2c3b709cba4f8abf916b";
 var ncmb = new NCMB(applicationKey, clientKey);
 
 
@@ -61,14 +61,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
           .then(function(results){
               // ファイルデータ取得成功時の処理
               console.log("ファイルデータ取得成功(allFile)");
-
               var promises = [];
               for (var i = 0; i < results.length; i++) {
                   var object = results[i];
                   // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
                   promises.push(downloadFile(object, i)); 
               }
-
               /*** Promise ***/
               Promise.all(promises)
                   .then(function(results) {
@@ -136,22 +134,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                     });
         });
     }
-
-    function cancelimg(){
-      var Food = ncmb.DataStore("Food");
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
-      })
-      .catch(function(err){
-      //エラー処理
-      alert("エラー");
-      });
-    }
    
-
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
     ons.ready(function() {
       var cg = ncmb.DataStore("Category");
@@ -214,6 +197,21 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     };
     //←
+    
+    //食材の削除　ひなこ作業中
+    function cancelimg(){
+      var Food = ncmb.DataStore("Food");
+      alert("asxdnm,;.");
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
+    }
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -231,57 +229,38 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     });
 
-
-    //***並び替えメニュー
+    //***並び替えメニュー  遠藤作業中
     //賞味期限順
-     $(document).on('click', '.syoumi', function() {
-    alert("a");
-    function Sort1() {
-        // (1) ノードリストを取得
-        var syokuzai = document.getElementById("menu-list");
-        var node = syokuzai.getElementsByTagName("li");
-        // (2) 配列を得る
-        var Array = Array.prototype.slice.call(node);
-        // (3) 配列をソート
-        function compareText (a,b) {
-            if (a.textContent > b.textContent)
-                return 1;
-            else if (a.textContent < b.textContent)
-                return -1;
-            return 0;
-            }
-        Array.sort1(compareText);
-        // (4) 新しい順番を DOM ツリーに反映
-        for (var i=0; i<Array.length; i++) {
-            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-        }
+    function syoumiFunk(){
+      alert("a");
+      function Sort1() {
+          // (1) ノードリストを取得
+          var syokuzai = document.getElementById("menu-list");
+          var node = syokuzai.getElementsByTagName("li");
+          // (2) 配列を得る
+          var Array = Array.prototype.slice.call(node);
+          // (3) 配列をソート
+          function compareText (a,b) {
+              if (a.textContent > b.textContent)
+                  return 1;
+              else if (a.textContent < b.textContent)
+                  return -1;
+              return 0;
+              }
+          Array.sort1(compareText);
+          // (4) 新しい順番を DOM ツリーに反映
+          for (var i=0; i<Array.length; i++) {
+              syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+          }
+      }
     }
-     });
 
     //購入日順
-    // document.getElementById("kounyubi").onclick=Sort2;
-    // function Sort2() {
-    //     // (1) ノードリストを取得
-    //     var syokuzai = document.getElementById("syokuzai");
-    //     var node = syokuzai.getElementsByTagName("li");
-    //     // (2) 配列を得る
-    //     var Array = Array.prototype.slice.call(node);
-    //     // (3) 配列をソート
-    //     function compareText (a,b) {
-    //         if (a.textContent > b.textContent)
-    //             return 1;
-    //         else if (a.textContent < b.textContent)
-    //             return -1;
-    //         return 0;
-    //         }
-    //     Array.sort(compareText);
-    //     // (4) 新しい順番を DOM ツリーに反映
-    //     for (var i=0; i<Array.length; i++) {
-    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-    //     }
-    // }
-
-
+    function kounyuFunk(){
+      alert("b");
+    }
+    
+    
 
 
 //＊＊＊食材の追加＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
