@@ -127,7 +127,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             var li = document.createElement("li");
                             var p = document.createElement("p");
                             var day = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2);
-                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day;
+                            p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day+"<br>"+"<ons-button id='cancelbtn' onclick='cancelimg()'>"+"削除"+"</ons-button>";
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
                             var img = document.createElement("img");
@@ -149,9 +149,8 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
     }
 
-    //***食材の削除　ひなこ
     function cancelimg(){
-      alert(aa);
+      alert("asxdnm,;.");
       Food.delete()
       .then(function(result){
       console.log(result); //true
@@ -244,38 +243,55 @@ var ncmb = new NCMB(applicationKey, clientKey);
     });
 
 
-    //***並び替えメニュー(アップロードした要素を配列に取り込む→sortで並び替える→表示？)
-
-
+    //***並び替えメニュー
     //賞味期限順
-    function syoumiFunk(){
-      alert("a");
-          // (1) ノードリストを取得
-          var syokuzai = document.getElementById("food-item");
-          var node = syokuzai.getElementById("c");
-          // (2) 配列を得る
-          var Array = Array.prototype.slice.call(node);
-          // (3) 配列をソート
-          function compareText (a,b) {
-              if (a.textContent > b.textContent)
-                  return 1;
-              else if (a.textContent < b.textContent)
-                  return -1;
-              return 0;
-              }
-          Array.sort1(compareText);
-          // (4) 新しい順番を DOM ツリーに反映
-          for (var i=0; i<Array.length; i++) {
-              syokuzai.appendChild(syokuzai.removeChild(Array[i]))
-          }
+     $(document).on('click', '.syoumi', function() {
+    alert("a");
+    function Sort1() {
+        // (1) ノードリストを取得
+        var syokuzai = document.getElementById("menu-list");
+        var node = syokuzai.getElementsByTagName("li");
+        // (2) 配列を得る
+        var Array = Array.prototype.slice.call(node);
+        // (3) 配列をソート
+        function compareText (a,b) {
+            if (a.textContent > b.textContent)
+                return 1;
+            else if (a.textContent < b.textContent)
+                return -1;
+            return 0;
+            }
+        Array.sort1(compareText);
+        // (4) 新しい順番を DOM ツリーに反映
+        for (var i=0; i<Array.length; i++) {
+            syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+        }
     }
-    
+     });
 
     //購入日順
-    function kounyuFunk(){
-      alert("b");
+    // document.getElementById("kounyubi").onclick=Sort2;
+    // function Sort2() {
+    //     // (1) ノードリストを取得
+    //     var syokuzai = document.getElementById("syokuzai");
+    //     var node = syokuzai.getElementsByTagName("li");
+    //     // (2) 配列を得る
+    //     var Array = Array.prototype.slice.call(node);
+    //     // (3) 配列をソート
+    //     function compareText (a,b) {
+    //         if (a.textContent > b.textContent)
+    //             return 1;
+    //         else if (a.textContent < b.textContent)
+    //             return -1;
+    //         return 0;
+    //         }
+    //     Array.sort(compareText);
+    //     // (4) 新しい順番を DOM ツリーに反映
+    //     for (var i=0; i<Array.length; i++) {
+    //         syokuzai.appendChild(syokuzai.removeChild(Array[i]))
+    //     }
+    // }
 
-    }
 
 
 
