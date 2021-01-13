@@ -79,7 +79,7 @@
                 カテゴリーの追加
               </div>
             </ons-list-item>
-            <ons-list-item onclick="" tappable>
+            <ons-list-item onclick="showDialog()" tappable>
               <div style="font-size: 17px">
                 カテゴリーの削除
               </div>
@@ -153,6 +153,17 @@
     </ons-page>
   </ons-template>
 
+
+  <!--＊＊＊＊＊＊＊＊＊＊カテゴリー削除ダイアログ＊＊＊＊＊＊＊＊＊＊＊＊-->
+  <template id="dialog.html">
+      <ons-dialog id="dialog">
+        <ons-list id="dialog-item">
+
+        </ons-list>
+        <ons-button class="dialog-btn" onclick="">OK</ons-button>
+        <ons-button class="dialog-btn" onclick="hideDialog()">Cancel</ons-button>
+      </ons-dialog>
+  </template>
 
   <!--＊＊＊＊＊＊＊＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template id="accountbook.html">

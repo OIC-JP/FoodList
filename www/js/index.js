@@ -149,15 +149,18 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
     //食材の削除
     function cancelimg(filename){
+      var fa = filename.split('_');
       var fn = encodeURI(filename);
-      ncmb.File.delete(fn)
-      .then(function(){
-        alert("削除しました");
-        setTimeout("location.reload()",700);
-      })
-      .catch(function(err){
-        alert("エラー");
-      });
+      var res = confirm(fa[0]+"を消しますか？");
+      if(res == true){
+        ncmb.File.delete(fn)
+        .then(function(){
+          setTimeout("location.reload()",700);
+        })
+        .catch(function(err){
+          alert("エラー");
+        });
+      }
     }
    
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
@@ -290,7 +293,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
 
 
 
-//＊＊＊カテゴリーの追加＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+//＊＊＊カテゴリー＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
     //カテゴリー追加
     function categoryadd(){
@@ -302,3 +305,46 @@ var ncmb = new NCMB(applicationKey, clientKey);
         setTimeout("location.reload()",700);
       }
     }
+
+    //カテゴリー削除ダイアログの表示
+    function showDialog(){
+      var dialog = document.getElementById("dialog");
+      if (dialog) {
+        createcheckbox();
+        dialog.show();
+      } else {
+        ons.createElement('dialog.html', { append: true })
+        .then(function(dialog) {
+          createcheckbox();
+          dialog.show();
+        });
+      }
+    }
+
+    function createcheckbox(){
+      document.getElementById("dialog-item").innerHTML = "";
+      var cg = ncmb.DataStore("Category");
+      var checkbox = "";
+      cg.order("createDate")
+        .fetchAll()
+        .then(function(results){
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            checkbox += "<ons-list-item tappable>"+"<label class='left'>"+"<ons-checkbox input-id='"+object.category+"'></ons-checkbox>"+"</label>"+"<label for='"+object.category+"' class='center'>"+object.category+"</label>"+"</ons-list-item>";
+          }
+          document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    }
+
+    //カテゴリー削除処理
+    function deleteDialog(){
+
+    }
+
+    //カテゴリー削除ダイアログの非表示
+    function hideDialog() {
+      document.getElementById("dialog").hide();
+    };
