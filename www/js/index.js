@@ -61,12 +61,14 @@ var ncmb = new NCMB(applicationKey, clientKey);
           .then(function(results){
               // ファイルデータ取得成功時の処理
               console.log("ファイルデータ取得成功(allFile)");
+
               var promises = [];
               for (var i = 0; i < results.length; i++) {
                   var object = results[i];
                   // ファイルデータを元にPromiseを使って１件ずつ同期処理でファイルストアから画像を取得
                   promises.push(downloadFile(object, i)); 
               }
+
               /*** Promise ***/
               Promise.all(promises)
                   .then(function(results) {
@@ -103,34 +105,51 @@ var ncmb = new NCMB(applicationKey, clientKey);
             // ファイルのダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName_encode, "blob")
                 .then(function(blob) {
-                // ファイルダウンロード成功時の処理
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    // 画像URLを設定
-                    var dataUrl = reader.result;
-                    var fileNameArray = fileName.split('_');
-                    var li = document.createElement("li");
-                    var p = document.createElement("p");
-                    p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>"+"<ons-button id='cancelbtn' onclick='cancelimg()'>"+"削除"+"</ons-button>";
-                    var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
-                    li.setAttribute("class",c);
-                    var img = document.createElement("img");
-                    img.setAttribute("src",dataUrl);
-                    img.setAttribute("class","food-item");
-                    img.setAttribute("id",id);
-                    li.appendChild(img);
-                    li.appendChild(p);
-                    document.getElementById("food-list").appendChild(li);
-                }
-                // ファイルリーダーにデータを渡す
-                reader.readAsDataURL(blob);                       
-                resolve("画像" +i); 
-            })
-            .catch(function(error) {
-                // ファイルダウンロード失敗時の処理
-                reject("画像" + i);
-            });
+                    // ファイルダウンロード成功時の処理
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        // 画像URLを設定
+                        var dataUrl = reader.result;
+                        var fileNameArray = fileName.split('_');
+                        var li = document.createElement("li");
+                        var p = document.createElement("p");
+                         var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2);
+                        var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2);
+                        p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick='cancelimg()'>"+"削除"+"</ons-button>";
+                        var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
+                        li.setAttribute("class",c);
+                        var img = document.createElement("img");
+                        img.setAttribute("src",dataUrl);
+                        img.setAttribute("class","food-item");
+                        img.setAttribute("id",id);
+                        li.appendChild(img);
+                        li.appendChild(p);
+                        document.getElementById("food-list").appendChild(li);
+                    }
+                    // ファイルリーダーにデータを渡す
+                    reader.readAsDataURL(blob);                       
+                    resolve("画像" +i); 
+                })
+                .catch(function(error) {
+                    // ファイルダウンロード失敗時の処理
+                    reject("画像" + i);
+                });
         });
+    }
+
+    //食材の削除　ひなこ作業中
+    function cancelimg(){
+      var Food = ncmb.DataStore("Food");
+      alert("asxdnm,;.");
+      Food.delete()
+      .then(function(result){
+      console.log(result); //true
+      alert("できた");
+      })
+      .catch(function(err){
+      //エラー処理
+      alert("エラー");
+      });
     }
    
     //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
@@ -196,20 +215,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
     };
     //←
     
-    //食材の削除　ひなこ作業中
-    function cancelimg(){
-      var Food = ncmb.DataStore("Food");
-      alert("asxdnm,;.");
-      Food.delete()
-      .then(function(result){
-      console.log(result); //true
-      alert("できた");
-      })
-      .catch(function(err){
-      //エラー処理
-      alert("エラー");
-      });
-    }
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
