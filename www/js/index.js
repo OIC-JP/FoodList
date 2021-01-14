@@ -97,11 +97,6 @@ ons.ready(function() {
     }
 
     //食材表示関数
-    var syoumi_arr = new Array();
-    var kounyu_arr = new Array();
-    var cnt=0;
-    var day1;
-    var day2;
     function downloadFile(object, i) {
         /*** Promise ***/
         return new Promise(function(resolve, reject) {        
@@ -114,54 +109,37 @@ ons.ready(function() {
 
             // ファイルのダウンロード（データ形式をblobを指定）
             ncmb.File.download(fileName_encode, "blob")
-                    .then(function(blob) {
-                        // ファイルダウンロード成功時の処理
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            // 画像URLを設定
-                            var dataUrl = reader.result;
-                            var fileNameArray = fileName.split('_');
-                            var li = document.createElement("li");
-                            var p = document.createElement("p");
-                            p.setAttribute("class","food-font");
-                            day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
-                            //賞味期限をDate型に変換
-                            var day1Date = new Date (fileNameArray[4].substr(0, 4),fileNameArray[4].substr(4, 2)-1,fileNameArray[4].substr(6, 2));
-                            //残り日数を計算
-                            var termDay = (day1Date - end) / 86400000;
-                            var showDay = Math.ceil(termDay);//残り日数
-                            day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
-                            if(showDay <= 3){
-                              p.setAttribute("style","color:red");
-                              p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
-                            }else{
-                              p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
-                            }
-                            var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
-                            li.setAttribute("class",c);
-                            var img = document.createElement("img");
-                            img.setAttribute("src",dataUrl);
-                            img.setAttribute("class","food-item");
-                            img.setAttribute("id",id);
-                            li.appendChild(img);
-                            li.appendChild(p); 
-                            document.getElementById("food-list").appendChild(li);
-                          
-
-                            //賞味期限と購入日を配列に格納
-                            syoumi_arr[cnt] += day1;
-                            kounyu_arr[cnt] += fileNameArray[3];                   
-                            cnt++;
-                        }
-                        // ファイルリーダーにデータを渡す
-                        reader.readAsDataURL(blob);                       
-                        resolve("画像" +i); 
-                    })
-                    .catch(function(error) {
-                        // ファイルダウンロード失敗時の処理
-                        reject("画像" + i);
-                    });
-
+              .then(function(blob) {
+                  // ファイルダウンロード成功時の処理
+                  var reader = new FileReader();
+                  reader.onload = function(e) {
+                      // 画像URLを設定
+                      var dataUrl = reader.result;
+                      var fileNameArray = fileName.split('_');
+                      var li = document.createElement("li");
+                      var p = document.createElement("p");
+                      p.setAttribute("class","food-font");
+                      var day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
+                      var day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
+                      p.innerHTML = "食材名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
+                      var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
+                      li.setAttribute("class",c);
+                      var img = document.createElement("img");
+                      img.setAttribute("src",dataUrl);
+                      img.setAttribute("class","food-item");
+                      img.setAttribute("id",id);
+                      li.appendChild(img);
+                      li.appendChild(p); 
+                      document.getElementById("food-list").appendChild(li);
+                  }
+                  // ファイルリーダーにデータを渡す
+                  reader.readAsDataURL(blob);                       
+                  resolve("画像" +i); 
+              })
+              .catch(function(error) {
+                  // ファイルダウンロード失敗時の処理
+                  reject("画像" + i);
+              });
         });
     }
 
@@ -181,7 +159,28 @@ ons.ready(function() {
       }
     }
 
+   
+    //ニフクラからのデータ取得
+    ons.ready(function() {
+      var cg = ncmb.DataStore("Category");
+      var cg_item1 = "";
+      cg.order("createDate")
+        .fetchAll()
+        .then(function(results){
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
+          }
+          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    });
+
+
     //メニューを開く処理
+
     window.fn = {};
     window.fn.open1 = function() {
       var menu = document.getElementById('menu');
@@ -236,7 +235,10 @@ ons.ready(function() {
         .catch(function(err){
             console.log(err);
         });
+
+ 
     }
+
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -252,33 +254,7 @@ ons.ready(function() {
                 $(this).hide();
             }
         });
-    });
-
-    //***並び替えメニュー  遠藤作業中　ＨＥＬＰ！！！！！！！
-    //賞味期限順
-    function syoumiFunk(){
-      
-          //ノードリストを取得
-          var syokuzai = document.getElementById("food-list");
-         
-          //並び替え
-          syoumi_arr.sort();//配列内の要素は並び替えできる
-  
-          for (var i=0;i<syoumi_arr.length;i++) {
-            alert(syoumi_arr[i]);
-             //syokuzai.appendChild(syokuzai.removeChild(syoumi_arr[i])); ?
-             //document.getElementById("food-list").appendChild(li); ?
-          }
-          //配列を並び替えたはいいけど、その後食材の再表示するのが分からん、、
-          //setTimeout("location.reload()",700);
-      }
-    
-
-    //購入日順
-    function kounyuFunk(){
-      kounyu_arr.sort();
-      alert(kounyu_arr);
-    }
+    });   
     
     
 
@@ -309,7 +285,7 @@ ons.ready(function() {
 
 //＊＊＊カテゴリー＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-    //カテゴリー追加
+    //***カテゴリー追加
     function categoryadd(){
       var cate=prompt("追加するカテゴリーを入力してください");
       if(cate != null){
@@ -320,7 +296,7 @@ ons.ready(function() {
       }
     }
 
-    //カテゴリー削除ダイアログの表示
+    //***カテゴリー削除ダイアログの表示
     function showDialog(){
       var dialog = document.getElementById("dialog");
       if (dialog) {
@@ -345,7 +321,7 @@ ons.ready(function() {
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            checkbox += "<input type='checkbox' name='check' value='"+object.category+"'>"+object.category;
+            checkbox += "<br><input id='checkid' type='checkbox' name='check' value='"+object.category+"'>"+object.category;
           }
           document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
         })
