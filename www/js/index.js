@@ -201,6 +201,7 @@ ons.ready(function() {
         .then(menu.close.bind(menu));
       categoryCreate();
       selectboxCreate();
+      accountbookCreate();
     };
 
     //ホーム画面のカテゴリー作成処理
@@ -392,12 +393,12 @@ var endNow = end.getTime();
 
 //＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-  //金額取得
-  function kakei(){
+  //金額取得・表示
+  function accountbookCreate(){
     var mn = ncmb.DataStore("Food");
-    var month1 = 0;
-    var month2 = 0;
-    var month3 = 0;
+    var month1 = 0;  //今月の合計(end)  //今月-先月と先月-先々月
+    var month2 = 0;  //先月の合計(last_month)
+    var month3 = 0;  //先々月の合計(last_lastmonth)
     var last_month = new Date(end.getFullYear(), end.getMonth()-1, end.getDate());
     var last_lastmonth = new Date(end.getFullYear(), end.getMonth()-2, end.getDate())
     mn.order("createDate")
@@ -405,10 +406,29 @@ var endNow = end.getTime();
       .then(function(results){
         for (var i = 0; i < results.length; i++) {
           var object = results[i];
+          var money = Number(object.money);
           var array = object.buy_date.split("/");
-          
+          var date = new Date(array[0],array[1]-1,array[2]);
+          if(date.getFullYear() == end.getFullYear()){
+            if(date.getMonth() == end.getMonth()){
+              month1 += money;
+            }
+          }else if(date.getFullYear() == last_month.getFullYear()){
+            if(date.getMonth() == last_month.getMonth()){
+              month2 += money;
+            }
+          }else if(date.getFullYear() == last_lastmonth.getFullYear()){
+            if(date.getMonth() == last_lastmonth.getMonth()){
+              month3 += money;
+            }
+          }
         }
-        document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+        var month1_month2 = month1-month2;
+        var month2_month3 = month2-month3;
+        document.getElementById("nowmonth").innerHTML = month1+"円";
+        document.getElementById("lastmonth").innerHTML = month2+"円";
+        document.getElementById("nowmonth_df").innerHTML = month1_month2+"円";
+        document.getElementById("lastmonth_df").innerHTML = month2_month3+"円";
       })
       .catch(function(err){
         console.log(err);
