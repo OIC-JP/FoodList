@@ -398,7 +398,7 @@ var end = new Date();
     var month2 = 0;  //先月の合計(last_month)
     var month3 = 0;  //先々月の合計(last_lastmonth)
     var last_month = new Date(end.getFullYear(), end.getMonth()-1, end.getDate());
-    var last_lastmonth = new Date(end.getFullYear(), end.getMonth()-2, end.getDate())
+    var last_lastmonth = new Date(end.getFullYear(), end.getMonth()-2, end.getDate());
     mn.order("createDate")
       .fetchAll()
       .then(function(results){
