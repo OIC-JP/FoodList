@@ -182,6 +182,7 @@ ons.ready(function() {
       }
     }
 
+    //メニューを開く処理
     window.fn = {};
     window.fn.open1 = function() {
       var menu = document.getElementById('menu');
@@ -191,6 +192,7 @@ ons.ready(function() {
       var sort = document.getElementById('sort');
       sort.open();
     };
+    //画面遷移処理
     window.fn.load = function(page) {
       var content = document.getElementById('content');
       var menu = document.getElementById('menu');
