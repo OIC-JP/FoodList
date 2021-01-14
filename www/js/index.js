@@ -125,9 +125,8 @@ ons.ready(function() {
                             var p = document.createElement("p");
                             p.setAttribute("class","food-font");
                             day1 = fileNameArray[4].substr(0, 4)+"/"+fileNameArray[4].substr(4, 2)+"/"+fileNameArray[4].substr(6, 2); //賞味期限
-                            //賞味期限を数値に変換
-                            var day1Date = new Date (fileNameArray[4].substr(0, 4),fileNameArray[4].substr(4, 2),fileNameArray[4].substr(6, 2));
-                            var day1Time = day1Date.getTime();
+                            //賞味期限をDate型に変換
+                            var day1Date = new Date (fileNameArray[4].substr(0, 4),fileNameArray[4].substr(4, 2)-1,fileNameArray[4].substr(6, 2));
                             //残り日数を計算
                             var termDay = (day1Date - end) / 86400000;
                             var showDay = Math.ceil(termDay);//残り日数
@@ -387,9 +386,8 @@ ons.ready(function() {
       document.getElementById("dialog").hide();
     };
 
-//現在日付を数値に変換
+//現在日付を取得
 var end = new Date();
-var endNow = end.getTime();
 
 //＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
