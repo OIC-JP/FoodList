@@ -16,6 +16,8 @@
 </head>
 <body>
   
+
+  
   <!--＊＊＊＊＊＊＊＊＊＊＊ホーム画面（食材一覧）  home.html＊＊＊＊＊＊＊＊＊-->
   <ons-template id="home.html">
     <ons-page>
@@ -29,9 +31,6 @@
         <!-- センタータイトル -->
         <div class="center"> 
          Food List
-        </div>
-        <div onclick="fn.open2()" class="right" id="yaji">
-          ↑↓　 <!--矢印の後に1文字の空白必須！！  -->
         </div>
       </ons-toolbar>
       <!-- メイン -->
@@ -94,29 +93,6 @@
     </ons-splitter-side>
     <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
 
-  <!-- ホーム右　並び替え・編集メニュー詳細  -->
-  <ons-splitter-side id="sort" side="right" width="220px" collapse>
-    <ons-page>
-      <ons-list >
-        <ons-list-item id="narabi">
-          <div  style="font-size: 17px">
-            並び替え
-          </div>
-        </ons-list-item>
-        <ons-list-item  onclick="syoumiFunk()" tappable>
-          <div id="syoumi" style="font-size: 18px">
-            　　賞味期限順
-          </div>
-        </ons-list-item>
-        <ons-list-item onclick="kounyuFunk()" tappable>
-          <div id="kounyubi" style="font-size: 18px">
-            　　購入日順
-          </div>
-        </ons-list-item>
-      </ons-page>
-    </ons-splitter-side>
-  </ons-splitter>
-  
 
   <!--＊＊＊＊＊＊＊＊＊＊食材の追加 foodadd.html＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template id="foodadd.html">
@@ -134,7 +110,7 @@
       <!-- メイン -->
       <form style="padding:20px;" name="form">
         <input type="text" id="name" style="width: 90%; padding: 10px; ime-mode:auto;" placeholder="商品名を入力">
-        <select id="category" style="width:97%;padding:10px;margin-top:7px">
+        <seleid="category" style="width:97%;padding:10px;margin-top:7px">
 
         </select>
         <div id="photo">
@@ -154,6 +130,7 @@
   </ons-template>
 
 
+
   <!--＊＊＊＊＊＊＊＊＊＊カテゴリー削除ダイアログ＊＊＊＊＊＊＊＊＊＊＊＊-->
   <template id="dialog.html">
       <ons-dialog id="dialog">
@@ -164,6 +141,8 @@
         <ons-button class="dialog-btn" onclick="hideDialog()">Cancel</ons-button>
       </ons-dialog>
   </template>
+
+
 
   <!--＊＊＊＊＊＊＊＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊-->
   <ons-template id="accountbook.html">

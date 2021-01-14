@@ -37,7 +37,6 @@ label input {
   text-align: center;
   overflow: hidden;
   transition: .4s;
-
   position: absolute;
   top: 3%;
   left: -1%;
@@ -197,10 +196,40 @@ table tr:last-child td:last-child {
   border-radius: 0 0 5px 0;
 }
 
-.dialog-btn {
-  margin: 10px;
-  width: 41%;
-  height: 30px;
-  line-height: 20px;
-}   
+/* カテゴリー削除ダイアログ */
+  /* ok cancelボタン */
+  .dialog-btn {/*ok */
+    margin: 23px; 
+    width: 120px;  
+    height: 38px; 
+    line-height: 30px; 
+    background-color: rgb(0, 148, 123);
+    text-align: center;
+    font-size: 28px;
+  }  
+
+  /* 全体 */
+  #dialog-item {
+    margin: 10px 15px;
+    background-color: #e4fcffdc;/*背景色*/
+    border-top: solid 8px #1dc1d6;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
+    padding: 50px 60px; 
+    width: 190px;  
+    height: 180px; 
+     color: rgb(0, 148, 123);
+    border: 10;     
+    font-size: 23px;    
+  }
+
+  /* チェックボックス */
+  #checkid {
+    margin: 10px 18px;
+    transform:		scale(2.2);
+    vertical-align: top;
+  }
+
+  #dialog.html {
+  
+  }
 
