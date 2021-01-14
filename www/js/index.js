@@ -5,6 +5,11 @@ var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd6
 var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
+//起動時の処理
+ons.ready(function() {
+  categoryCreate();
+});
+
 
 
 //＊＊＊食材の一覧＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
@@ -153,6 +158,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
       }
     }
+
    
     //ニフクラからのデータ取得
     ons.ready(function() {
@@ -171,6 +177,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
             console.log(err);
         });
     });
+
+
+    //メニューを開く処理
+
     window.fn = {};
     window.fn.open1 = function() {
       var menu = document.getElementById('menu');
@@ -180,12 +190,20 @@ var ncmb = new NCMB(applicationKey, clientKey);
       var sort = document.getElementById('sort');
       sort.open();
     };
+    //画面遷移処理
     window.fn.load = function(page) {
       var content = document.getElementById('content');
       var menu = document.getElementById('menu');
       content
         .load(page)
         .then(menu.close.bind(menu));
+      categoryCreate();
+      selectboxCreate();
+      accountbookCreate();
+    };
+
+    //ホーム画面のカテゴリー作成処理
+    function categoryCreate(){
       var cg = ncmb.DataStore("Category");
       var cg_item1 = "";
       cg.order("createDate")
@@ -200,6 +218,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .catch(function(err){
             console.log(err);
         });
+    }
+    //食材追加画面のセレクトボックス作成処理
+    function selectboxCreate(){
+      var cg = ncmb.DataStore("Category");
       var cg_item2 = "";
       cg.order("createDate")
         .fetchAll()
@@ -213,7 +235,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .catch(function(err){
             console.log(err);
         });
-    };
+
+ 
+    }
+
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -337,25 +362,50 @@ var ncmb = new NCMB(applicationKey, clientKey);
       document.getElementById("dialog").hide();
     };
 
+//現在日付を取得
+var end = new Date();
 
+//＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-//＊＊＊カテゴリー＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-
- //金額取得
- var mn = ncmb.DataStore("Food");
-      var mn_item1 = "";
-      mn.order("createDate")
-        .fetchAll()
-        .then(function(results){
-          for (var i = 0; i < results.length; i++) {
-            var object = results[i];
-            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
+  //金額取得・表示
+  function accountbookCreate(){
+    var mn = ncmb.DataStore("Food");
+    var month1 = 0;  //今月の合計(end)  //今月-先月と先月-先々月
+    var month2 = 0;  //先月の合計(last_month)
+    var month3 = 0;  //先々月の合計(last_lastmonth)
+    var last_month = new Date(end.getFullYear(), end.getMonth()-1, end.getDate());
+    var last_lastmonth = new Date(end.getFullYear(), end.getMonth()-2, end.getDate())
+    mn.order("createDate")
+      .fetchAll()
+      .then(function(results){
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var money = Number(object.money);
+          var array = object.buy_date.split("/");
+          var date = new Date(array[0],array[1]-1,array[2]);
+          if(date.getFullYear() == end.getFullYear()){
+            if(date.getMonth() == end.getMonth()){
+              month1 += money;
+            }
+          }else if(date.getFullYear() == last_month.getFullYear()){
+            if(date.getMonth() == last_month.getMonth()){
+              month2 += money;
+            }
+          }else if(date.getFullYear() == last_lastmonth.getFullYear()){
+            if(date.getMonth() == last_lastmonth.getMonth()){
+              month3 += money;
+            }
           }
-          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
-        })
-        .catch(function(err){
-            console.log(err);
-        });
-
-
+        }
+        var month1_month2 = month1-month2;
+        var month2_month3 = month2-month3;
+        document.getElementById("nowmonth").innerHTML = month1+"円";
+        document.getElementById("lastmonth").innerHTML = month2+"円";
+        document.getElementById("nowmonth_df").innerHTML = month1_month2+"円";
+        document.getElementById("lastmonth_df").innerHTML = month2_month3+"円";
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+  }
 
