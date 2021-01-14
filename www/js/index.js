@@ -118,9 +118,9 @@ ons.ready(function() {
                             day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
                             if(showDay <= 3){
                               p.setAttribute("style","color:red");
-                              p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
+                              p.innerHTML = "食材名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             }else{
-                              p.innerHTML = "商品名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
+                              p.innerHTML = "食材名："+fileNameArray[0]+"<br>個数："+fileNameArray[2]+"<br>賞味期限："+day1+"<br>購入日："+day2+"<br>"+"<ons-button id='cancelbtn' onclick=\"cancelimg('"+fileName+"')\">"+"×"+"</ons-button>";
                             }
                             var c = "haiti"+" "+"すべて"+" "+fileNameArray[1];
                             li.setAttribute("class",c);
@@ -310,7 +310,7 @@ ons.ready(function() {
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            checkbox += "<input type='checkbox' name='check' value='"+object.category+"'>"+object.category;
+            checkbox += "<li><input type='checkbox' name='check' value='"+object.category+"'>"+object.category+"</li>";
           }
           document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
         })
