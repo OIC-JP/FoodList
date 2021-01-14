@@ -5,6 +5,11 @@ var applicationKey = "395d40b7250d31db288e826be0020a404383690e7d4e0fc37ef43a5bd6
 var clientKey = "50c00958b468ebe682b765254472f80f3e844f9d78c398dbd8ab3c0c1e05e4ce";
 var ncmb = new NCMB(applicationKey, clientKey);
 
+//起動時の処理
+ons.ready(function() {
+  categoryCreate();
+});
+
 
 
 //＊＊＊食材の一覧＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
@@ -126,7 +131,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
                             //残り日数を計算
                             var termDay = (day1Date - end) / 86400000;
                             var showDay = Math.ceil(termDay);//残り日数
-                            alert(showDay);
                             day2 = fileNameArray[3].substr(0, 4)+"/"+fileNameArray[3].substr(4, 2)+"/"+fileNameArray[3].substr(6, 2); //購入日
                             if(showDay <= 3){
                               p.setAttribute("style","color:red");
@@ -177,24 +181,6 @@ var ncmb = new NCMB(applicationKey, clientKey);
         });
       }
     }
-   
-    //→　ここどのページについてのコードですか？？分かる人移動させてくれ、、、
-    ons.ready(function() {
-      var cg = ncmb.DataStore("Category");
-      var cg_item1 = "";
-      cg.order("createDate")
-        .fetchAll()
-        .then(function(results){
-          for (var i = 0; i < results.length; i++) {
-            var object = results[i];
-            cg_item1 += "<li class='menu-item'><a href='#"+object.category+"'>"+object.category+"</a></li>";
-          }
-          document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
-        })
-        .catch(function(err){
-            console.log(err);
-        });
-    });
 
     window.fn = {};
     window.fn.open1 = function() {
@@ -211,6 +197,12 @@ var ncmb = new NCMB(applicationKey, clientKey);
       content
         .load(page)
         .then(menu.close.bind(menu));
+      categoryCreate();
+      selectboxCreate();
+    };
+
+    //ホーム画面のカテゴリー作成処理
+    function categoryCreate(){
       var cg = ncmb.DataStore("Category");
       var cg_item1 = "";
       cg.order("createDate")
@@ -225,6 +217,10 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .catch(function(err){
             console.log(err);
         });
+    }
+    //食材追加画面のセレクトボックス作成処理
+    function selectboxCreate(){
+      var cg = ncmb.DataStore("Category");
       var cg_item2 = "";
       cg.order("createDate")
         .fetchAll()
@@ -238,8 +234,7 @@ var ncmb = new NCMB(applicationKey, clientKey);
         .catch(function(err){
             console.log(err);
         });
-    };
-    //←
+    }
 
     //***カテゴリーごとの食材表示
     $(document).on('click', '.menu-list a', function() {
@@ -396,18 +391,25 @@ var endNow = end.getTime();
 //＊＊＊家計簿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
   //金額取得
-  var mn = ncmb.DataStore("Food");
-  var mn_item1 = "";
-  mn.order("createDate")
-    .fetchAll()
-    .then(function(results){
-      for (var i = 0; i < results.length; i++) {
-        var object = results[i];
-        
-      }
-      document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
-    })
-    .catch(function(err){
-      console.log(err);
-    });
+  function kakei(){
+    var mn = ncmb.DataStore("Food");
+    var month1 = 0;
+    var month2 = 0;
+    var month3 = 0;
+    var last_month = new Date(end.getFullYear(), end.getMonth()-1, end.getDate());
+    var last_lastmonth = new Date(end.getFullYear(), end.getMonth()-2, end.getDate())
+    mn.order("createDate")
+      .fetchAll()
+      .then(function(results){
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var array = object.buy_date.split("/");
+          
+        }
+        document.getElementById("menu-list").insertAdjacentHTML("beforeend",cg_item1);
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+  }
 
