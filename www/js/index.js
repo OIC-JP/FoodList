@@ -310,7 +310,7 @@ ons.ready(function() {
         .then(function(results){
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            checkbox += "<input type='checkbox' name='check' value='"+object.category+"'>"+object.category;
+            checkbox += "<li><input type='checkbox' name='check' value='"+object.category+"'>"+object.category+"</li>";
           }
           document.getElementById("dialog-item").insertAdjacentHTML("afterbegin",checkbox);
         })

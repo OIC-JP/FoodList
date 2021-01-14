@@ -217,9 +217,10 @@ table tr:last-child td:last-child {
     padding: 50px 60px; 
     width: 190px;  
     height: 180px; 
-     color: rgb(0, 148, 123);
+    color: rgb(0, 148, 123);
     border: 10;     
-    font-size: 23px;    
+    font-size: 23px;
+    list-style: none;
   }
 
   /* チェックボックス */
@@ -227,9 +228,5 @@ table tr:last-child td:last-child {
     margin: 10px 18px;
     transform:		scale(2.2);
     vertical-align: top;
-  }
-
-  #dialog.html {
-  
   }
 
